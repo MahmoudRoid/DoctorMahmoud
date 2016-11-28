@@ -40,11 +40,15 @@ public class ListDataFragment extends Fragment
 
     private ViewGroup layout;
 
+    private static final String ARG_PARAM0 = "PARENT_FACTION";
     private static final String ARG_PARAM1 = "FACTION";
     private static final String ARG_PARAM2 = "KIND";
+    private static final String ARG_PARAM3 = "DEPTH_OF_FOLDERS";
 
+    private String PARENT_FACTION;
     private String FACTION;
     private boolean isFolder;
+    private int DEPTH_OF_FOLDERS;
 
     private RecyclerView rv;
     private FloatingActionButton fab;
@@ -71,8 +75,10 @@ public class ListDataFragment extends Fragment
         super.onCreate(savedInstanceState);
         San = Typeface.createFromAsset(getActivity().getAssets(), "fonts/SansLight.ttf");
         if (getArguments() != null) {
-            FACTION     = getArguments().getString(ARG_PARAM1);
-            isFolder    = getArguments().getBoolean(ARG_PARAM2);
+            PARENT_FACTION      = getArguments().getString(ARG_PARAM0);
+            FACTION             = getArguments().getString(ARG_PARAM1);
+            isFolder            = getArguments().getBoolean(ARG_PARAM2);
+            DEPTH_OF_FOLDERS    = getArguments().getInt(ARG_PARAM3);
         }
     }
 
@@ -138,7 +144,7 @@ public class ListDataFragment extends Fragment
                         .from(db_main.class)
                         .where(Condition.prop("parentid").eq(FACTION))
                         .list();
-                Log.i(Variables.Tag,"List size: "+list.size());
+
                 if(list.size()<=0){
                     Log.i(Variables.Tag,"in ask server");
                     // database is empty for this FACTION than lets check Internet
@@ -165,7 +171,7 @@ public class ListDataFragment extends Fragment
                         .from(db_details.class)
                         .where(Condition.prop("parentid").eq(FACTION))
                         .list();
-                Log.i(Variables.Tag,"List size: "+list.size());
+                Log.i(Variables.Tag,"List size: "+list.size()+"and faction(): "+FACTION);
                 if(list.size()<=0){
                     Log.i(Variables.Tag,"in ask server");
                     // database is empty for this FACTION than lets check Internet
@@ -245,11 +251,7 @@ public class ListDataFragment extends Fragment
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Object_Data ob = myList.get(position);
-                if(isFolder){
-                    onButtonPressed(1,ob);
-                }else{
-                    onButtonPressed(0,ob);
-                }
+                onButtonPressed(DEPTH_OF_FOLDERS,ob);
             }// end onItemClicked()
         });
 

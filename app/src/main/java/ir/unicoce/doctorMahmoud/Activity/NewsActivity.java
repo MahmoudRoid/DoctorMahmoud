@@ -62,8 +62,10 @@ public class NewsActivity extends AppCompatActivity
 
         ListDataFragment myFragment = new ListDataFragment();
         Bundle bundle = new Bundle();
+        bundle.putString("PARENT_FACTION", FACTION);
         bundle.putString("FACTION", FACTION);
         bundle.putBoolean("KIND", isFolder);
+        bundle.putInt("DEPTH_OF_FOLDERS",DEPTH_OF_FOLDERS);
         myFragment.setArguments(bundle);
 
         ft = fragmentManager.beginTransaction();
@@ -76,6 +78,8 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(int tagNumber, boolean isFolder, Object_Data ob) {
+        Fragment fragment;
+        ListDataFragment myFragment;
         switch (tagNumber){
             case 0:
                 Intent intent = new Intent(NewsActivity.this,ShowActivity.class);
@@ -88,15 +92,17 @@ public class NewsActivity extends AppCompatActivity
                 break;
             case 1:
                 // remove current fragment
-                Fragment fragment = fragmentManager.findFragmentById(R.id.frame);
+                fragment = fragmentManager.findFragmentById(R.id.frame);
                 ft = fragmentManager.beginTransaction();
                 ft.remove(fragment);
                 ft.commit();
                 // start fragment with new data
-                ListDataFragment myFragment = new ListDataFragment();
+                myFragment = new ListDataFragment();
                 Bundle bundle = new Bundle();
+                bundle.putString("PARENT_FACTION", FACTION);
                 bundle.putString("FACTION", ob.getSid()+"");
                 bundle.putBoolean("KIND", isFolder);
+                bundle.putInt("DEPTH_OF_FOLDERS",0);
                 myFragment.setArguments(bundle);
 
                 ft = fragmentManager.beginTransaction();
@@ -105,6 +111,10 @@ public class NewsActivity extends AppCompatActivity
                 ft.addToBackStack(backStackName);
                 ft.commit();
                 break;
+
+            case 2:
+                break;
+
             default:
                 break;
         }
@@ -132,4 +142,8 @@ public class NewsActivity extends AppCompatActivity
         return false;
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }// end class

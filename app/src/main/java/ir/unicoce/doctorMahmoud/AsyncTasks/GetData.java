@@ -171,14 +171,20 @@ public class GetData extends AsyncTask<Void,Void,String> {
                         List<db_details> list = Select
                                 .from(db_details.class)
                                 .where(
-                                        Condition.prop("parentid").eq(FACTION),
-                                        Condition.prop("favorite").eq(false))
+                                        Condition.prop("parentid").eq(FACTION)
+                                        //,Condition.prop("favorite").eq(false)
+                                )
                                 .list();
+                        Log.i(Variables.Tag,"size:" +list.size()+" and faction: "+FACTION);
 
                         if(list.size()>0){
-//                        db_details.deleteAll(db_details.class,"parentId = ?",FACTION);
+//                        db_details.deleteAll(db_details.class,"parentId = ?",faction);
 //                        db_details.deleteInTx(list);
-                            db_details.delete(list);
+//                         db_details.delete(list);
+                            for(db_details s : list){
+                                s.delete();
+                            }
+
                         }
                     } // end try
                     catch (Exception e){e.printStackTrace();}
@@ -194,7 +200,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
 
                             int id = jsonObject2.getInt("Id");
-                            int parentId = Integer.parseInt(FACTION);
+                            int parentId = jsonObject2.getInt("CategoryId");
                             String title = jsonObject2.getString("Title");
                             String content = jsonObject2.getString("Content");
                             String imageUrl = jsonObject2.getString("Url");
@@ -204,6 +210,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
 
                             // save gotten object in database
                             try {
+                                Log.i(Variables.Tag,"id: "+id+" and faction: "+parentId);
                                 db_details db = new db_details(
                                         id,
                                         parentId,
