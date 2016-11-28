@@ -1,27 +1,79 @@
 package ir.unicoce.doctorMahmoud.Classes;
 
-/**
- * Created by soheil syetem on 11/26/2016.
- */
-
 public class Variables {
 
-    public static final String getNews="getNews";
-    public static final String getMagazine="getMagazine";
-    public static String Token = "";
+    public static final String Tag              = "MYAPP";
+
+    public static final String TOKEN            = "Z4_ru@9j";
+
+    public static final String catId            = "catId";
+    public static final String Id               = "Id";
+    public static final String catIndex         = "catIndex";
+    public static final String Index            = "Index";
+
+    public static final String getFavorites     = "+";
+    public static final String getNews          = "2";
+    public static final String getDanestaniha   = "3";
+    public static final String getServices      = "4";
+    public static final String getAboutUs       = "5";
+    public static final String getSlides        = "6";
+    public static final String getImages        = "7";
+    public static final String getVideos        = "8";
+    public static final String getVoices        = "9";
+    public static final String getFiles         = "10";
+    public static final String getMagazine      = "";
+    public static final String getInsurance     = "";
+    public static final String getParts         = "";
+    public static final String getCareBefore    = "";
+    public static final String getCareAfter     = "";
+    public static final String getDrugs         = "";
 
 
 
-    // server ids
-    public static final String News="2";
-    public static final String Magazine="";
-    public static final String Danestaniha="3";
-    public static final String Services="4";
-    public static final String Aboutus="5";
-    public static final String Slideha="6";
-    public static final String ImageGallery="7";
-    public static final String VideoGallery="8";
-    public static final String Voices="9";
-    public static final String Files="10";
-    public static final String getDoctorWebSite="";
-}
+    public static final String WebSite_Link         = "";
+    public static final String Telegram_Channel_Id  = "";
+    public static final String Instagram_Id         = "";
+    public static final String Telegram_chat_Id     = "";
+
+}// end class
+
+/**
+ * Both below two methods do the same thing :
+
+ 1 :
+ News : (Objects)
+ URL +/+ GetItem
+ {catId:NEWS_ID,Token=TOKEN}
+
+ News : (Folder)
+ URL +/+ GetCategory
+ {Id:NEWS_ID,Token=TOKEN}
+
+ _______________________________
+
+ 2 :
+ News : (Objects)
+ URL +/+ GetItem
+ {catIndex:NEWS_INDEX,Token=TOKEN}
+
+ News : (Folder)
+ URL +/+ GetCategory
+ {Index:NEWS_INDEX,Token=TOKEN}
+
+
+ ************************************
+ * this method get all objects of folders and sub folder in the root folder with id or index mentioned
+
+ News : (Objects and Folders)
+ URL +/+ GetFullItems
+ {Id:NEWS_ID / NEWS_INDEX,Token=TOKEN}
+
+
+ ************************************
+ * this method get all categories inside folder and sub folders of the root folder with id or index mentioned
+ News : (Categories inside folder)
+ URL +/+ GetFullCategories
+ {Id:NEWS_ID / NEWS_INDEX,Token=TOKEN}
+
+
+ **/

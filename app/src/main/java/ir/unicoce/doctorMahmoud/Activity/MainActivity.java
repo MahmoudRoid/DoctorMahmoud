@@ -46,7 +46,11 @@ import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Interface.IWebserviceByTag;
 import ir.unicoce.doctorMahmoud.R;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,IWebserviceByTag {
+public class MainActivity extends AppCompatActivity
+        implements
+        View.OnClickListener,
+        IWebserviceByTag
+{
 
     public Handler handler;
     Animation rotateCardViewAnimation;
@@ -560,7 +564,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 d.dismiss();
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Variables.getDoctorWebSite));
+                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(Variables.WebSite_Link));
                 startActivity(browserIntent);
 
             }
@@ -618,14 +622,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
     }
-
     @Override
     public void getResult(Object result, String Tag) throws Exception {
 
     }
-
     @Override
     public void getError(String ErrorCodeTitle, String Tag) throws Exception {
 
     }
-}
+
+}// end class

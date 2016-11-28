@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import ir.unicoce.doctorMahmoud.Classes.URLS;
+import ir.unicoce.doctorMahmoud.Classes.URLs;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
 import ir.unicoce.doctorMahmoud.Helper.Object_Data;
@@ -35,25 +35,25 @@ public class GetData extends AsyncTask<Void,Void,String> {
     public String Url;
     public String faction;
     public String id,index;
-        SweetAlertDialog pDialog ;
+    SweetAlertDialog pDialog;
 
     public GetData(Context context, IWebservice delegate,String faction){
-        this.context = context;
-        this.delegate = delegate;
-        this.faction=faction;
-        pDialog= new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
+        this.context    = context;
+        this.delegate   = delegate;
+        this.faction    = faction;
+        pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
         getUrl(faction);
     }
 
-    public void getUrl(String faction){
+    private void getUrl(String faction){
         switch (faction){
-            case Variables.Aboutus:
-                this.Url= URLS.getItems;
-                id=Variables.Aboutus;
+            case Variables.getAboutUs:
+                this.Url = URLs.GetItem;
+                id = Variables.getAboutUs;
                 break;
-            case Variables.News:
-                this.Url= URLS.getItems;
-                id=Variables.News;
+            case Variables.getNews:
+                this.Url = URLs.GetItem;
+                id = Variables.getNews;
                 break;
         }
     }
@@ -76,7 +76,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                 try {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody body = new FormBody.Builder()
-                            .add("Token", Variables.Token)
+                            .add("Token", Variables.TOKEN)
                             .add("id",this.id)
                             .build();
                     Request request = new Request.Builder()

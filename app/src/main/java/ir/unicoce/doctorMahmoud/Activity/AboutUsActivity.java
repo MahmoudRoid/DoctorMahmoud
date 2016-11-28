@@ -33,13 +33,13 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
     private void init() {
 
         try {
-            db_details db = Select.from(db_details.class).where(Condition.prop("parent_Id").eq(Variables.Aboutus)).first();
+            db_details db = Select.from(db_details.class).where(Condition.prop("parent_Id").eq(Variables.getAboutUs)).first();
 
             if(db== null || db.getContent().equals("")){
                 // get data from service
                 if(Internet.isNetworkAvailable(this)){
                     // call service
-                    GetData getdata = new GetData(this,this,Variables.Aboutus);
+                    GetData getdata = new GetData(this,this,Variables.getAboutUs);
                     getdata.execute();
                 }
             }
