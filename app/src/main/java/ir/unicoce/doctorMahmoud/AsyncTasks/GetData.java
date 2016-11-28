@@ -102,23 +102,21 @@ public class GetData extends AsyncTask<Void,Void,String> {
 //        pDialog.dismiss();
 
         if (result.equals("nothing_got")) {
+            // no data to get
             try {
                 delegate.getError(context.getResources().getString(R.string.error_empty_server));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            } catch (Exception e) {e.printStackTrace();}
         }
         else if(!result.startsWith("{")){
-            // moshkel dare kollan
+            // it has a problem completely
             try {
                 delegate.getError(context.getResources().getString(R.string.error_server));
-            } catch (Exception e) {
-                e.printStackTrace();
             }
+            catch (Exception e) {e.printStackTrace();}
         }
         else {
+            // data is okay and gotten successfully
             try {
-
                 // clear data in this FACTION except which in favorites
                 try {
                     List<db_details> list = Select
@@ -133,19 +131,17 @@ public class GetData extends AsyncTask<Void,Void,String> {
 //                        db_details.deleteInTx(list);
                         db_details.delete(list);
                     }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-
-
-
+                } // end try
+                catch (Exception e){e.printStackTrace();}
+                // pour data to objects and add them to list for sending them where it call
                 JSONObject jsonObject = new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
+                    // server said data is correct
                     myObjectArrayList =  new ArrayList<>();
                     JSONArray jsonArray = jsonObject.getJSONArray("Data");
-                    for (int i = 0; i < jsonArray.length(); i++) {
+                    for (int i = 0; i < jsonArray.length(); i++)
+                    {
                         JSONObject jsonObject2 = jsonArray.getJSONObject(i);
 
                         int id = jsonObject2.getInt("Id");
@@ -157,6 +153,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                         Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
                         myObjectArrayList.add(obj);
 
+                        // save gotten object in database
                         db_details db = new db_details(
                                 id,
                                 parentId,
@@ -168,21 +165,22 @@ public class GetData extends AsyncTask<Void,Void,String> {
                         db.save();
 
                     }// end for
-
                     // Check if list is empty or not
                     if(myObjectArrayList.size()>0){
                         delegate.getResult(myObjectArrayList);
                     } else{
                         delegate.getError(context.getResources().getString(R.string.error_empty_server));
-                    }
+                    }// end chck size of gotten object list
+                }else{
+                    // server said data is incorrect
+                    delegate.getError(context.getResources().getString(R.string.error_invalid));
                 }
 
 
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-}
+            } // end try
+            catch (JSONException e) {e.printStackTrace();}
+            catch (Exception e) {e.printStackTrace();}
+        }// end else
+    }// end onPostExecute()
+
+}// end class
