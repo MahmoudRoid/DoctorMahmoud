@@ -141,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @OnClick({R.id.card_view1, R.id.card_view2, R.id.card_view3, R.id.card_view4, R.id.mainactivity_4cardview
             ,R.id.drawer_icon})
     public void onClick(View view) {
+        Intent intent;
         switch (view.getId()) {
             case R.id.mainactivity_4cardview:
                 mainactivity4cardview.startAnimation(rotateCardViewAnimation);
@@ -157,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (firstCards) {
                     showBottomsheetSecondCard();
                 } else {
-                    Toast.makeText(getApplicationContext(), "6", Toast.LENGTH_SHORT).show();
+                    intent = new Intent(MainActivity.this,NewsActivity.class);
+                    startActivity(intent);
                 }
                 break;
             case R.id.card_view3:
