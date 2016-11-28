@@ -1,6 +1,8 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -12,24 +14,29 @@ import android.widget.TextView;
 
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Fragment.ListDataFragment;
+import ir.unicoce.doctorMahmoud.Helper.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
+import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
 
 public class NewsActivity extends AppCompatActivity
         implements
-        OnFragmentInteractionListener {
+        onFragmentInteractionListener2 {
 
     private Typeface San;
     private Toolbar toolbar;
     private TextView txtToolbar;
     private FragmentManager fragmentManager;
+    private FragmentTransaction ft;
     /*FACTION is type of data which get from server*/
     private String FACTION = Variables.getNews;
     /*isFolder = {
                 false :list of data to show
                 true  :folder of objects
      }*/
-    private Boolean isFolder = false;
+    private Boolean isFolder = true;
+    /*DEPTH_OF_FOLDERS number shows how many folders of intricate exist*/
+    public static int DEPTH_OF_FOLDERS = 1;
     /*onCreate*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,15 +66,47 @@ public class NewsActivity extends AppCompatActivity
         bundle.putBoolean("KIND", isFolder);
         myFragment.setArguments(bundle);
 
-        FragmentTransaction ft = fragmentManager.beginTransaction();
+        ft = fragmentManager.beginTransaction();
         ft.add(R.id.frame, myFragment);
+        String backStackName = myFragment.getClass().getName();
+        ft.addToBackStack(backStackName);
         ft.commit();
 
     }// end setFragment()
 
     @Override
-    public void onFragmentInteraction(int tagNumber) {
+    public void onFragmentInteraction(int tagNumber, boolean isFolder, Object_Data ob) {
+        switch (tagNumber){
+            case 0:
+                Intent intent = new Intent(NewsActivity.this,ShowActivity.class);
+                intent.putExtra("sid",ob.getSid());
+                intent.putExtra("title",ob.getTitle());
+                intent.putExtra("content",ob.getContent());
+                intent.putExtra("image_url",ob.getImageUrl());
+                startActivity(intent);
+                break;
+            case 1:
+                // remove current fragment
+                Fragment fragment = fragmentManager.findFragmentById(R.id.frame);
+                ft = fragmentManager.beginTransaction();
+                ft.remove(fragment);
+                ft.commit();
+                // start fragment with new data
+                ListDataFragment myFragment = new ListDataFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("FACTION", ob.getSid()+"");
+                bundle.putBoolean("KIND", isFolder);
+                myFragment.setArguments(bundle);
 
+                ft = fragmentManager.beginTransaction();
+                ft.add(R.id.frame, myFragment);
+                String backStackName = myFragment.getClass().getName();
+                ft.addToBackStack(backStackName);
+                ft.commit();
+                break;
+            default:
+                break;
+        }
     }
 
     @Override

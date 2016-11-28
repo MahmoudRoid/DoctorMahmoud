@@ -63,24 +63,23 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
     private void init() {
 
         try {
-//            db_details db = Select.from(db_details.class).where(Condition.prop("parent_Id").eq(Variables.Aboutus)).first();
-
-            List<db_details> db = Select.from(db_details.class)
-                    .where(Condition.prop("parentid").eq(Variables.getAboutUs)).list();
+            List<db_details> db = Select
+                    .from(db_details.class)
+                    .where(Condition.prop("parentid").eq(Variables.getAboutUs))
+                    .list();
 
             if (db.size()==0 || db.get(0).getContent().equals("")) {
                 // get data from service
                 if (Internet.isNetworkAvailable(this)) {
                     // call service
-                    GetData getdata = new GetData(this, this, Variables.getAboutUs);
+                    GetData getdata = new GetData(this, this, Variables.getAboutUs,false);
                     getdata.execute();
                 }
             } else {
                 showDetails(db.get(0).getTitle(),db.get(0).getContent(), db.get(0).getImageUrl());
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
+        catch (Exception e) {e.printStackTrace();}
 
     }
 
@@ -156,7 +155,7 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
 
     @Override
     public void getError(String ErrorCodeTitle) throws Exception {
-        Toast.makeText(this, "Problem", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, ErrorCodeTitle, Toast.LENGTH_SHORT).show();
     }
 
     @Override

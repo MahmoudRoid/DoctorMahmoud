@@ -3,6 +3,7 @@ package ir.unicoce.doctorMahmoud.AsyncTasks;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -19,6 +20,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
+import ir.unicoce.doctorMahmoud.Database.db_main;
 import ir.unicoce.doctorMahmoud.Helper.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
@@ -33,31 +35,30 @@ public class GetData extends AsyncTask<Void,Void,String> {
     public ArrayList<Object_Data> myObjectArrayList;
     public Context context;
     private IWebservice delegate = null;
-    public String Url;
-    public String faction;
-    public String id,index;
+    public String WEB_SERVICE_URL;
+    public String FACTION;
+    private String KEY_ID;
     SweetAlertDialog pDialog;
+    private boolean isFolder;
 
-    public GetData(Context context, IWebservice delegate,String faction){
+    public GetData(Context context, IWebservice delegate,String faction,boolean isFolder){
         this.context    = context;
         this.delegate   = delegate;
-        this.faction    = faction;
+        this.FACTION    = faction;
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        getUrl(faction);
-    }
+        this.isFolder = isFolder;
+        getUrl();
+    }// end GetData()
 
-    private void getUrl(String faction){
-        switch (faction){
-            case Variables.getAboutUs:
-                this.Url = URLS.GetFullItems;
-                id = Variables.getAboutUs;
-                break;
-            case Variables.getNews:
-                this.Url = URLS.GetFullItems;
-                id = Variables.getNews;
-                break;
+    private void getUrl(){
+        if(isFolder){
+            WEB_SERVICE_URL = URLS.GetCategory;
+            KEY_ID = Variables.Id;
+        }else{
+            WEB_SERVICE_URL = URLS.GetItem;
+            KEY_ID = Variables.catId;
         }
-    }
+    }// end getUrl()
 
     @Override
     protected void onPreExecute() {
@@ -65,8 +66,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
         pDialog.setTitleText("در حال دریافت اطلاعات");
         pDialog.setCancelable(true);
         pDialog.show();
-    }
-
+    }// end onPreExecute()
 
     @Override
     protected String doInBackground(Void... voids) {
@@ -78,10 +78,10 @@ public class GetData extends AsyncTask<Void,Void,String> {
                     OkHttpClient client = new OkHttpClient();
                     RequestBody body = new FormBody.Builder()
                             .add("Token", Variables.TOKEN)
-                            .add("id",this.id)
+                            .add(KEY_ID,FACTION)
                             .build();
                     Request request = new Request.Builder()
-                            .url(this.Url)
+                            .url(WEB_SERVICE_URL)
                             .post(body)
                             .build();
 
@@ -95,12 +95,12 @@ public class GetData extends AsyncTask<Void,Void,String> {
             }
 
         return strResponse;
-    }
+    }// end doInBackground()
 
     @Override
     protected void onPostExecute(String result) {
         pDialog.dismiss();
-
+        Log.i(Variables.Tag,"res: "+result);
         if (result.equals("nothing_got")) {
             // no data to get
             try {
@@ -117,64 +117,117 @@ public class GetData extends AsyncTask<Void,Void,String> {
         else {
             // data is okay and gotten successfully
             try {
-                // clear data in this FACTION except which in favorites
-                try {
-                    List<db_details> list = Select
-                            .from(db_details.class)
-                            .where(
-                                    Condition.prop("parentid").eq(faction),
-                                    Condition.prop("favorite").eq(false))
-                            .list();
 
-                    if(list.size()>0){
-//                        db_details.deleteAll(db_details.class,"parentId = ?",faction);
-//                        db_details.deleteInTx(list);
-                        db_details.delete(list);
-                    }
-                } // end try
-                catch (Exception e){e.printStackTrace();}
-                // pour data to objects and add them to list for sending them where it call
-                JSONObject jsonObject = new JSONObject(result);
-                int Type=jsonObject.getInt("Status");
-                if(Type==1){
-                    // server said data is correct
-                    myObjectArrayList =  new ArrayList<>();
-                    JSONArray jsonArray = jsonObject.getJSONArray("Data");
-                    for (int i = 0; i < jsonArray.length(); i++)
-                    {
-                        JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+                if(isFolder){
+                    // it is folder mood
+                    // parse JSON and pour it in array for future use
+                    JSONObject jsonObject = new JSONObject(result);
+                    int Type=jsonObject.getInt("Status");
+                    if(Type==1){
+                        // server said data is correct
+                        myObjectArrayList =  new ArrayList<>();
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
 
-                        int id = jsonObject2.getInt("Id");
-                        int parentId = Integer.parseInt(faction);
-                        String title = jsonObject2.getString("Title");
-                        String content = jsonObject2.getString("Content");
-                        String imageUrl = jsonObject2.getString("Url");
+                            int id = jsonObject2.getInt("Id");
+                            int parentId = jsonObject2.getInt("ParentId");
+                            String title = jsonObject2.getString("Name");
+                            String content = "";
+                            String imageUrl = "";
 
-                        Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
-                        myObjectArrayList.add(obj);
+                            Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
+                            myObjectArrayList.add(obj);
 
-                        // save gotten object in database
-                        db_details db = new db_details(
-                                id,
-                                parentId,
-                                title,
-                                content,
-                                imageUrl,
-                                false
-                        );
-                        db.save();
+                            // save gotten folder information in database
+                            db_main db = new db_main(
+                                    id,
+                                    parentId,
+                                    title,
+                                    imageUrl
+                            );
+                            db.save();
 
-                    }// end for
-                    // Check if list is empty or not
-                    if(myObjectArrayList.size()>0){
-                        delegate.getResult(myObjectArrayList);
+                        }// end for
+                        // Check if list is empty or not
+                        if(myObjectArrayList.size()>0){
+                            delegate.getResult(myObjectArrayList);
+                        } else{
+                            delegate.getError(context.getResources().getString(R.string.error_empty_server));
+                        }// end check size of gotten object list
                     } else{
-                        delegate.getError(context.getResources().getString(R.string.error_empty_server));
-                    }// end chck size of gotten object list
-                }else{
-                    // server said data is incorrect
-                    delegate.getError(context.getResources().getString(R.string.error_invalid));
-                }
+                        // server said data is incorrect
+                        delegate.getError(context.getResources().getString(R.string.error_invalid));
+                    }
+                }// end in folder mood
+
+
+
+                else{
+                    // it is object mood
+                    // clear data in this FACTION except which in favorites
+                    try {
+                        List<db_details> list = Select
+                                .from(db_details.class)
+                                .where(
+                                        Condition.prop("parentid").eq(FACTION),
+                                        Condition.prop("favorite").eq(false))
+                                .list();
+
+                        if(list.size()>0){
+//                        db_details.deleteAll(db_details.class,"parentId = ?",FACTION);
+//                        db_details.deleteInTx(list);
+                            db_details.delete(list);
+                        }
+                    } // end try
+                    catch (Exception e){e.printStackTrace();}
+                    // pour data to objects and add them to list for sending them where it call
+                    JSONObject jsonObject = new JSONObject(result);
+                    int Type=jsonObject.getInt("Status");
+                    if(Type==1){
+                        // server said data is correct
+                        myObjectArrayList =  new ArrayList<>();
+                        JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                        for (int i = 0; i < jsonArray.length(); i++)
+                        {
+                            JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+
+                            int id = jsonObject2.getInt("Id");
+                            int parentId = Integer.parseInt(FACTION);
+                            String title = jsonObject2.getString("Title");
+                            String content = jsonObject2.getString("Content");
+                            String imageUrl = jsonObject2.getString("Url");
+
+                            Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
+                            myObjectArrayList.add(obj);
+
+                            // save gotten object in database
+                            try {
+                                db_details db = new db_details(
+                                        id,
+                                        parentId,
+                                        title,
+                                        content,
+                                        imageUrl,
+                                        false
+                                );
+                                db.save();
+                            }catch (Exception e) { e.printStackTrace();}
+
+                        }// end for
+                        // Check if list is empty or not
+                        Log.i(Variables.Tag,"myObjectArrayList size: "+myObjectArrayList.size());
+                        if(myObjectArrayList.size()>0){
+                            delegate.getResult(myObjectArrayList);
+                        } else{
+                            delegate.getError(context.getResources().getString(R.string.error_empty_server));
+                        }// end check size of gotten object list
+                    }else{
+                        // server said data is incorrect
+                        delegate.getError(context.getResources().getString(R.string.error_invalid));
+                    }
+                }// end in object mood
 
 
             } // end try

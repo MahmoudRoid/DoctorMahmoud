@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,18 @@ import com.orm.query.Select;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.unicoce.doctorMahmoud.Activity.NewsActivity;
+import ir.unicoce.doctorMahmoud.Adapter.ItemClickSupport;
+import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_FolderData;
+import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_ObjectData;
 import ir.unicoce.doctorMahmoud.AsyncTasks.GetData;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
+import ir.unicoce.doctorMahmoud.Database.db_main;
 import ir.unicoce.doctorMahmoud.Helper.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
-import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
+import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
 
 
@@ -44,8 +50,10 @@ public class ListDataFragment extends Fragment
     private FloatingActionButton fab;
     private Typeface San;
     private ArrayList<Object_Data> myList = new ArrayList<>();
+    private RecycleViewAdapter_ObjectData oAdapter;
+    private RecycleViewAdapter_FolderData fAdapter;
 
-    private OnFragmentInteractionListener mListener;
+    private onFragmentInteractionListener2 mListener;
 
     public ListDataFragment() {}
 
@@ -69,8 +77,7 @@ public class ListDataFragment extends Fragment
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = (ViewGroup) inflater.inflate(R.layout.fragment_list_data, container, false);
         return layout;
     }
@@ -85,13 +92,7 @@ public class ListDataFragment extends Fragment
         rv.setLayoutManager(lm);
         setFab();
         init();
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                askServer();
-            }
-        });
+        onClickListener();
 
     }
 
@@ -103,18 +104,12 @@ public class ListDataFragment extends Fragment
             //mParam1 = bundle.getString("title");
         }
     }
-    /*handle on views click by interface in Activity which calls the fragment*/
-    public void onButtonPressed(int tagNumber) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(tagNumber);
-        }
-    }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof onFragmentInteractionListener2) {
+            mListener = (onFragmentInteractionListener2) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -126,34 +121,73 @@ public class ListDataFragment extends Fragment
         super.onDetach();
         mListener = null;
     }
+    /*handle on views click by interface in Activity which calls the fragment*/
+    public void onButtonPressed(int tagNumber,Object_Data ob) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(tagNumber,false,ob);
+        }
+    }
     // initialize data
     private void init() {
-
+        myList.clear();
         try {
-            List<db_details> list = Select
-                    .from(db_details.class)
-                    .where(Condition.prop("parent_Id").eq(FACTION))
-                    .list();
 
-            if(list.size()>0){
-                // database is empty for this faction than lets check Internet
-                askServer();
-            } else {
-                // database has some data in this faction than lets load them
-                myList.clear();
-                for (int i=0;i<list.size();i++){
-                    myList.add(new Object_Data(
-                            list.get(i).getsId(),
-                            list.get(i).getParentId(),
-                            list.get(i).getTitle(),
-                            list.get(i).getContent(),
-                            list.get(i).getImageUrl(),
-                            false)
-                    );
-                }
-                // set the collected data from database to recycleView
-                refreshAdapter();
-            }// end check emptiness of database
+            if(isFolder){
+                // if we want list of folders
+                List<db_main> list = Select
+                        .from(db_main.class)
+                        .where(Condition.prop("parentid").eq(FACTION))
+                        .list();
+                Log.i(Variables.Tag,"List size: "+list.size());
+                if(list.size()<=0){
+                    Log.i(Variables.Tag,"in ask server");
+                    // database is empty for this FACTION than lets check Internet
+                    askServer();
+                } else {
+                    Log.i(Variables.Tag,"in load from database");
+                    // database has some data in this FACTION than lets load them
+                    for (int i=0;i<list.size();i++){
+                        myList.add(new Object_Data(
+                                list.get(i).getsid(),
+                                list.get(i).getparentid(),
+                                list.get(i).getTitle(),
+                                "",
+                                list.get(i).getFolderImageUrl(),
+                                false)
+                        );
+                    }
+                    // set the collected data from database to recycleView
+                    refreshAdapter();
+                }// end check emptiness of database
+            }else{
+                // if we want list of objects
+                List<db_details> list = Select
+                        .from(db_details.class)
+                        .where(Condition.prop("parentid").eq(FACTION))
+                        .list();
+                Log.i(Variables.Tag,"List size: "+list.size());
+                if(list.size()<=0){
+                    Log.i(Variables.Tag,"in ask server");
+                    // database is empty for this FACTION than lets check Internet
+                    askServer();
+                } else {
+                    Log.i(Variables.Tag,"in load from database");
+                    // database has some data in this FACTION than lets load them
+                    for (int i=0;i<list.size();i++){
+                        myList.add(new Object_Data(
+                                list.get(i).getsid(),
+                                list.get(i).getparentid(),
+                                list.get(i).getTitle(),
+                                list.get(i).getContent(),
+                                list.get(i).getImageUrl(),
+                                list.get(i).isFavorite())
+                        );
+                    }
+                    // set the collected data from database to recycleView
+                    refreshAdapter();
+                }// end check emptiness of database
+            }
+
         } // end try
         catch (Exception e) { e.printStackTrace(); }
 
@@ -162,7 +196,7 @@ public class ListDataFragment extends Fragment
     private void askServer() {
         if(Internet.isNetworkAvailable(getActivity())){
             // network available than ask server for data
-            GetData getdata = new GetData(getActivity(),this,FACTION);
+            GetData getdata = new GetData(getActivity(),this,FACTION,isFolder);
             getdata.execute();
         }else{
             // network isn't available than toast user a message
@@ -171,34 +205,55 @@ public class ListDataFragment extends Fragment
     }
     /*set RecycleView adapter*/
     private void refreshAdapter(){
-
+        Log.i(Variables.Tag,"isFolder: "+isFolder);
         if(isFolder){
-            //mAdapter = new RecycleViewAdapter_aboutus(rvList,San,getActivity());
-            //rv.setAdapter(mAdapter);
+            fAdapter = new RecycleViewAdapter_FolderData(myList,San,getActivity());
+            rv.setAdapter(fAdapter);
         }else{
-            //mAdapter = new RecycleViewAdapter_aboutus(rvList,San,getActivity());
-            //rv.setAdapter(mAdapter);
+            oAdapter = new RecycleViewAdapter_ObjectData(myList,San,getActivity());
+            rv.setAdapter(oAdapter);
         }
 
     }// end refreshAdapter()
     /*set situation of fab*/
     private void setFab() {
-
         switch (FACTION){
 
-            case Variables.getNews:
-                fab.setVisibility(View.VISIBLE);
-                break;
-
-            case Variables.getMagazine:
+            case Variables.getFavorites:
+                fab.setVisibility(View.INVISIBLE);
                 break;
 
             default:
+                fab.setVisibility(View.VISIBLE);
                 break;
 
         }// end switch
 
     }// end setFab()
+    /*onClick listener of fragment views*/
+    private void onClickListener(){
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askServer();
+                //onButtonPressed(1);
+            }
+        });
+
+        ItemClickSupport.addTo(rv).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                Object_Data ob = myList.get(position);
+                if(isFolder){
+                    onButtonPressed(1,ob);
+                }else{
+                    onButtonPressed(0,ob);
+                }
+            }// end onItemClicked()
+        });
+
+    }//  end onClickListener()
 
     @Override
     public void getResult(Object result) throws Exception {
