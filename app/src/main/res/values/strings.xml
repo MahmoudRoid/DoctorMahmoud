@@ -120,4 +120,34 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="estimate_cost">برآورد هزینه</string>
+    <string name="menu_refresh">آپدیت</string>
+    <string name="menu_send">ارسال</string>
+    <string name="drawer_open">Open</string>
+    <string name="drawer_close">Close</string>
+
+    <string name="error_invalid">معتبر نیست!</string>
+    <string name="error_length">تعداد کاراکترها نامعتبر است.</string>
+    <string name="error_empty">خالیست!</string>
+    <string name="error_different">عدم تطابق!</string>
+    <string name="error_internet">لطفا دستگاه خود را به اینترنت متصل کنید!</string>
+    <string name="error_server">خطا از سرور! لطفا بعدا مجددا تلاش کنید.</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="error_permission">
+            در صورت نپذیرفتن دسترسی شما نمیتوانید از برنامه استفاده کنید!! \n\n
+            لطفا در تنظیمات گوشی قسمت دسترسی ها آن را فعال نمایید.
+        </string>
+    <string name="error_nework">تلاش برای اتصال به اینترنت</string>
+    <string name="error_empty_list">لیست علاقمندی های شما خالیست!</string>
+
+    <string name="prompt_name">نام و نام خانوادگی</string>
+    <string name="prompt_meli">شماره ملی بدون خط فاصله</string>
+    <string name="prompt_phone">شماره تماس</string>
+    <string name="prompt_email">ایمیل</string>
+    <string name="prompt_title">عنوان</string>
+    <string name="prompt_message">شرح پیام</string>
+    <string name="prompt_download">در حال دانلود...</string>
+
+        <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
