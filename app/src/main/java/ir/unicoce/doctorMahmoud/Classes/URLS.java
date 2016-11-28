@@ -1,12 +1,9 @@
 package ir.unicoce.doctorMahmoud.Classes;
 
-/**
- * Created by soheil syetem on 11/23/2016.
- */
 
-public class URLs {
+public class URLS {
 
-    public static final String DOMAIN            = "http://doctor.dotnetkaran.ir/";
+    public static final String DOMAIN            = "http://doctor.dotnetkaran.ir/api/";
 
     public static final String GetItem           = DOMAIN + "GetItem";
     public static final String GetCategory       = DOMAIN + "GetCategory";

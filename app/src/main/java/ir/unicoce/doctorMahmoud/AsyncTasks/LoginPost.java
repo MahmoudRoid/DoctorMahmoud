@@ -10,7 +10,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import ir.unicoce.doctorMahmoud.Classes.URLs;
+import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Interface.IWebserviceByTag;
 import okhttp3.FormBody;
@@ -37,7 +37,7 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
         this.nationalCode=nationalCode;
         this.Tag=Tag;
 
-        this.Url= URLs.Login;
+        this.Url= URLS.Login;
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
     }
 

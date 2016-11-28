@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-
-import com.google.common.collect.ArrayListMultimap;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 

@@ -1,6 +1,5 @@
 package ir.unicoce.doctorMahmoud.Database;
 
-import com.google.common.base.Strings;
 import com.orm.SugarRecord;
 
 /**
@@ -8,18 +7,18 @@ import com.orm.SugarRecord;
  */
 
 public class db_main extends SugarRecord {
-    public int parentID,sId;
+    public int parentid,sid;
     public String title;
 
     public db_main(){}
 
-    public db_main(int parentID, int sId, String title) {
-        this.parentID = parentID;
-        this.sId = sId;
+    public db_main(int parentid, int sid, String title) {
+        this.parentid = parentid;
+        this.sid = sid;
         this.title = title;
     }
 
-    public int getParentID() {  return parentID;}
-    public int getsId() { return sId;}
+    public int getparentid() {  return parentid;}
+    public int getsid() { return sid;}
     public String getTitle(){return title;}
 }

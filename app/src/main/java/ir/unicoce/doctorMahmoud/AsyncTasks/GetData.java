@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-import ir.unicoce.doctorMahmoud.Classes.URLs;
+import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
 import ir.unicoce.doctorMahmoud.Helper.Object_Data;
@@ -49,11 +49,11 @@ public class GetData extends AsyncTask<Void,Void,String> {
     private void getUrl(String faction){
         switch (faction){
             case Variables.getAboutUs:
-                this.Url = URLs.GetItem;
+                this.Url = URLS.GetFullItems;
                 id = Variables.getAboutUs;
                 break;
             case Variables.getNews:
-                this.Url = URLs.GetItem;
+                this.Url = URLS.GetFullItems;
                 id = Variables.getNews;
                 break;
         }
@@ -122,7 +122,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                     List<db_details> list = Select
                             .from(db_details.class)
                             .where(
-                                    Condition.prop("parent_Id").eq(faction),
+                                    Condition.prop("parentid").eq(faction),
                                     Condition.prop("favorite").eq(false))
                             .list();
 
@@ -148,7 +148,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                         int parentId = Integer.parseInt(faction);
                         String title = jsonObject2.getString("Title");
                         String content = jsonObject2.getString("Content");
-                        String imageUrl = jsonObject2.getString("FileUrl");
+                        String imageUrl = jsonObject2.getString("Url");
 
                         Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
                         myObjectArrayList.add(obj);

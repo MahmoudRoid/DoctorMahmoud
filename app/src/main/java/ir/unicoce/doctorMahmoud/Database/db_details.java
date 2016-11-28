@@ -7,25 +7,27 @@ import com.orm.SugarRecord;
  */
 
 public class db_details extends SugarRecord {
-    public int sId,parentId;
-    public String title,content,imageUrl;
+    public int sid,parentid;
+    public String title,content,imageurl;
     public boolean favorite;
 
-    public db_details(int sId, int parentId, String title, String content, String imageUrl, boolean favorite) {
-        this.sId = sId;
-        this.parentId = parentId;
+    public db_details(){}
+
+    public db_details(int sid, int parentid, String title, String content, String imageurl, boolean favorite) {
+        this.sid = sid;
+        this.parentid = parentid;
         this.title = title;
         this.content = content;
-        this.imageUrl = imageUrl;
+        this.imageurl = imageurl;
         this.favorite = favorite;
     }
 
-    public int getsId() {
-        return sId;
+    public int getsid() {
+        return sid;
     }
 
-    public int getParentId() {
-        return parentId;
+    public int getparentid() {
+        return parentid;
     }
 
     public String getTitle() {
@@ -37,7 +39,7 @@ public class db_details extends SugarRecord {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return imageurl;
     }
 
     public boolean isFavorite() {

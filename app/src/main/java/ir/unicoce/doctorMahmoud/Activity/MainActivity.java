@@ -162,8 +162,7 @@ public class MainActivity extends AppCompatActivity
                 if (firstCards) {
                     showBottomsheetSecondCard();
                 } else {
-                    intent = new Intent(MainActivity.this,NewsActivity.class);
-                    startActivity(intent);
+                    startActivity(new Intent(MainActivity.this,NewsActivity.class));
                 }
                 break;
             case R.id.card_view3:
