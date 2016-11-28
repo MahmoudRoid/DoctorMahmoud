@@ -107,6 +107,7 @@ public class ShowActivity extends AppCompatActivity {
         Title       = getIntent().getStringExtra("title");
         Content     = getIntent().getStringExtra("content");
         ImageUrl    = getIntent().getStringExtra("image_url");
+        Faction     = getIntent().getStringExtra("faction");
 
         // TODO : favorite first initialize
         /*db.open();
@@ -129,7 +130,10 @@ public class ShowActivity extends AppCompatActivity {
 
         txtToolbar.setText(Title);
 
-        if(Faction.equals(Variables.getServices) || Faction.equals(Variables.getInsurance)) {
+        if(
+                Faction.equals(Variables.getServices)
+                || Faction.equals(Variables.getInsurance)
+                ) {
             fab.setVisibility(View.INVISIBLE);
         }
 
@@ -162,12 +166,13 @@ public class ShowActivity extends AppCompatActivity {
         Log.i(Variables.Tag,"text: "+text);
         TextView tv = new TextView(ShowActivity.this);
         tv.setTypeface(San);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 10, 0, 10);
         lp.gravity= Gravity.TOP;
         tv.setPadding(10, 10, 10, 10);
         tv.setLineSpacing(30,1);
         tv.setTypeface(San);
+        tv.setGravity(Gravity.RIGHT);
         tv.setText(text);
         lay.addView(tv,lp);
 

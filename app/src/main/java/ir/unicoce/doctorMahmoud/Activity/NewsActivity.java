@@ -83,6 +83,7 @@ public class NewsActivity extends AppCompatActivity
                 intent.putExtra("title",ob.getTitle());
                 intent.putExtra("content",ob.getContent());
                 intent.putExtra("image_url",ob.getImageUrl());
+                intent.putExtra("faction",FACTION);
                 startActivity(intent);
                 break;
             case 1:
