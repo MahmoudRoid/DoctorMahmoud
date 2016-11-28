@@ -138,7 +138,7 @@
         </string>
     <string name="error_nework">تلاش برای اتصال به اینترنت</string>
     <string name="error_empty_list">لیست علاقمندی های شما خالیست!</string>
-
+    <string name="error_empty_server">داده ای جهت نمایش وجود ندارد!</string>
     <string name="prompt_name">نام و نام خانوادگی</string>
     <string name="prompt_meli">شماره ملی بدون خط فاصله</string>
     <string name="prompt_phone">شماره تماس</string>

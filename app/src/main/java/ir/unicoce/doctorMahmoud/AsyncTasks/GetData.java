@@ -21,6 +21,7 @@ import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
 import ir.unicoce.doctorMahmoud.Helper.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
+import ir.unicoce.doctorMahmoud.R;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -102,7 +103,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
 
         if (result.equals("nothing_got")) {
             try {
-                delegate.getError("NoData");
+                delegate.getError(context.getResources().getString(R.string.error_empty_server));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -110,7 +111,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
         else if(!result.startsWith("{")){
             // moshkel dare kollan
             try {
-                delegate.getError("problem");
+                delegate.getError(context.getResources().getString(R.string.error_server));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -118,10 +119,14 @@ public class GetData extends AsyncTask<Void,Void,String> {
         else {
             try {
 
-                // pak kardane database ha baraye rikhtane data e jadid
+                // clear data in this FACTION except which in favorites
                 try {
-                    List<db_details> list = Select.from(db_details.class)
-                            .where(Condition.prop("parent_Id").eq(faction),Condition.prop("favorite").eq(false)).list();
+                    List<db_details> list = Select
+                            .from(db_details.class)
+                            .where(
+                                    Condition.prop("parent_Id").eq(faction),
+                                    Condition.prop("favorite").eq(false))
+                            .list();
 
                     if(list.size()>0){
 //                        db_details.deleteAll(db_details.class,"parentId = ?",faction);
@@ -152,7 +157,14 @@ public class GetData extends AsyncTask<Void,Void,String> {
                         Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
                         myObjectArrayList.add(obj);
 
-                        db_details db = new db_details(id,parentId,title,content,imageUrl,false);
+                        db_details db = new db_details(
+                                id,
+                                parentId,
+                                title,
+                                content,
+                                imageUrl,
+                                false
+                        );
                         db.save();
 
                     }// end for
@@ -161,7 +173,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                     if(myObjectArrayList.size()>0){
                         delegate.getResult(myObjectArrayList);
                     } else{
-                        delegate.getError("problem");
+                        delegate.getError(context.getResources().getString(R.string.error_empty_server));
                     }
                 }
 

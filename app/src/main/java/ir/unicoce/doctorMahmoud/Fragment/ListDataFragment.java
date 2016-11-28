@@ -6,23 +6,32 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
 
+import ir.unicoce.doctorMahmoud.AsyncTasks.GetData;
+import ir.unicoce.doctorMahmoud.Classes.Internet;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
+import ir.unicoce.doctorMahmoud.Database.db_details;
+import ir.unicoce.doctorMahmoud.Helper.Object_Data;
+import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
 
 
-public class ListDataFragment extends Fragment {
+public class ListDataFragment extends Fragment
+        implements
+        IWebservice {
 
     private ViewGroup layout;
 
@@ -35,6 +44,7 @@ public class ListDataFragment extends Fragment {
     private RecyclerView rv;
     private FloatingActionButton fab;
     private Typeface San;
+    private ArrayList<Object_Data> myList = new ArrayList<>();
 
     private OnFragmentInteractionListener mListener;
 
@@ -75,7 +85,7 @@ public class ListDataFragment extends Fragment {
         LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
         rv.setLayoutManager(lm);
         setFab();
-        setRecycleView();
+        init();
     }
 
     @Override
@@ -109,11 +119,44 @@ public class ListDataFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+    // initialize data
+    private void init() {
+
+        try {
+            db_details db = Select
+                    .from(db_details.class)
+                    .where(Condition.prop("parent_Id").eq(FACTION))
+                    .first();
+
+            if(db== null || db.getContent().equals("")){
+                // database is empty for this faction than lets check Internet
+                if(Internet.isNetworkAvailable(getActivity())){
+                    // network available than ask server for data
+                    GetData getdata = new GetData(getActivity(),this,FACTION);
+                    getdata.execute();
+                }else{
+                    // network isn't available than toast user a message
+                    Toast.makeText(getActivity(), R.string.error_nework, Toast.LENGTH_SHORT).show();
+                }// end check Internet
+            } else {
+                // database has some data in this faction than lets load them
+                refreshAdapter();
+            }// end check emptiness of database
+        } // end try
+        catch (Exception e) { e.printStackTrace(); }
+
+    }// end init()
     /*set RecycleView adapter*/
     private void refreshAdapter(){
 
-        //mAdapter = new RecycleViewAdapter_aboutus(rvList,San,getActivity());
-        //rv.setAdapter(mAdapter);
+        if(isFolder){
+            //mAdapter = new RecycleViewAdapter_aboutus(rvList,San,getActivity());
+            //rv.setAdapter(mAdapter);
+        }else{
+            //mAdapter = new RecycleViewAdapter_aboutus(rvList,San,getActivity());
+            //rv.setAdapter(mAdapter);
+        }
+
     }// end refreshAdapter()
     /*set situation of fab*/
     private void setFab() {
@@ -132,10 +175,17 @@ public class ListDataFragment extends Fragment {
         }// end switch
 
     }// end setFab()
-    /*set data of RecycleView*/
-    private void setRecycleView(){
-        /*refresh the adapter*/
+
+    @Override
+    public void getResult(Object result) throws Exception {
+        myList.clear();
+        myList = (ArrayList<Object_Data>) result;
         refreshAdapter();
-    }// end setRecycleView()
+    }
+
+    @Override
+    public void getError(String ErrorCodeTitle) throws Exception {
+        Toast.makeText(getActivity(), ErrorCodeTitle, Toast.LENGTH_SHORT).show();
+    }
 
 }// end class
