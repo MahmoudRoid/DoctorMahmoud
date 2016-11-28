@@ -86,6 +86,14 @@ public class ListDataFragment extends Fragment
         rv.setLayoutManager(lm);
         setFab();
         init();
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                askServer();
+            }
+        });
+
     }
 
     @Override
@@ -130,14 +138,7 @@ public class ListDataFragment extends Fragment
 
             if(db== null || db.getContent().equals("")){
                 // database is empty for this faction than lets check Internet
-                if(Internet.isNetworkAvailable(getActivity())){
-                    // network available than ask server for data
-                    GetData getdata = new GetData(getActivity(),this,FACTION);
-                    getdata.execute();
-                }else{
-                    // network isn't available than toast user a message
-                    Toast.makeText(getActivity(), R.string.error_nework, Toast.LENGTH_SHORT).show();
-                }// end check Internet
+                askServer();
             } else {
                 // database has some data in this faction than lets load them
                 refreshAdapter();
@@ -146,6 +147,17 @@ public class ListDataFragment extends Fragment
         catch (Exception e) { e.printStackTrace(); }
 
     }// end init()
+    /*ask server for data*/
+    private void askServer() {
+        if(Internet.isNetworkAvailable(getActivity())){
+            // network available than ask server for data
+            GetData getdata = new GetData(getActivity(),this,FACTION);
+            getdata.execute();
+        }else{
+            // network isn't available than toast user a message
+            Toast.makeText(getActivity(), R.string.error_nework, Toast.LENGTH_SHORT).show();
+        }// end check Internet
+    }
     /*set RecycleView adapter*/
     private void refreshAdapter(){
 
@@ -164,6 +176,7 @@ public class ListDataFragment extends Fragment
         switch (FACTION){
 
             case Variables.getNews:
+                fab.setVisibility(View.VISIBLE);
                 break;
 
             case Variables.getMagazine:

@@ -6,7 +6,7 @@ package ir.unicoce.doctorMahmoud.Classes;
 
 public class URLs {
 
-    public static final String DOMAIN            = "http://www.doctor.dotnetkaran.ir/";
+    public static final String DOMAIN            = "http://doctor.dotnetkaran.ir/";
 
     public static final String GetItem           = DOMAIN + "GetItem";
     public static final String GetCategory       = DOMAIN + "GetCategory";

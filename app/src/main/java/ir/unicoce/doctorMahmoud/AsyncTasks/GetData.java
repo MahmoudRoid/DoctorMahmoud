@@ -99,7 +99,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
 
     @Override
     protected void onPostExecute(String result) {
-//        pDialog.dismiss();
+        pDialog.dismiss();
 
         if (result.equals("nothing_got")) {
             // no data to get
