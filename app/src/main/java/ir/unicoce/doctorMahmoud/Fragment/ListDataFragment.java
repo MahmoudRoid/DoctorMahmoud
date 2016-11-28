@@ -18,6 +18,7 @@ import com.orm.query.Condition;
 import com.orm.query.Select;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.unicoce.doctorMahmoud.AsyncTasks.GetData;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
@@ -131,16 +132,28 @@ public class ListDataFragment extends Fragment
     private void init() {
 
         try {
-            db_details db = Select
+            List<db_details> list = Select
                     .from(db_details.class)
                     .where(Condition.prop("parent_Id").eq(FACTION))
-                    .first();
+                    .list();
 
-            if(db== null || db.getContent().equals("")){
+            if(list.size()>0){
                 // database is empty for this faction than lets check Internet
                 askServer();
             } else {
                 // database has some data in this faction than lets load them
+                myList.clear();
+                for (int i=0;i<list.size();i++){
+                    myList.add(new Object_Data(
+                            list.get(i).getsId(),
+                            list.get(i).getParentId(),
+                            list.get(i).getTitle(),
+                            list.get(i).getContent(),
+                            list.get(i).getImageUrl(),
+                            false)
+                    );
+                }
+                // set the collected data from database to recycleView
                 refreshAdapter();
             }// end check emptiness of database
         } // end try

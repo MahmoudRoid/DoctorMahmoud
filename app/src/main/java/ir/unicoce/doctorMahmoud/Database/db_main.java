@@ -1,6 +1,5 @@
 package ir.unicoce.doctorMahmoud.Database;
 
-import com.google.common.base.Strings;
 import com.orm.SugarRecord;
 
 /**
