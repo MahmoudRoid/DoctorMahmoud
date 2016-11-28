@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ir.unicoce.doctorMahmoud">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.orm.SugarApp"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme"
+        tools:replace="android:icon">
+        <meta-data
+            android:name="DATABASE"
+            android:value="doctor.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="3" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="ir.unicoce.doctorMahmoud" />
+
+        <activity
+            android:name=".Activity.MainActivity"
+            android:theme="@style/CustomFullScreenTheme" />
+        <activity android:name=".Activity.AboutUsActivity" />
+        <activity android:name=".Activity.DepartmentActivity" />
+        <activity
+            android:name=".Activity.DescriptionActivity"
+            android:label="@string/title_activity_description"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activity.NewsActivity" />
+        <activity android:name=".Activity.SplashActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Activity.EstimateCostActivity"></activity>
+    </application>
+
+</manifest>

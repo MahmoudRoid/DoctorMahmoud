@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:id="@+id/dialog_linear_1"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                          <TextView
+                                    android:id="@+id/dilog_text_1"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal|center_vertical"
+                                    android:layout_marginBottom="@dimen/_15sdp"
+                                    android:text="text"
+                                    android:textColor="#000000"
+                                    android:textSize="@dimen/_14sdp"
+                                    android:gravity="center_vertical"
+                                    android:drawablePadding="10dp"
+                                    android:drawableRight="@drawable/telegram_small"/>
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@drawable/horizontal"></View>
+
+                            <LinearLayout
+                                android:id="@+id/dialog_linear_2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                           <TextView
+                                    android:id="@+id/dilog_text_2"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal|center_vertical"
+                                    android:layout_marginTop="@dimen/_15sdp"
+                                    android:layout_marginBottom="@dimen/_15sdp"
+                                    android:text="text"
+                                    android:textColor="#000000"
+                                    android:textSize="@dimen/_14sdp"
+                                    android:gravity="center_vertical"
+                                    android:drawablePadding="10dp"
+                                    android:drawableRight="@drawable/instagram_small"/>
+
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:background="@drawable/horizontal"></View>
+
+
+                            <LinearLayout
+                                android:id="@+id/dialog_linear_3"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+
+                          <TextView
+                                    android:id="@+id/dilog_text_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center_horizontal|center_vertical"
+                                    android:layout_marginTop="@dimen/_15sdp"
+                                    android:text="text"
+                                    android:textColor="#000000"
+                                    android:textSize="@dimen/_14sdp"
+                                    android:gravity="center_vertical"
+                                    android:drawablePadding="10dp"
+                                    android:drawableRight="@drawable/website_small"/>
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

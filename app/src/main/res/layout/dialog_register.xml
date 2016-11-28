@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
+
+
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/layName_dialogReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til1_dialogreg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center">
+
+                        <EditText
+                            android:id="@+id/edtName_dialogreg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="نام و نام خانوادگی"
+                            android:inputType="text"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:gravity="right" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/account_circle_black"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layNationalCode_dialogReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til2_dialogreg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center">
+
+                        <EditText
+                            android:id="@+id/edtNationaCode_dialogreg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="شماره ملی"
+                            android:inputType="number"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:gravity="right" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/credit_card_black"
+                        android:layout_marginLeft="10dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layPhone_dialogReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_margin="10dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til3_dialogreg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center">
+
+                        <EditText
+                            android:id="@+id/edtPhone_dialogreg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="شماره تماس"
+                            android:inputType="phone"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:gravity="right" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/call_black"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/layEmail_dialogReg"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="20dp"
+                    android:layout_margin="10dp">
+
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til4_dialogreg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_gravity="center">
+
+                        <EditText
+                            android:id="@+id/edtEmail_dialogreg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="ایمیل"
+                            android:inputType="textEmailAddress"
+                            android:maxLines="1"
+                            android:singleLine="true"
+                            android:gravity="right" />
+                    </android.support.design.widget.TextInputLayout>
+
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@drawable/mail_black"
+                        android:layout_marginLeft="10dp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:text="ثبت"
+                        android:id="@+id/btnCommit_dialogreg"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp" />
+
+                    <Button
+                        android:id="@+id/btnCancel_dialogreg"
+                        android:text="انصراف"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:layout_margin="10dp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

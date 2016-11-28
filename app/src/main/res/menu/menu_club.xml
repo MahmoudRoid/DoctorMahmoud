@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/club_match" android:title="@string/club_match" android:icon="@drawable/ic_telegram"/>
+    <item android:id="@+id/club_poll" android:title="@string/club_poll" android:icon="@drawable/ic_services"/>
+    <item android:id="@+id/club_moshavere" android:title="@string/club_moshavere" android:icon="@drawable/ic_telegram"/>
+    <item android:id="@+id/club_chat" android:title="@string/club_chat" android:icon="@drawable/ic_club"/>
+</menu>

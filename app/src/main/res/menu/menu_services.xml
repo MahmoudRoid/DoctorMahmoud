@@ -1,0 +1,7 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/serices_introduce_services" android:title="@string/introduce_services" android:icon="@drawable/ic_telegram"/>
+    <item android:id="@+id/serices_reservation" android:title="@string/reservation" android:icon="@drawable/ic_services"/>
+    <item android:id="@+id/serices_cares" android:title="@string/cares" android:icon="@drawable/ic_services"/>
+    <item android:id="@+id/serices_insurances" android:title="@string/insurance" android:icon="@drawable/ic_club"/>
+    <item android:id="@+id/serices_services_prices" android:title="@string/services_prices" android:icon="@drawable/ic_club"/>
+</menu>

@@ -1,0 +1,6 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/aboutus_about" android:title="@string/about_clinick" android:icon="@drawable/ic_telegram"/>
+    <item android:id="@+id/aboutus_departmants" android:title="@string/departmants" android:icon="@drawable/ic_services"/>
+    <item android:id="@+id/aboutus_social_network" android:title="@string/social_networks" android:icon="@drawable/ic_telegram"/>
+    <item android:id="@+id/aboutus_tamas_bama" android:title="@string/tamas_bama" android:icon="@drawable/ic_club"/>
+</menu>
