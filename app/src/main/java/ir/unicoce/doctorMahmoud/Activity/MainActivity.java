@@ -383,7 +383,7 @@ public class MainActivity extends AppCompatActivity
                                 show_social_dialog();
                                 break;
                             case R.id.aboutus_tamas_bama:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,ContactUs.class));
                                 break;
                         }
 

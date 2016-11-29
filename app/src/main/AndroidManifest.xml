@@ -3,8 +3,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.unicoce.doctorMahmoud">
 
+    <permission
+        android:name="ir.unicoce.doctorMahmoud.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature" />
+
+    <uses-permission android:name="ir.unicoce.doctorMahmoud.permission.MAPS_RECEIVE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
 
     <application
         android:name="com.orm.SugarApp"
@@ -14,6 +29,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
         <meta-data
             android:name="DATABASE"
             android:value="doctormahmoud.db" />
@@ -27,25 +43,54 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="ir.unicoce.doctorMahmoud" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity
-            android:name=".Activity.MainActivity"
-            android:theme="@style/CustomFullScreenTheme" />
-        <activity android:name=".Activity.AboutUsActivity" />
-        <activity android:name=".Activity.DepartmentActivity" />
-        <activity
-            android:name=".Activity.DescriptionActivity"
-            android:label="@string/title_activity_description"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.NewsActivity" />
-        <activity android:name=".Activity.SplashActivity">
+            android:name=".Activity.SplashActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.EstimateCostActivity" />
-        <activity android:name=".Activity.ShowActivity"></activity>
+
+        <activity
+            android:name=".Activity.MainActivity"
+            android:theme="@style/CustomFullScreenTheme"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".Activity.AboutUsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activity.DepartmentActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activity.DescriptionActivity"
+            android:label="@string/title_activity_description"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activity.NewsActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activity.EstimateCostActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activity.ShowActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity
+            android:name=".Activity.ContactUs"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>
