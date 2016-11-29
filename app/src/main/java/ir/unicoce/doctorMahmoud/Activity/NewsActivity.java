@@ -73,9 +73,8 @@ public class NewsActivity extends AppCompatActivity
         myFragment.setArguments(bundle);
 
         ft = fragmentManager.beginTransaction();
+        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         ft.add(R.id.frame, myFragment);
-        String backStackName = myFragment.getClass().getName();
-        ft.addToBackStack(backStackName);
         ft.commit();
 
     }// end setFragment()
@@ -93,10 +92,11 @@ public class NewsActivity extends AppCompatActivity
             intent.putExtra("faction",FACTION);
             startActivity(intent);
         }else{
-            // remove current fragment
+            // hide current fragment
             Fragment fragment = fragmentManager.findFragmentById(R.id.frame);
             ft = fragmentManager.beginTransaction();
-            ft.remove(fragment);
+            ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+            ft.hide(fragment);
             ft.commit();
             // start fragment with new data
             ListDataFragment myFragment = new ListDataFragment();
@@ -112,10 +112,12 @@ public class NewsActivity extends AppCompatActivity
             myFragment.setArguments(bundle);
 
             ft = fragmentManager.beginTransaction();
+            ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             ft.add(R.id.frame, myFragment);
             String backStackName = myFragment.getClass().getName();
             ft.addToBackStack(backStackName);
             ft.commit();
+
         }
 
     }// end onFragmentInteraction()
@@ -132,7 +134,7 @@ public class NewsActivity extends AppCompatActivity
         int id = item.getItemId();
         switch(id){
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 break;
 
             default:
@@ -144,7 +146,12 @@ public class NewsActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
-        finish();
+        super.onBackPressed();
+        Fragment fragment = fragmentManager.findFragmentById(R.id.frame);
+        ft = fragmentManager.beginTransaction();
+        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        ft.show(fragment);
+        ft.commit();
     }
 
 }// end class
