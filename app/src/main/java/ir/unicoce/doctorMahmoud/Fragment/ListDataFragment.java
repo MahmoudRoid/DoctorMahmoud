@@ -19,7 +19,6 @@ import com.orm.query.Select;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.unicoce.doctorMahmoud.Activity.NewsActivity;
 import ir.unicoce.doctorMahmoud.Adapter.ItemClickSupport;
 import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_FolderData;
 import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_ObjectData;
@@ -33,10 +32,10 @@ import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
 
-
 public class ListDataFragment extends Fragment
         implements
-        IWebservice {
+        IWebservice
+{
 
     private ViewGroup layout;
 
@@ -128,16 +127,16 @@ public class ListDataFragment extends Fragment
         mListener = null;
     }
     /*handle on views click by interface in Activity which calls the fragment*/
-    public void onButtonPressed(int tagNumber,Object_Data ob) {
+    public void onButtonPressed(int folderDepth,Object_Data ob) {
         if (mListener != null) {
-            mListener.onFragmentInteraction(tagNumber,false,ob);
+            mListener.onFragmentInteraction(folderDepth,ob);
         }
-    }
+    }// end onButtonPressed()
     // initialize data
     private void init() {
         myList.clear();
         try {
-
+            Log.i(Variables.Tag,"isFolder init: "+isFolder);
             if(isFolder){
                 // if we want list of folders
                 List<db_main> list = Select
@@ -145,12 +144,11 @@ public class ListDataFragment extends Fragment
                         .where(Condition.prop("parentid").eq(FACTION))
                         .list();
 
+                Log.i(Variables.Tag,"list size: "+list.size()+" faction: "+FACTION);
                 if(list.size()<=0){
-                    Log.i(Variables.Tag,"in ask server");
                     // database is empty for this FACTION than lets check Internet
                     askServer();
                 } else {
-                    Log.i(Variables.Tag,"in load from database");
                     // database has some data in this FACTION than lets load them
                     for (int i=0;i<list.size();i++){
                         myList.add(new Object_Data(
@@ -158,7 +156,7 @@ public class ListDataFragment extends Fragment
                                 list.get(i).getparentid(),
                                 list.get(i).getTitle(),
                                 "",
-                                list.get(i).getFolderImageUrl(),
+                                list.get(i).getFolderimageurl(),
                                 false)
                         );
                     }
@@ -171,13 +169,12 @@ public class ListDataFragment extends Fragment
                         .from(db_details.class)
                         .where(Condition.prop("parentid").eq(FACTION))
                         .list();
-                Log.i(Variables.Tag,"List size: "+list.size()+"and faction(): "+FACTION);
+
+                Log.i(Variables.Tag,"list size: "+list.size()+" faction: "+FACTION);
                 if(list.size()<=0){
-                    Log.i(Variables.Tag,"in ask server");
                     // database is empty for this FACTION than lets check Internet
                     askServer();
                 } else {
-                    Log.i(Variables.Tag,"in load from database");
                     // database has some data in this FACTION than lets load them
                     for (int i=0;i<list.size();i++){
                         myList.add(new Object_Data(
@@ -211,7 +208,6 @@ public class ListDataFragment extends Fragment
     }
     /*set RecycleView adapter*/
     private void refreshAdapter(){
-        Log.i(Variables.Tag,"isFolder: "+isFolder);
         if(isFolder){
             fAdapter = new RecycleViewAdapter_FolderData(myList,San,getActivity());
             rv.setAdapter(fAdapter);
@@ -243,7 +239,6 @@ public class ListDataFragment extends Fragment
             @Override
             public void onClick(View view) {
                 askServer();
-                //onButtonPressed(1);
             }
         });
 

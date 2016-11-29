@@ -32,13 +32,13 @@ import okhttp3.Response;
 
 public class GetData extends AsyncTask<Void,Void,String> {
 
-    public ArrayList<Object_Data> myObjectArrayList;
-    public Context context;
+    private ArrayList<Object_Data> myObjectArrayList;
+    private Context context;
     private IWebservice delegate = null;
-    public String WEB_SERVICE_URL;
-    public String FACTION;
+    private String WEB_SERVICE_URL;
+    private String FACTION;
     private String KEY_ID;
-    SweetAlertDialog pDialog;
+    private SweetAlertDialog pDialog;
     private boolean isFolder;
 
     public GetData(Context context, IWebservice delegate,String faction,boolean isFolder){
@@ -120,6 +120,23 @@ public class GetData extends AsyncTask<Void,Void,String> {
 
                 if(isFolder){
                     // it is folder mood
+                    // clear data in this FACTION except which in favorites
+                    try {
+                        List<db_main> list = Select
+                                .from(db_main.class)
+                                .where(
+                                        Condition.prop("parentid").eq(FACTION)
+                                        //,Condition.prop("favorite").eq(false)
+                                )
+                                .list();
+
+                        if(list.size()>0){
+                            for(db_main s : list){
+                                s.delete();
+                            }
+                        }
+                    } // end try
+                    catch (Exception e){e.printStackTrace();}
                     // parse JSON and pour it in array for future use
                     JSONObject jsonObject = new JSONObject(result);
                     int Type=jsonObject.getInt("Status");
@@ -135,15 +152,15 @@ public class GetData extends AsyncTask<Void,Void,String> {
                             int parentId = jsonObject2.getInt("ParentId");
                             String title = jsonObject2.getString("Name");
                             String content = "";
-                            String imageUrl = "";
+                            String imageUrl = jsonObject2.getString("ImageUrl");
 
                             Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
                             myObjectArrayList.add(obj);
 
                             // save gotten folder information in database
                             db_main db = new db_main(
-                                    id,
                                     parentId,
+                                    id,
                                     title,
                                     imageUrl
                             );
@@ -175,16 +192,11 @@ public class GetData extends AsyncTask<Void,Void,String> {
                                         //,Condition.prop("favorite").eq(false)
                                 )
                                 .list();
-                        Log.i(Variables.Tag,"size:" +list.size()+" and faction: "+FACTION);
 
                         if(list.size()>0){
-//                        db_details.deleteAll(db_details.class,"parentId = ?",faction);
-//                        db_details.deleteInTx(list);
-//                         db_details.delete(list);
                             for(db_details s : list){
                                 s.delete();
                             }
-
                         }
                     } // end try
                     catch (Exception e){e.printStackTrace();}
@@ -203,14 +215,14 @@ public class GetData extends AsyncTask<Void,Void,String> {
                             int parentId = jsonObject2.getInt("CategoryId");
                             String title = jsonObject2.getString("Title");
                             String content = jsonObject2.getString("Content");
-                            String imageUrl = jsonObject2.getString("Url");
+                            String imageUrl = jsonObject2.getString("FileUrl");
 
                             Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
                             myObjectArrayList.add(obj);
 
                             // save gotten object in database
                             try {
-                                Log.i(Variables.Tag,"id: "+id+" and faction: "+parentId);
+
                                 db_details db = new db_details(
                                         id,
                                         parentId,
@@ -220,11 +232,12 @@ public class GetData extends AsyncTask<Void,Void,String> {
                                         false
                                 );
                                 db.save();
+
                             }catch (Exception e) { e.printStackTrace();}
 
                         }// end for
                         // Check if list is empty or not
-                        Log.i(Variables.Tag,"myObjectArrayList size: "+myObjectArrayList.size());
+
                         if(myObjectArrayList.size()>0){
                             delegate.getResult(myObjectArrayList);
                         } else{

@@ -3,11 +3,12 @@ package ir.unicoce.doctorMahmoud.Database;
 import com.orm.SugarRecord;
 
 /**
- * Created by soheil syetem on 11/26/2016.
+ * Created by mohad syetem on 11/26/2016.
  */
 
 public class db_details extends SugarRecord {
-    public int sid,parentid;
+    public int sid;
+    public int parentid;
     public String title,content,imageurl;
     public boolean favorite;
 
