@@ -136,7 +136,6 @@ public class ListDataFragment extends Fragment
     private void init() {
         myList.clear();
         try {
-            Log.i(Variables.Tag,"isFolder init: "+isFolder);
             if(isFolder){
                 // if we want list of folders
                 List<db_main> list = Select
@@ -144,7 +143,6 @@ public class ListDataFragment extends Fragment
                         .where(Condition.prop("parentid").eq(FACTION))
                         .list();
 
-                Log.i(Variables.Tag,"list size: "+list.size()+" faction: "+FACTION);
                 if(list.size()<=0){
                     // database is empty for this FACTION than lets check Internet
                     askServer();
@@ -170,7 +168,6 @@ public class ListDataFragment extends Fragment
                         .where(Condition.prop("parentid").eq(FACTION))
                         .list();
 
-                Log.i(Variables.Tag,"list size: "+list.size()+" faction: "+FACTION);
                 if(list.size()<=0){
                     // database is empty for this FACTION than lets check Internet
                     askServer();
