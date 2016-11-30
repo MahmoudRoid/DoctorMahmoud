@@ -14,7 +14,7 @@ import ir.unicoce.doctorMahmoud.Fragment.MapsFragment;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
 
-public class ContactUs extends AppCompatActivity
+public class ContactUsActivity extends AppCompatActivity
         implements
         OnFragmentInteractionListener
 {

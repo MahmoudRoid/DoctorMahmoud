@@ -89,7 +89,7 @@
             android:screenOrientation="portrait"/>
 
         <activity
-            android:name=".Activity.ContactUs"
+            android:name=".Activity.ContactUsActivity"
             android:screenOrientation="portrait"/>
 
     </application>

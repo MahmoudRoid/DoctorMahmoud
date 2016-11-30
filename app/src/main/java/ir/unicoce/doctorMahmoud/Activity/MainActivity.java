@@ -17,14 +17,12 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatSpinner;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -33,8 +31,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
-
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,7 +42,6 @@ import ir.unicoce.doctorMahmoud.Classes.ResideMenu;
 import ir.unicoce.doctorMahmoud.Classes.ResideMenuItem;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Fragment.ImageSliderFragment;
-import ir.unicoce.doctorMahmoud.Fragment.ListDataFragment;
 import ir.unicoce.doctorMahmoud.Interface.IWebserviceByTag;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
@@ -403,7 +398,7 @@ public class MainActivity extends AppCompatActivity
                                 show_social_dialog();
                                 break;
                             case R.id.aboutus_tamas_bama:
-                                startActivity(new Intent(MainActivity.this,ContactUs.class));
+                                startActivity(new Intent(MainActivity.this,ContactUsActivity.class));
                                 break;
                         }
 
