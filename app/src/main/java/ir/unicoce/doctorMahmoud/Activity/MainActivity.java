@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.MotionEvent;
@@ -43,13 +45,17 @@ import ir.unicoce.doctorMahmoud.Classes.Internet;
 import ir.unicoce.doctorMahmoud.Classes.ResideMenu;
 import ir.unicoce.doctorMahmoud.Classes.ResideMenuItem;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
+import ir.unicoce.doctorMahmoud.Fragment.ImageSliderFragment;
+import ir.unicoce.doctorMahmoud.Fragment.ListDataFragment;
 import ir.unicoce.doctorMahmoud.Interface.IWebserviceByTag;
+import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
 
 public class MainActivity extends AppCompatActivity
         implements
         View.OnClickListener,
-        IWebserviceByTag
+        IWebserviceByTag,
+        OnFragmentInteractionListener
 {
 
     public Handler handler;
@@ -68,6 +74,8 @@ public class MainActivity extends AppCompatActivity
     private String DName, DPhone, DEmail, DNationalCode;
     private static final String SignUpTag="SignUpTag";
     private static final String LoginTag="LoginTag";
+    private FragmentManager fragmentManager;
+    private FragmentTransaction ft;
 
     @BindView(R.id.mainactivity_4cardview)
     LinearLayout mainactivity4cardview;
@@ -97,7 +105,7 @@ public class MainActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         init();
-
+        setFragment();
     }
 
     private void init() {
@@ -137,6 +145,18 @@ public class MainActivity extends AppCompatActivity
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
 
     }
+    /*set ImageSlider fragment*/
+    protected void setFragment() {
+
+        fragmentManager = getSupportFragmentManager();
+        ImageSliderFragment myFragment = new ImageSliderFragment();
+
+        ft = fragmentManager.beginTransaction();
+        ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
+        ft.add(R.id.frame, myFragment);
+        ft.commit();
+
+    }// end setFragment()
 
     private void setMainTable() {
 
@@ -630,4 +650,8 @@ public class MainActivity extends AppCompatActivity
 
     }
 
+    @Override
+    public void onFragmentInteraction(int tagNumber) {
+
+    }
 }// end class
