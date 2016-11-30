@@ -86,22 +86,24 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.InsuranceActivity"
-            android:screenOrientation="portrait"  />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.MagazineActivity"
-            android:screenOrientation="portrait"  />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.DrugsActivity"
-            android:screenOrientation="portrait"  />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.CareActivity"
-            android:screenOrientation="portrait"  />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.PartsActivity"
-            android:screenOrientation="portrait"  />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.FavoriteActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".Activity.VideosActivity" />
+        <activity android:name=".Activity.ShowVideoActivity"></activity>
     </application>
 
 </manifest>

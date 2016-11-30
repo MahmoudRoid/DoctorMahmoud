@@ -32,12 +32,15 @@ import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
 
+import java.io.File;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.unicoce.doctorMahmoud.AsyncTasks.LoginPost;
 import ir.unicoce.doctorMahmoud.AsyncTasks.SignUpPost;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
+import ir.unicoce.doctorMahmoud.Classes.ROOTS;
 import ir.unicoce.doctorMahmoud.Classes.ResideMenu;
 import ir.unicoce.doctorMahmoud.Classes.ResideMenuItem;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity
 
         init();
         setFragment();
+        RootMaker();
     }
 
     private void init() {
@@ -185,7 +189,7 @@ public class MainActivity extends AppCompatActivity
 //                    showBottomsheetThirdCard();
                     checkForLogin();
                 } else {
-                    Toast.makeText(getApplicationContext(), "7", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,VideosActivity.class));
                 }
                 break;
             case R.id.card_view4:
@@ -649,5 +653,24 @@ public class MainActivity extends AppCompatActivity
     public void onFragmentInteraction(int tagNumber) {
 
     }
+
+    private void RootMaker() {
+
+        File root   = new File(ROOTS.ROOT_DIR);
+        File video  = new File(ROOTS.VIDEOS);
+        File voice  = new File(ROOTS.VOICES);
+        File pdf    = new File(ROOTS.PDFS);
+        File image  = new File(ROOTS.IMAGES);
+
+
+        if(!root.exists()){
+            root.mkdir();
+            video.mkdir();
+            voice.mkdir();
+            pdf.mkdir();
+            image.mkdir();
+        }
+
+    }// end RootMaker()
 
 }// end class
