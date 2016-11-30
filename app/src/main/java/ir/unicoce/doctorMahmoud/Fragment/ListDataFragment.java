@@ -95,8 +95,6 @@ public class ListDataFragment extends Fragment
 
         fab = (FloatingActionButton) layout.findViewById(R.id.fab);
         rv = (RecyclerView) layout.findViewById(R.id.rv);
-        /*LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
-        rv.setLayoutManager(lm);*/
         setFab();
         init();
         onClickListener();
@@ -209,11 +207,13 @@ public class ListDataFragment extends Fragment
     private void refreshAdapter(){
 
         if(isFolder){
+            // show folders in Grid
             mLayoutManager = new GridLayoutManager(getActivity(),2);
             rv.setLayoutManager(mLayoutManager);
             fAdapter = new RecycleViewAdapter_FolderData(myList,San,getActivity());
             rv.setAdapter(fAdapter);
         }else{
+            // show objects in List
             LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             rv.setLayoutManager(lm);
             oAdapter = new RecycleViewAdapter_ObjectData(myList,San,getActivity());
