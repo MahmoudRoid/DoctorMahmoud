@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    tools:ignore="MissingPrefix"
     tools:context="ir.unicoce.doctorMahmoud.Activity.ContactUsActivity">
     <!--toolBar-->
     <include
@@ -23,16 +24,104 @@
         android:layout_height="0dp"
         android:layout_weight="0.6">
 
-        <LinearLayout
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-           <TextView
+            android:layout_height="wrap_content">
+            <!--Addresses Root-->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="نام شعبه"/>
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <!--Tehran Branch-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                <!--Address of Branch-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:id="@+id/ivMaps_Tehran"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_googlemaps"/>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:gravity="bottom"
+                            android:layout_weight="1"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="آدرس شعبه :"
+                            android:textSize="20dp"
+                            android:textColor="@color/Black"
+                            fontPath="fonts/SansLight.ttf"/>
+                    </LinearLayout>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="تهران - میدان آزادی - نبش بلوار ارم کوچه یاس ساختمان پزشکان - واحد دوم"
+                        fontPath="fonts/SansLight.ttf"/>
+                <!--Branch Phones-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:text="تلفن های تماس :"
+                        android:textSize="20dp"
+                        android:textColor="@color/Black"
+                        android:lineSpacingExtra="4dp"
+                        fontPath="fonts/SansLight.ttf"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="15dp"
+                        android:gravity="center"
+                        android:lineSpacingExtra="4dp"
+                        android:text="021-35269756 \n 0912986457"
+                        fontPath="fonts/SansLight.ttf"/>
+                    <!--Branch Work Time-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="15dp"
+                            android:text="ساعات کاری :"
+                            android:textSize="20dp"
+                            android:textColor="@color/Black"
+                            android:lineSpacingExtra="4dp"
+                            fontPath="fonts/SansLight.ttf"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginBottom="15dp"
+                            android:gravity="center"
+                            android:lineSpacingExtra="4dp"
+                            android:text="همه روزه \n 7 الی  20"
+                            fontPath="fonts/SansLight.ttf"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
     </ScrollView>
 </LinearLayout>

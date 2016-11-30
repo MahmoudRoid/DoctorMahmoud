@@ -1,5 +1,6 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
+import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +14,7 @@ import android.widget.TextView;
 import ir.unicoce.doctorMahmoud.Fragment.MapsFragment;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ContactUsActivity extends AppCompatActivity
         implements
@@ -85,5 +87,10 @@ public class ContactUsActivity extends AppCompatActivity
         }
         return false;
     }// end onOptionsItemSelected()
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }// end class
