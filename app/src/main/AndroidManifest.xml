@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ir.unicoce.doctorMahmoud">
 
@@ -30,7 +29,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
-
         <meta-data
             android:name="DATABASE"
             android:value="doctormahmoud.db" />
@@ -43,7 +41,6 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="ir.unicoce.doctorMahmoud" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
@@ -57,41 +54,54 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Activity.MainActivity"
-            android:theme="@style/CustomFullScreenTheme"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/CustomFullScreenTheme" />
         <activity
             android:name=".Activity.AboutUsActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.DepartmentActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.DescriptionActivity"
             android:label="@string/title_activity_description"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Activity.NewsActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.EstimateCostActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.ShowActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.ContactUsActivity"
-            android:screenOrientation="portrait"/>
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ServicesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.InsuranceActivity"
+            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".Activity.MagazineActivity"
+            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".Activity.DrugsActivity"
+            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".Activity.CareActivity"
+            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".Activity.PartsActivity"
+            android:screenOrientation="portrait"  />
+        <activity
+            android:name=".Activity.FavoriteActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

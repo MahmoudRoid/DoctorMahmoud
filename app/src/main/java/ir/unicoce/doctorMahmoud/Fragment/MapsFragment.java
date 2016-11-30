@@ -14,11 +14,14 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+
+import java.util.Map;
 
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
@@ -40,6 +43,7 @@ public class MapsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private GoogleMap mMap;
+    private MapView mapView;
     public LatLng mLatLan =  null;
 
     public MapsFragment() {}
@@ -76,6 +80,9 @@ public class MapsFragment extends Fragment {
             layout = (ViewGroup) inflater.inflate(R.layout.fragment_map, container, false);
         }
         catch (InflateException e) {e.printStackTrace(); }
+
+
+
         return layout;
     }
 
@@ -85,14 +92,21 @@ public class MapsFragment extends Fragment {
         mLatLan = new LatLng(Float.parseFloat(Lat), Float.parseFloat(Lng));
 
         try {
+            mapView = (MapView) layout.findViewById(R.id.map);
+            mapView.onCreate(savedInstanceState);
 
-            mMap = ((SupportMapFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
-            CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
+            mMap = mapView.getMap();
+            /*mMap = ((SupportMapFragment) getActivity()
+                    .getSupportFragmentManager()
+                    .findFragmentById(R.id.map))
+                    .getMap();*/
+            /*CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
             mMap.animateCamera(cam);
 
             Marker marker = mMap.addMarker(new MarkerOptions().position(mLatLan)
                     .title(MarkerTitle)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+*/
 
 
         } // end try

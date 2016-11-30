@@ -224,8 +224,8 @@ public class ListDataFragment extends Fragment
     private void setFab() {
         switch (FACTION){
 
-            case Variables.getFavorites:
-                fab.setVisibility(View.INVISIBLE);
+            case Variables.getAboutUs:
+                fab.setVisibility(View.VISIBLE);
                 break;
 
             default:
@@ -268,3 +268,5 @@ public class ListDataFragment extends Fragment
     }
 
 }// end class
+
+// TODO : set name of folder as toolbar title

@@ -11,7 +11,6 @@ public class Variables {
     public static final String catIndex         = "catIndex";
     public static final String Index            = "Index";
 
-    public static final String getFavorites     = "+";
     public static final String getNews          = "2";
     public static final String getDanestaniha   = "3";
     public static final String getServices      = "4";
