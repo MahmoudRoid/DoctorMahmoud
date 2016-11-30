@@ -6,6 +6,8 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import ir.unicoce.doctorMahmoud.Fragment.MapsFragment;
@@ -45,10 +47,11 @@ public class ContactUs extends AppCompatActivity
     protected void setFragment() {
 
         MapsFragment myFragment = new MapsFragment();
-        /*Bundle bundle = new Bundle();
-        bundle.putString("", "");
-        bundle.putString("", "");
-        myFragment.setArguments(bundle);*/
+        Bundle bundle = new Bundle();
+        bundle.putFloat("Lat1", 41.0760475f);
+        bundle.putFloat("Lng1", 29.0275024f);
+        bundle.putString("Title", "مطب تهران");
+        myFragment.setArguments(bundle);
 
         FragmentTransaction ft = fragmentManager.beginTransaction();
         ft.add(R.id.frame, myFragment);
@@ -60,5 +63,27 @@ public class ContactUs extends AppCompatActivity
     public void onFragmentInteraction(int tagNumber) {
 
     }// end onFragmentInteraction()
+    /*create toolbar menu*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_empty, menu);
+        return true;
+    }// end onCreateOptionsMenu()
+    /*on toolbar menu item click support*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        switch(id){
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+
+        }
+        return false;
+    }// end onOptionsItemSelected()
 
 }// end class

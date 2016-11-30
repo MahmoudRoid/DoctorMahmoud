@@ -24,7 +24,7 @@ import ir.unicoce.doctorMahmoud.AsyncTasks.GetData;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
-import ir.unicoce.doctorMahmoud.Helper.Object_Data;
+import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
 

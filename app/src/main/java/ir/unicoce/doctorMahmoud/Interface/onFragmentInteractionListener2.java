@@ -1,6 +1,6 @@
 package ir.unicoce.doctorMahmoud.Interface;
 
-import ir.unicoce.doctorMahmoud.Helper.Object_Data;
+import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 
 /**
  * Created by NooR26.com on 11/28/2016.

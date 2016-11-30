@@ -14,15 +14,15 @@ import android.widget.TextView;
 
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Fragment.ListDataFragment;
-import ir.unicoce.doctorMahmoud.Helper.Object_Data;
-import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
+import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
 
 public class NewsActivity extends AppCompatActivity
         implements
-        onFragmentInteractionListener2 {
-
+        onFragmentInteractionListener2
+{
+    /*variables and views inside this activity : */
     Typeface San;
     Toolbar toolbar;
     TextView txtToolbar;
@@ -78,7 +78,7 @@ public class NewsActivity extends AppCompatActivity
         ft.commit();
 
     }// end setFragment()
-
+    /*transactions happen here which calls from fragments inside this activity*/
     @Override
     public void onFragmentInteraction(int folderDepth, Object_Data ob) {
 
@@ -121,13 +121,13 @@ public class NewsActivity extends AppCompatActivity
         }
 
     }// end onFragmentInteraction()
-
+    /*create toolbar menu*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_empty, menu);
         return true;
-    }
-
+    }// end onCreateOptionsMenu()
+    /*on toolbar menu item click support*/
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -142,8 +142,8 @@ public class NewsActivity extends AppCompatActivity
 
         }
         return false;
-    }
-
+    }// end onOptionsItemSelected()
+    /*on back button click*/
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -152,6 +152,6 @@ public class NewsActivity extends AppCompatActivity
         ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         ft.show(fragment);
         ft.commit();
-    }
+    }// end onBackPressed()
 
 }// end class

@@ -29,7 +29,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.intuit.sdp:sdp-android:1.0.3'
     compile 'com.jakewharton:butterknife:8.4.0'
-    compile 'com.cocosw:bottomsheet:1.+@aar'
+    compile 'com.github.soarcn:BottomSheet:65f7535df9'
     compile 'com.github.satyan:sugar:1.5'
     compile 'com.android.support:design:25.0.0'
     compile 'com.squareup.okhttp3:okhttp:3.4.2'

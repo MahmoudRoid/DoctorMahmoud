@@ -25,25 +25,28 @@ public class MapsFragment extends Fragment {
 
     private ViewGroup layout;
 
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private static final String ARG_PARAM1 = "Lat";
+    private static final String ARG_PARAM2 = "Lng";
+    private static final String ARG_PARAM3 = "Title";
 
     // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private Float Lat1;
+    private Float Lng1;
+    private String MarkerTitle = "";
 
     private OnFragmentInteractionListener mListener;
 
     private GoogleMap mMap;
-    public LatLng tehran_latLng =  null;
+    public LatLng mLocation1 =  null;
 
     public MapsFragment() {}
 
-    public static MapsFragment newInstance(String param1, String param2) {
+    public static MapsFragment newInstance(Float param1, Float param2, String param3) {
         MapsFragment fragment = new MapsFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putFloat(ARG_PARAM1, param1);
+        args.putFloat(ARG_PARAM2, param2);
+        args.putString(ARG_PARAM3,param3);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,15 +55,15 @@ public class MapsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+            Lat1        = getArguments().getFloat(ARG_PARAM1);
+            Lng1        = getArguments().getFloat(ARG_PARAM2);
+            MarkerTitle = getArguments().getString(ARG_PARAM3);
         }
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         layout = (ViewGroup) inflater.inflate(R.layout.fragment_map, container, false);
         return layout;
     }
@@ -68,18 +71,16 @@ public class MapsFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        String lat = "0000.00";
-        String lng = "0000.00";
-        tehran_latLng = new LatLng(Float.parseFloat(lat), Float.parseFloat(lng));
+        mLocation1 = new LatLng(Lat1, Lng1);
 
         try {
 
             mMap = ((SupportMapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-            CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(tehran_latLng,17);
+            CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLocation1,17);
             mMap.animateCamera(cam);
 
-            Marker marker = mMap.addMarker(new MarkerOptions().position(tehran_latLng)
-                    .title("")
+            mMap.addMarker(new MarkerOptions().position(mLocation1)
+                    .title(MarkerTitle)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
         } // end try
@@ -91,8 +92,7 @@ public class MapsFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mParam1 = bundle.getString("param1");
-            mParam2 = bundle.getString("param2");
+            //mParam1 = bundle.getString("title");
         }
     }
 

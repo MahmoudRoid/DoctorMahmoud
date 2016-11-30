@@ -61,8 +61,7 @@ public class ImageSliderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         layout = (ViewGroup) inflater.inflate(R.layout.fragment_image_slider, container, false);
         return layout;
     }
@@ -80,7 +79,7 @@ public class ImageSliderFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
         Bundle bundle = getArguments();
         if (bundle != null) {
-            mParam1 = bundle.getString("title");
+
         }
     }
 
