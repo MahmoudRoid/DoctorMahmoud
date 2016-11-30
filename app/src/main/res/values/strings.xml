@@ -150,6 +150,10 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_support">SupportActivity</string>
+    <string name="company_tell">026 - 32522222</string>
+    <string name="company_address">کرج - چهارراه کارخانه قند - میدان شهید فهمیده - ساختمان بیمه - واحد 1</string>
+    <string name="title_activity_common_questions">CommonQuestionsActivity</string>
 
 
 </resources>

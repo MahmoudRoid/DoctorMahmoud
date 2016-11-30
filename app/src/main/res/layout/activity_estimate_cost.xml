@@ -5,6 +5,23 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize">
+
+        <LinearLayout
+            android:id="@+id/estimate_cost_linear"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
     <RelativeLayout
         android:id="@+id/estimate_button"
         android:layout_width="match_parent"
@@ -19,6 +36,17 @@
             android:textColor="#ffffff"
             android:textSize="@dimen/_16sdp"
             android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/estimate_cost_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/White"
+            android:visibility="gone"
+            android:text="0"
+            android:layout_marginLeft="@dimen/_8sdp"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

@@ -17,6 +17,7 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -31,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
+import com.github.javiersantos.bottomdialogs.BottomDialog;
 
 import java.io.File;
 
@@ -95,6 +97,8 @@ public class MainActivity extends AppCompatActivity
     TextView cardView4Text;
     @BindView(R.id.activity_main)
     LinearLayout activityMain;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -218,7 +222,7 @@ public class MainActivity extends AppCompatActivity
             resideMenu.closeMenu();
         }
         else if (view == itemSupport) {
-            Toast.makeText(getApplicationContext(), "5", Toast.LENGTH_SHORT).show();
+         startActivity(new Intent(MainActivity.this,SupportActivity.class));
             resideMenu.closeMenu();
         }
     }
@@ -418,20 +422,26 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which) {
 
                         switch (which){
-                            case R.id.serices_introduce_services:
+                            case R.id.services_introduce_services:
                                 Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                                 break;
-                            case R.id.serices_reservation:
+                            case R.id.services_reservation:
                                 Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                                 break;
-                            case R.id.serices_cares:
+                            case R.id.services_cares:
                                 Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                                 break;
-                            case R.id.serices_insurances:
+                            case R.id.services_insurances:
                                 Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                                 break;
-                            case R.id.serices_services_prices:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                            case R.id.services_services_prices:
+                                if(Internet.isNetworkAvailable(MainActivity.this)){
+                                    startActivity(new Intent(MainActivity.this,EstimateCostActivity.class));
+                                }
+                                else {
+                                    Toast.makeText(MainActivity.this, "internet nadarid", Toast.LENGTH_SHORT).show();
+                                }
+                                
                                 break;
                         }
                     }

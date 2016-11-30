@@ -32,7 +32,10 @@ public class Variables {
     public static final String WebSite_Link         = "";
     public static final String Telegram_Channel_Id  = "";
     public static final String Instagram_Id         = "";
+    public static final String Instagram_Id_From_App= "";
     public static final String Telegram_chat_Id     = "";
+    public static final String Gmail     = "uniced@gmail.com";
+    public static final String GooglePlus     = "https://plus.google.com/communities/107847486351510098159";
 
 }// end class
 

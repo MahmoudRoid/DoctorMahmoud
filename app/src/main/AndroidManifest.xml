@@ -54,11 +54,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".Activity.EstimateCostActivity" />
+        <activity android:name=".Activity.ShowActivity" />
         <activity
+            android:name=".Activity.SupportActivity"
+            android:label="@string/title_activity_support"
+            android:theme="@style/AppTheme" />
             android:name=".Activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CustomFullScreenTheme" />
         <activity
+            android:name=".Activity.CommonQuestionsActivity"
+            android:label="@string/title_activity_common_questions"
+            android:theme="@style/AppTheme"></activity>
             android:name=".Activity.AboutUsActivity"
             android:screenOrientation="portrait" />
         <activity
