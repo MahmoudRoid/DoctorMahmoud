@@ -189,7 +189,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                                 .from(db_details.class)
                                 .where(
                                         Condition.prop("parentid").eq(FACTION)
-                                        //,Condition.prop("favorite").eq(false)
+                                        ,Condition.prop("favorite").eq(0)
                                 )
                                 .list();
 

@@ -266,7 +266,6 @@ public class ListDataFragment extends Fragment
     public void getError(String ErrorCodeTitle) throws Exception {
         Toast.makeText(getActivity(), ErrorCodeTitle, Toast.LENGTH_SHORT).show();
     }
-
 }// end class
 
 // TODO : set name of folder as toolbar title

@@ -178,7 +178,7 @@ public class MainActivity extends AppCompatActivity
                 if (firstCards) {
                     showBottomsheetFirstCard();
                 } else {
-
+                    startActivity(new Intent(MainActivity.this,CommonQuestionsActivity.class));
                 }
                 break;
             case R.id.card_view2:
