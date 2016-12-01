@@ -24,7 +24,10 @@ import ir.unicoce.doctorMahmoud.Helper.EstimateCost;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
 
-public class EstimateCostActivity extends AppCompatActivity implements IWebservice{
+public class EstimateCostActivity extends AppCompatActivity
+        implements
+        IWebservice
+{
 
     @BindView(R.id.estimate_cost_linear)
     LinearLayout estimateCostLinear;
@@ -32,7 +35,6 @@ public class EstimateCostActivity extends AppCompatActivity implements IWebservi
     TextView estimateCostPrice;
 
     public ArrayList<EstimateCost> estimateCostArrayList;
-    private Typeface San;
 
 
     @Override
@@ -82,7 +84,6 @@ public class EstimateCostActivity extends AppCompatActivity implements IWebservi
             cb.setGravity(Gravity.CENTER_VERTICAL);
             cb.setPadding(10, 35, 10, 8);
             cb.setLineSpacing(30,1);
-            cb.setTypeface(San);
             cb.setText(estimateCostArrayList.get(i).getTitle());
             cb.setTag(estimateCostArrayList.get(i).getCost());
             cb.setBackgroundColor(Color.parseColor("#ffffff"));

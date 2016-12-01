@@ -40,7 +40,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.55"
-        android:background="#FF4900">
+        android:background="@color/Orange">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -70,7 +70,7 @@
                         android:id="@+id/card_view1"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        app:cardBackgroundColor="#ffffff"
+                        app:cardBackgroundColor="@color/White"
                         app:cardCornerRadius="4dp"
                         android:layout_gravity="right"
                         android:layout_weight="1">
@@ -92,7 +92,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/aboutus"
-                                android:textColor="#000000"
+                                android:textColor="@color/Black"
                                 android:layout_below="@+id/card_view1_image"
                                 android:layout_marginTop="@dimen/_12sdp"
                                 android:textStyle="bold"/>
@@ -109,7 +109,7 @@
                         android:id="@+id/card_view2"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        app:cardBackgroundColor="#ffffff"
+                        app:cardBackgroundColor="@color/White"
                         app:cardCornerRadius="4dp"
                         android:layout_gravity="right"
                         android:layout_weight="1">
@@ -155,7 +155,7 @@
                         android:id="@+id/card_view3"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        app:cardBackgroundColor="#ffffff"
+                        app:cardBackgroundColor="@color/White"
                         app:cardCornerRadius="4dp"
                         android:layout_gravity="right"
                         android:layout_weight="1">
@@ -177,7 +177,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/club"
-                                android:textColor="#000000"
+                                android:textColor="@color/Black"
                                 android:layout_below="@+id/card_view3_image"
                                 android:layout_marginTop="@dimen/_12sdp"
                                 android:textStyle="bold"/>
@@ -194,7 +194,7 @@
                         android:id="@+id/card_view4"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        app:cardBackgroundColor="#ffffff"
+                        app:cardBackgroundColor="@color/White"
                         app:cardCornerRadius="4dp"
                         android:layout_gravity="right"
                         android:layout_weight="1">
@@ -216,7 +216,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="@string/danestaniha"
-                                android:textColor="#000000"
+                                android:textColor="@color/Black"
                                 android:layout_below="@+id/card_view4_image"
                                 android:layout_marginTop="@dimen/_12sdp"
                                 android:textStyle="bold"/>

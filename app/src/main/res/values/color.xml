@@ -18,5 +18,6 @@
     <color name="RedLight">#F46C60</color>
     <color name="GrayDark">#415C63</color>
     <color name="GrayLight">#6A7668</color>
+    <color name="Orange">#FF4900</color>
 
 </resources>
