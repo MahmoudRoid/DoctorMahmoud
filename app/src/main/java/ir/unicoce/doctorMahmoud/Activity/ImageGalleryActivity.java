@@ -130,6 +130,35 @@ public class ImageGalleryActivity extends AppCompatActivity
             snackbar.show();
         }// end check Internet
     }// end askServer()
+    /*set data to recycleView*/
+    public void showList(ArrayList<Object_Data> arrayList) {
+        myList = arrayList;
+        mRecyclerView = (RecyclerView) findViewById(R.id.images_detail_recycler);
+        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mAdapter = new RecycleViewAdapter_Images(myList,San,ImageGalleryActivity.this);
+        mRecyclerView.setAdapter(mAdapter);
+
+        Glide.with(this).load(arrayList.get(0).getImageUrl())
+                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                .placeholder(R.mipmap.ic_launcher)
+                .into(imagesDetailImage);
+
+        mRecyclerView.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        ImageGalleryActivity.this,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+
+                                Glide.with(ImageGalleryActivity.this)
+                                        .load(myList.get(position).getImageUrl())
+                                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+                                        .placeholder(R.mipmap.ic_launcher).into(imagesDetailImage);
+
+                            }
+                        }));
+    }
     /*create toolbar menu*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -155,7 +184,7 @@ public class ImageGalleryActivity extends AppCompatActivity
 
         }
         return false;
-    }// end onOptionsItemSelected()
+    }
     /*get result of askServer*/
     @Override
     public void getResult(Object result) throws Exception {
@@ -174,35 +203,6 @@ public class ImageGalleryActivity extends AppCompatActivity
         TextView tv = (TextView) snack_view.findViewById(android.support.design.R.id.snackbar_text);
         tv.setTextColor(Color.WHITE);
         snackbar.show();
-    }
-    /*set data to recycleView*/
-    public void showList(ArrayList<Object_Data> arrayList) {
-        myList = arrayList;
-        mRecyclerView = (RecyclerView) findViewById(R.id.images_detail_recycler);
-        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
-        mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecycleViewAdapter_Images(myList,San,ImageGalleryActivity.this);
-        mRecyclerView.setAdapter(mAdapter);
-
-        Glide.with(this).load(arrayList.get(0).getImageUrl())
-                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                .placeholder(R.mipmap.ic_launcher)
-                .into(imagesDetailImage);
-
-        mRecyclerView.addOnItemTouchListener(
-                new RecyclerItemClickListener(
-                        ImageGalleryActivity.this,
-                        new RecyclerItemClickListener.OnItemClickListener() {
-            @Override
-            public void onItemClick(View view, int position) {
-
-                Glide.with(ImageGalleryActivity.this)
-                        .load(myList.get(position).getImageUrl())
-                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                        .placeholder(R.mipmap.ic_launcher).into(imagesDetailImage);
-
-            }
-        }));
     }
 
 }// end class
