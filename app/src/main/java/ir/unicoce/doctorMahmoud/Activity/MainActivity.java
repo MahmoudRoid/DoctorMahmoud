@@ -17,7 +17,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -200,7 +199,7 @@ public class MainActivity extends AppCompatActivity
                 if (firstCards) {
                     showBottomsheetFourthCard();
                 } else {
-                    Toast.makeText(getApplicationContext(), "8", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(MainActivity.this,ImagesActivity.class));
                 }
                 break;
             case R.id.drawer_icon:

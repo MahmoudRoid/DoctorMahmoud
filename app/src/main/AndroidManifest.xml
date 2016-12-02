@@ -65,7 +65,7 @@
         <activity
             android:name=".Activity.CommonQuestionsActivity"
             android:label="@string/title_activity_common_questions"
-            android:theme="@style/AppTheme"/>
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".Activity.AboutUsActivity"
             android:screenOrientation="portrait" />
@@ -115,6 +115,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".Activity.ShowVideoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ImageGalleryActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ImagesActivity"
             android:screenOrientation="portrait" />
     </application>
 
