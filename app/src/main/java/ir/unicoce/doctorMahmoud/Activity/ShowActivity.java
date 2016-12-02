@@ -17,8 +17,15 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
+import java.util.List;
 
 import ir.unicoce.doctorMahmoud.Classes.Variables;
+import ir.unicoce.doctorMahmoud.Database.db_details;
+import ir.unicoce.doctorMahmoud.Database.db_main;
+import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.R;
 
 public class ShowActivity extends AppCompatActivity {
@@ -30,9 +37,11 @@ public class ShowActivity extends AppCompatActivity {
     private TextView txtToolbar;
     private String Faction="",ImageUrl="",Title="",Content="";
     private int Sid;
-    private boolean isFav=false;
+    private boolean isFav = false;
     private FloatingActionButton fab,fabShare;
     private LinearLayout lay;
+    private Object_Data myOb;
+    private List<db_details> list;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,21 +54,35 @@ public class ShowActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 // TODO : on favorite icon click
-                /*if(isFav){
-                    db.open();
-                    db.update("Favorite","0","Faction",Faction,"Sid",Sid);
-                    db.close();
+                if(isFav){
+                    db_details tempDb = list.get(0);
+                    db_details db = new db_details(
+                            myOb.getSid(),
+                            myOb.getParentId(),
+                            myOb.getTitle(),
+                            myOb.getContent(),
+                            myOb.getImageUrl(),
+                            false
+                    );
+                    db.update(tempDb.getId() == db.getId());
+
                     fab.setImageResource(R.drawable.favorite_outline_red);
-                    Fav = "0";
                     isFav = false;
                 }else{
-                    db.open();
-                    db.update("Favorite","1","Faction",Faction,"Sid",Sid);
-                    db.close();
+                    db_details tempDb = list.get(0);
+                    db_details db = new db_details(
+                            myOb.getSid(),
+                            myOb.getParentId(),
+                            myOb.getTitle(),
+                            myOb.getContent(),
+                            myOb.getImageUrl(),
+                            false
+                    );
+
+                    db.update(tempDb.getId() == db.getId());
                     fab.setImageResource(R.drawable.favorite_red);
-                    Fav = "1";
                     isFav = true;
-                }*/
+                }
             }
         });
 
@@ -109,17 +132,26 @@ public class ShowActivity extends AppCompatActivity {
         ImageUrl    = getIntent().getStringExtra("image_url");
         Faction     = getIntent().getStringExtra("faction");
 
-        // TODO : favorite first initialize
-        /*db.open();
-        Fav = db.DisplayOne(6,"Sid",Sid,"Faction",Faction);
-        db.close();
+        list = Select
+                .from(db_details.class)
+                .where(Condition.prop("sid").eq(Sid))
+                .list();
 
-        if(Fav.equals("1")){
+        myOb = new Object_Data(
+                list.get(0).getsid(),
+                list.get(0).getparentid(),
+                list.get(0).getTitle(),
+                list.get(0).getContent(),
+                list.get(0).getImageUrl(),
+                list.get(0).isFavorite()
+        );
+
+        if(myOb.isFavoirite()){
             isFav = true;
             fab.setImageResource(R.drawable.favorite_red);
         }else{
             fab.setImageResource(R.drawable.favorite_outline_red);
-        }*/
+        }
 
         Glide.with(this)
                 .load(ImageUrl)
@@ -130,12 +162,12 @@ public class ShowActivity extends AppCompatActivity {
 
         txtToolbar.setText(Title);
 
-        if(
+        /*if(
                 Faction.equals(Variables.getServices)
                 || Faction.equals(Variables.getInsurance)
                 ) {
             fab.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
         setContent(Content+"<\"\">");
 

@@ -12,10 +12,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.orm.query.Condition;
+import com.orm.query.Select;
+
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.unicoce.doctorMahmoud.Adapter.ItemClickSupport;
 import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_ObjectData;
+import ir.unicoce.doctorMahmoud.Database.db_details;
 import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.R;
 
@@ -68,7 +73,21 @@ public class FavoriteActivity extends AppCompatActivity
     }// end define()
     /*load all favorite objects from database*/
     private void init(){
-        // TODO : load data from database
+        myList.clear();
+        List<db_details> list = Select
+                .from(db_details.class)
+                .where(Condition.prop("favorite").eq(1))
+                .list();
+        for (int i=0;i<list.size();i++){
+            myList.add(new Object_Data(
+                    list.get(i).getsid(),
+                    list.get(i).getparentid(),
+                    list.get(i).getTitle(),
+                    list.get(i).getContent(),
+                    list.get(i).getImageUrl(),
+                    list.get(i).isFavorite())
+            );
+        }
         refreshRecycleView();
     }// end init()
     /*refresh and set RecycleView*/

@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity
         }
 //////////////////////////// for menu Items //////////////////////////////////////////////////////////
         if (view == itemFavorites) {
-            Toast.makeText(getApplicationContext(), "1", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(MainActivity.this,FavoriteActivity.class));
             resideMenu.closeMenu();
         } else if (view == itemEnteghadat) {
             Toast.makeText(getApplicationContext(), "2", Toast.LENGTH_SHORT).show();
