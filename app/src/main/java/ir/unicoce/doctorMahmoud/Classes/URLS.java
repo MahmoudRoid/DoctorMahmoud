@@ -12,4 +12,8 @@ public class URLS {
     public static final String Register          = DOMAIN + "Register";
     public static final String Login             = DOMAIN + "Login";
     public static final String getEstimaeCost    = DOMAIN + "getservices";
+    public static final String PostContactUs    = DOMAIN + "ContactUs";
+
+
+
 }// end class
