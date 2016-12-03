@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_estimate_cost"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
 
 
     <ScrollView
@@ -35,7 +36,8 @@
             android:text="@string/estimate_cost"
             android:textColor="#ffffff"
             android:textSize="@dimen/_16sdp"
-            android:layout_centerInParent="true"/>
+            android:layout_centerInParent="true"
+            fontPath="fonts/SansLight.ttf"/>
 
         <TextView
             android:id="@+id/estimate_cost_price"
@@ -45,7 +47,8 @@
             android:textColor="@color/White"
             android:visibility="gone"
             android:text="0"
-            android:layout_marginLeft="@dimen/_8sdp"/>
+            android:layout_marginLeft="@dimen/_8sdp"
+            fontPath="fonts/SansLight.ttf"/>
 
     </RelativeLayout>
 

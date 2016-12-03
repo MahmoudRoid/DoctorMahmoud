@@ -49,6 +49,7 @@ import ir.unicoce.doctorMahmoud.Fragment.ImageSliderFragment;
 import ir.unicoce.doctorMahmoud.Interface.IWebserviceByTag;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class MainActivity extends AppCompatActivity
         implements
@@ -681,5 +682,10 @@ public class MainActivity extends AppCompatActivity
         }
 
     }// end RootMaker()
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }// end class

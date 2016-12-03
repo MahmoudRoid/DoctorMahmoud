@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    tools:ignore="MissingPrefix"
     android:layout_height="match_parent">
 
 
@@ -50,6 +53,7 @@
                                     android:layout_gravity="center_horizontal|center_vertical"
                                     android:layout_marginBottom="@dimen/_15sdp"
                                     android:text="text"
+                              fontPath="fonts/SansLight.ttf"
                                     android:textColor="#000000"
                                     android:textSize="@dimen/_14sdp"
                                     android:gravity="center_vertical"
@@ -76,6 +80,7 @@
                                     android:layout_marginTop="@dimen/_15sdp"
                                     android:layout_marginBottom="@dimen/_15sdp"
                                     android:text="text"
+                               fontPath="fonts/SansLight.ttf"
                                     android:textColor="#000000"
                                     android:textSize="@dimen/_14sdp"
                                     android:gravity="center_vertical"
@@ -103,6 +108,7 @@
                                     android:layout_gravity="center_horizontal|center_vertical"
                                     android:layout_marginTop="@dimen/_15sdp"
                                     android:text="text"
+                              fontPath="fonts/SansLight.ttf"
                                     android:textColor="#000000"
                                     android:textSize="@dimen/_14sdp"
                                     android:gravity="center_vertical"

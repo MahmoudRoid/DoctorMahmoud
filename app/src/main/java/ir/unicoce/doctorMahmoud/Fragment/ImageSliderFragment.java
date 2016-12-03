@@ -20,6 +20,7 @@ import ir.unicoce.doctorMahmoud.Adapter.ViewPagerAdapter_ImageSlider;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ImageSliderFragment extends Fragment {
 

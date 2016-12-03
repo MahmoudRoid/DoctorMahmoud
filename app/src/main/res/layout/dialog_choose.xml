@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
 
 
     <ScrollView
@@ -47,6 +49,7 @@
                             android:id="@+id/txtHeader_dialog"
                             android:layout_weight="1"
                             android:gravity="center|right"
+                            fontPath="fonts/SansLight.ttf"
                             android:textColor="@color/AccentColor" />
 
                     </LinearLayout>
@@ -58,6 +61,7 @@
                         android:id="@+id/txtContext_dialog"
                         android:gravity="right"
                         android:layout_margin="10dp"
+                        fontPath="fonts/SansLight.ttf"
                         android:textColor="@color/PrimaryText" />
 
                     <LinearLayout
@@ -74,6 +78,7 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
+                            fontPath="fonts/SansLight.ttf"
                             android:padding="10dp"
                             android:textColor="@color/PrimaryText"
                             android:background="@drawable/shape_dialog_txt_button" />
@@ -87,6 +92,7 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
+                            fontPath="fonts/SansLight.ttf"
                             android:padding="10dp"
                             android:textColor="@color/PrimaryText"
                             android:background="@drawable/shape_dialog_txt_button" />
@@ -100,6 +106,7 @@
                             android:layout_marginRight="5dp"
                             android:layout_weight="1"
                             android:gravity="center"
+                            fontPath="fonts/SansLight.ttf"
                             android:padding="10dp"
                             android:textColor="@color/PrimaryText"
                             android:background="@drawable/shape_dialog_txt_button" />

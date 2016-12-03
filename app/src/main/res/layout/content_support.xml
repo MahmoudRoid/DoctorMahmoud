@@ -10,6 +10,7 @@
     tools:context="ir.unicoce.doctorMahmoud.Activity.SupportActivity"
     tools:showIn="@layout/activity_support"
     android:orientation="vertical"
+    tools:ignore="MissingPrefix"
     android:weightSum="1">
 
     <LinearLayout
@@ -152,6 +153,7 @@
                         android:text="@string/company_tell"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
+                        fontPath="fonts/SansLight.ttf"
                         android:layout_weight="0.5"/>
 
                     <TextView
@@ -160,6 +162,7 @@
                         android:text="@string/company_address"
                         android:gravity="center_horizontal"
                         android:layout_gravity="center_horizontal"
+                        fontPath="fonts/SansLight.ttf"
                         android:layout_weight="0.5"/>
 
                 </LinearLayout>

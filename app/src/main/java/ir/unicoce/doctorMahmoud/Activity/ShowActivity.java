@@ -1,5 +1,6 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,7 @@ import ir.unicoce.doctorMahmoud.Database.db_details;
 import ir.unicoce.doctorMahmoud.Database.db_main;
 import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ShowActivity extends AppCompatActivity {
 
@@ -55,31 +57,17 @@ public class ShowActivity extends AppCompatActivity {
             public void onClick(View view) {
                 // TODO : on favorite icon click
                 if(isFav){
-                    db_details tempDb = list.get(0);
-                    db_details db = new db_details(
-                            myOb.getSid(),
-                            myOb.getParentId(),
-                            myOb.getTitle(),
-                            myOb.getContent(),
-                            myOb.getImageUrl(),
-                            false
-                    );
-                    db.update(tempDb.getId() == db.getId());
+
+                    list.get(0).favorite=false;
+                    list.get(0).save();
+
 
                     fab.setImageResource(R.drawable.favorite_outline_red);
                     isFav = false;
                 }else{
-                    db_details tempDb = list.get(0);
-                    db_details db = new db_details(
-                            myOb.getSid(),
-                            myOb.getParentId(),
-                            myOb.getTitle(),
-                            myOb.getContent(),
-                            myOb.getImageUrl(),
-                            false
-                    );
+                    list.get(0).favorite=true;
+                    list.get(0).save();
 
-                    db.update(tempDb.getId() == db.getId());
                     fab.setImageResource(R.drawable.favorite_red);
                     isFav = true;
                 }
@@ -249,6 +237,11 @@ public class ShowActivity extends AppCompatActivity {
 
         }
         return false;
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }// end class

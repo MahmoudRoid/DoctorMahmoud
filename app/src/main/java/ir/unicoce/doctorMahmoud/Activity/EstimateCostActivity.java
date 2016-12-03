@@ -1,5 +1,6 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import ir.unicoce.doctorMahmoud.Classes.Internet;
 import ir.unicoce.doctorMahmoud.Helper.EstimateCost;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class EstimateCostActivity extends AppCompatActivity
         implements
@@ -100,5 +102,10 @@ public class EstimateCostActivity extends AppCompatActivity
     @Override
     public void getError(String ErrorCodeTitle) throws Exception {
         Toast.makeText(this, "An Error Occured", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

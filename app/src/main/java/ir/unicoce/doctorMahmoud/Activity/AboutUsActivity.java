@@ -1,5 +1,6 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import ir.unicoce.doctorMahmoud.Database.db_details;
 import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class AboutUsActivity extends AppCompatActivity implements IWebservice {
 
@@ -161,5 +163,9 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
     @Override
     public void onBackPressed() {
         startActivity(new Intent(AboutUsActivity.this, MainActivity.class));
+    }
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

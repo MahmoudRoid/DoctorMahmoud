@@ -1,5 +1,6 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v4.app.Fragment;
@@ -17,6 +18,7 @@ import ir.unicoce.doctorMahmoud.Fragment.ListDataFragment;
 import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class InsuranceActivity extends AppCompatActivity
         implements
@@ -153,5 +155,10 @@ public class InsuranceActivity extends AppCompatActivity
         ft.show(fragment);
         ft.commit();
     }// end onBackPressed()
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
 
 }// end class

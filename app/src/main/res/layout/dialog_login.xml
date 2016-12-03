@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    tools:ignore="MissingPrefix"
     android:focusableInTouchMode="true">
 
     <android.support.v7.widget.CardView
@@ -21,12 +22,14 @@
                 android:layout_height="wrap_content"
                 android:text="صفحه ورود"
                 android:layout_margin="10dp"
+                fontPath="fonts/SansLight.ttf"
                 android:gravity="center"/>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/til1_dialoglogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                fontPath="fonts/SansLight.ttf"
                 android:layout_margin="10dp">
 
                 <EditText
@@ -34,6 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="شماره ملی"
+                    fontPath="fonts/SansLight.ttf"
                     android:inputType="number"
                     android:maxLines="1"
                     android:singleLine="true"
@@ -51,6 +55,7 @@
                     android:text="ثبت نام"
                     android:layout_margin="10dp"
                     android:id="@+id/btnRegShow_dialoglogin"
+                    fontPath="fonts/SansLight.ttf"
                     android:layout_weight="1" />
 
                 <Button
@@ -59,6 +64,7 @@
                     android:layout_margin="10dp"
                     android:id="@+id/btnLogin_dialoglogin"
                     android:text="ورود"
+                    fontPath="fonts/SansLight.ttf"
                     android:layout_weight="1" />
 
             </LinearLayout>
