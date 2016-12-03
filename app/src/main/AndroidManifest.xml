@@ -122,6 +122,7 @@
         <activity
             android:name=".Activity.ImagesActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".Activity.SendIdeasActivity"></activity>
     </application>
 
 </manifest>
