@@ -400,7 +400,7 @@ public class MainActivity extends AppCompatActivity
                                 startActivity(new Intent(MainActivity.this,AboutUsActivity.class));
                                 break;
                             case R.id.aboutus_departmants:
-                                startActivity(new Intent(MainActivity.this,DepartmentActivity.class));
+                                startActivity(new Intent(MainActivity.this,PartsActivity.class));
                                 break;
                             case R.id.aboutus_social_network:
                                 show_social_dialog();

@@ -4,12 +4,9 @@ package ir.unicoce.doctorMahmoud.AsyncTasks;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
