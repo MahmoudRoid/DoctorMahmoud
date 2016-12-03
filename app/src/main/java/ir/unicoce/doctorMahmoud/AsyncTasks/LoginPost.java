@@ -26,15 +26,16 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
 
     public Context context;
     private IWebserviceByTag delegate = null;
-    public String nationalCode;
+    public String nationalCode,password;
     SweetAlertDialog pDialog ;
     public String Url;
     public String Tag;
 
-    public LoginPost(Context context,IWebserviceByTag delegate,String nationalCode,String Tag){
+    public LoginPost(Context context,IWebserviceByTag delegate,String nationalCode,String password,String Tag){
         this.context=context;
         this.delegate=delegate;
         this.nationalCode=nationalCode;
+        this.password=password;
         this.Tag=Tag;
 
         this.Url= URLS.Login;
@@ -60,6 +61,7 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
                 RequestBody body = new FormBody.Builder()
                         .add("Token", Variables.TOKEN)
                         .add("Username",nationalCode)
+                        .add("Password",password)
                         .build();
                 Request request = new Request.Builder()
                         .url(this.Url)
@@ -83,7 +85,7 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
 
         if (result.equals("nothing_got")) {
             try {
-                delegate.getError(this.Tag,"NoData");
+                delegate.getError("NoData",this.Tag);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -91,7 +93,7 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
         else if(!result.startsWith("{")){
             // moshkel dare kollan
             try {
-                delegate.getError(this.Tag,"problem");
+                delegate.getError("problem",this.Tag);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -103,10 +105,10 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
                 JSONObject jsonObject=new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
-                    delegate.getResult(this.Tag,"");
+                    delegate.getResult("",this.Tag);
                 }
                 else {
-                    delegate.getError(this.Tag,"problem");
+                    delegate.getError("user pass incorrect",this.Tag);
                 }
 
             } catch (JSONException e) {

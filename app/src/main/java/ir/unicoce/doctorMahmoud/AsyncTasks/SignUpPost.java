@@ -26,18 +26,19 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
 
     public Context context;
     private IWebserviceByTag delegate = null;
-    public String name,nationalCode,phone,email;
+    public String name,nationalCode,phone,email,password;
     SweetAlertDialog pDialog ;
     public String Url;
     public String Tag;
 
-    public SignUpPost(Context context,IWebserviceByTag delegate,String name,String nationalCode,String phone,String email,String Tag){
+    public SignUpPost(Context context,IWebserviceByTag delegate,String name,String nationalCode,String phone,String email,String password,String Tag){
         this.context=context;
         this.delegate=delegate;
         this.name=name;
         this.phone=phone;
         this.nationalCode=nationalCode;
         this.email=email;
+        this.password=password;
         this.Tag=Tag;
 
         this.Url= URLS.Register;
@@ -67,6 +68,7 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
                         .add("UserName",nationalCode)
                         .add("Phone",phone)
                         .add("Email",email)
+                        .add("Password",password)
                         .build();
                 Request request = new Request.Builder()
                         .url(this.Url)
@@ -90,7 +92,7 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
 
         if (result.equals("nothing_got")) {
             try {
-                delegate.getError(this.Tag,"NoData");
+                delegate.getError("NoData",this.Tag);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -98,7 +100,7 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
         else if(!result.startsWith("{")){
             // moshkel dare kollan
             try {
-                delegate.getError(this.Tag,"problem");
+                delegate.getError("problem",this.Tag);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -110,10 +112,10 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
                 JSONObject jsonObject=new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
-                 delegate.getResult(this.Tag,"");
+                 delegate.getResult("",this.Tag);
                 }
                 else {
-                    delegate.getError(this.Tag,"problem");
+                    delegate.getError("signup faild",this.Tag);
                 }
 
             } catch (JSONException e) {

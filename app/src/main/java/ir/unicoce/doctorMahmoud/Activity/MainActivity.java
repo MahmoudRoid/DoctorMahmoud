@@ -12,6 +12,7 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity
     public SharedPreferences.Editor editor;
     private Typeface San;
     View snack_view;
-    private String DName, DPhone, DEmail, DNationalCode;
+    private String DName, DPhone, DEmail,DPassword, DNationalCode;
     private static final String SignUpTag="SignUpTag";
     private static final String LoginTag="LoginTag";
     private FragmentManager fragmentManager;
@@ -222,7 +223,7 @@ public class MainActivity extends AppCompatActivity
             resideMenu.closeMenu();
         }
         else if (view == itemSupport) {
-         startActivity(new Intent(MainActivity.this,SupportActivity.class));
+            startActivity(new Intent(MainActivity.this,SupportActivity.class));
             resideMenu.closeMenu();
         }
     }
@@ -251,11 +252,14 @@ public class MainActivity extends AppCompatActivity
 
         final TextView txtTitleLogin = (TextView) d.findViewById(R.id.txtTitle_dialoglogin);
         final TextInputLayout till = (TextInputLayout) d.findViewById(R.id.til1_dialoglogin);
+        final TextInputLayout till2 = (TextInputLayout) d.findViewById(R.id.til2_dialoglogin);
         final EditText edtlogin = (EditText) d.findViewById(R.id.edtLogin_dialoglogin);
+        final EditText edtPassword = (EditText) d.findViewById(R.id.edtLoginPassword_dialoglogin);
         final Button btnLogin = (Button) d.findViewById(R.id.btnLogin_dialoglogin);
         final Button btnShowReg = (Button) d.findViewById(R.id.btnRegShow_dialoglogin);
 
         till.setTypeface(San);
+        till2.setTypeface(San);
         txtTitleLogin.setTypeface(San);
         edtlogin.setTypeface(San);
         btnLogin.setTypeface(San);
@@ -273,12 +277,17 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 String DNationalCode = edtlogin.getText().toString();
-                if(DNationalCode.length()>11||DNationalCode.length()<9){
+                String DPass = edtPassword.getText().toString();
+                if(DNationalCode.length()>11 || DNationalCode.length()<9){
                     Toast.makeText(MainActivity.this, "تعداد ارقام کارت غیر مجاز است.", Toast.LENGTH_SHORT).show();
-                }else{
+                }
+                else if(DPass.length()<3){
+                    Toast.makeText(MainActivity.this, "تعداد کاراکترهای رمز عبور غیر مجاز است.", Toast.LENGTH_SHORT).show();
+                }
+                else{
                     //AskSever(false);
                     if (Internet.isNetworkAvailable(MainActivity.this)) {
-                        LoginPost post = new LoginPost(MainActivity.this,MainActivity.this,DNationalCode,LoginTag);
+                        LoginPost post = new LoginPost(MainActivity.this,MainActivity.this,DNationalCode,DPass,LoginTag);
                         post.execute();
                         d.dismiss();
                     } else {
@@ -316,10 +325,12 @@ public class MainActivity extends AppCompatActivity
         TextInputLayout til2 = (TextInputLayout) d.findViewById(R.id.til2_dialogreg);
         TextInputLayout til3 = (TextInputLayout) d.findViewById(R.id.til3_dialogreg);
         TextInputLayout til4 = (TextInputLayout) d.findViewById(R.id.til4_dialogreg);
+        TextInputLayout til5 = (TextInputLayout) d.findViewById(R.id.til5_dialogreg);
         final EditText edtNationalcode = (EditText) d.findViewById(R.id.edtNationaCode_dialogreg);
         final EditText edtName = (EditText) d.findViewById(R.id.edtName_dialogreg);
         final EditText edtPhone = (EditText) d.findViewById(R.id.edtPhone_dialogreg);
         final EditText edtEmail = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
+        final EditText edtPassword = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
 
         btnCommit = (Button) d.findViewById(R.id.btnCommit_dialogreg);
         btnCancel = (Button) d.findViewById(R.id.btnCancel_dialogreg);
@@ -333,6 +344,7 @@ public class MainActivity extends AppCompatActivity
         til2.setTypeface(San);
         til3.setTypeface(San);
         til4.setTypeface(San);
+        til5.setTypeface(San);
         till.setTypeface(San);
 
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -350,6 +362,7 @@ public class MainActivity extends AppCompatActivity
                 DName = edtName.getText().toString();
                 DPhone = edtPhone.getText().toString();
                 DEmail = edtEmail.getText().toString();
+                DPassword = edtPassword.getText().toString();
 
                 if(        DNationalCode.length()>11
                         || DNationalCode.length()<9
@@ -366,9 +379,11 @@ public class MainActivity extends AppCompatActivity
                     DName = edtName.getText().toString();
                     DPhone = edtPhone.getText().toString();
                     DEmail = edtEmail.getText().toString();
+                    DPassword = edtPassword.getText().toString();
+
                     if(Internet.isNetworkAvailable(MainActivity.this)){
                         d.dismiss();
-                        SignUpPost post = new SignUpPost(MainActivity.this,MainActivity.this,DName,DNationalCode,DPhone,DEmail,SignUpTag);
+                        SignUpPost post = new SignUpPost(MainActivity.this,MainActivity.this,DName,DNationalCode,DPhone,DEmail,DPassword,SignUpTag);
                         post.execute();
                     }
                     else {
@@ -441,7 +456,7 @@ public class MainActivity extends AppCompatActivity
                                 else {
                                     Toast.makeText(MainActivity.this, "internet nadarid", Toast.LENGTH_SHORT).show();
                                 }
-                                
+
                                 break;
                         }
                     }
@@ -653,9 +668,40 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void getResult(Object result, String Tag) throws Exception {
 
+        prefs = getSharedPreferences("Login", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("has_logined",true);
+        editor.apply();
+
+        switch (Tag){
+            case "LoginTag":
+                Toast.makeText(this, "با موفقیت وارد شدید", Toast.LENGTH_SHORT).show();
+                // baz kardane bottom sheet
+                showBottomsheetThirdCard();
+                break;
+            case "SignUpTag":
+
+                Toast.makeText(this, "ثبت نام با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
     @Override
     public void getError(String ErrorCodeTitle, String Tag) throws Exception {
+
+        switch (Tag){
+            case "LoginTag":
+                if(ErrorCodeTitle.equals("user pass incorrect"))
+                    Toast.makeText(this, "اطلاعات وارد شده صحیح نیست", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(this, "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
+                break;
+            case "SignUpTag":
+                if(ErrorCodeTitle.equals("signup faild"))
+                    Toast.makeText(this, "ثبت نام انجام نشد", Toast.LENGTH_SHORT).show();
+                else
+                    Toast.makeText(this, "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
+                break;
+        }
 
     }
 
