@@ -19,13 +19,10 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class ContactUsActivity extends AppCompatActivity
-        implements
-        OnFragmentInteractionListener
 {
     /*all class variables*/
     private GoogleMap mMap;
@@ -95,11 +92,6 @@ public class ContactUsActivity extends AppCompatActivity
         });
 
     }// end onBranchMapShowClick()
-    /*transactions happen here which calls from fragments inside this activity*/
-    @Override
-    public void onFragmentInteraction(int tagNumber) {
-
-    }// end onFragmentInteraction()
     /*create toolbar menu*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
