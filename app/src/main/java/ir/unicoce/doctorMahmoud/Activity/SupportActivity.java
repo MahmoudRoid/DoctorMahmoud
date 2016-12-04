@@ -4,17 +4,22 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -31,15 +36,16 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class SupportActivity extends AppCompatActivity {
 
     private GoogleMap mMap;
+    private Toolbar toolbar;
+    private TextView txtToolbar;
+    private Typeface San;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_support);
         ButterKnife.bind(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
+        define();
         // show map
         setMap("35.8057634","50.9815057","گروه نرم افزاری یونیکد");
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -54,9 +60,22 @@ public class SupportActivity extends AppCompatActivity {
         });
     }
 
+    private void define() {
+        San = Typeface.createFromAsset(getAssets(), "fonts/SansLight.ttf");
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        txtToolbar = (TextView) findViewById(R.id.txtToolbar_appbar);
+        txtToolbar.setTypeface(San);
+        txtToolbar.setText("گروه نرم افزاری یونیکد");
+    }// end define()
+
     public  void setMap(String Lat, String Lng, String titld){
         try {
-            mMap.clear();
+            mMap = ((MapFragment) getFragmentManager()
+                    .findFragmentById(R.id.map))
+                    .getMap();
             LatLng mLatLan = new LatLng(Float.parseFloat(Lat), Float.parseFloat(Lng));
             CameraUpdate cam = CameraUpdateFactory.newLatLngZoom(mLatLan,17);
             mMap.animateCamera(cam);
@@ -164,7 +183,29 @@ public class SupportActivity extends AppCompatActivity {
 
         }
     }
+    /*create toolbar menu*/
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_empty, menu);
+        return true;
+    }// end onCreateOptionsMenu()
+    /*on toolbar menu item click support*/
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
+        int id = item.getItemId();
+        switch(id){
+            case android.R.id.home:
+                finish();
+                break;
+
+            default:
+                break;
+
+        }
+        return false;
+    }// end onOptionsItemSelected()
+    /*set fonts of xml*/
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

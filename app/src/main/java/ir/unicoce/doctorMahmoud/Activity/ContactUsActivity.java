@@ -30,7 +30,7 @@ public class ContactUsActivity extends AppCompatActivity
     private Toolbar toolbar;
     private TextView txtToolbar;
     private ImageView ivMap_Tehran,ivMap_Karaj;
-    // end onCreate()
+    /*onCreate*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
