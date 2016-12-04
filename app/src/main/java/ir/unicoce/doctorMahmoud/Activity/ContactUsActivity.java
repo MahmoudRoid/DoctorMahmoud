@@ -39,7 +39,6 @@ public class ContactUsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
         define();
-//        setFragment();
         setMap("41.0760475","39.0275024","نمونه");
         onBranchMapShowClick();
     }// end onCreate()
