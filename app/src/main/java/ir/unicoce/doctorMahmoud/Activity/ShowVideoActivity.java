@@ -81,6 +81,7 @@ public class ShowVideoActivity extends AppCompatActivity
         VIDEO_URL = getIntent().getStringExtra("image_url");
         txtToolbar.setText(VIDEO_NAME);
         File file = new File(ROOTS.VIDEOS + "/" + VIDEO_NAME + ".mp4");
+
         isVideoExists = file.exists();
 
         ArcLoader();
@@ -149,7 +150,6 @@ public class ShowVideoActivity extends AppCompatActivity
 
     public void file_download(String uRl,String nameoffile) {
 
-
         nameoffile+=".mp4";
         File direct = new File(ROOTS.VIDEOS);
 
@@ -217,8 +217,8 @@ public class ShowVideoActivity extends AppCompatActivity
                             DownloadManager.Request.NETWORK_WIFI
                                     | DownloadManager.Request.NETWORK_MOBILE)
                             .setAllowedOverRoaming(false).setTitle("دانلود ویدئو")
-                            // TODO : Channge Root file for each application
-                            .setDestinationInExternalPublicDir("/DOCTOR/VIDEOS", fileName);
+                            .setDestinationInExternalPublicDir(ROOTS.VIDEOS_SAVE, fileName);
+
                     mgr.enqueue(request);
                 }else{
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
@@ -233,12 +233,6 @@ public class ShowVideoActivity extends AppCompatActivity
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }// isNetworkAvailable()
-
-
-
-
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
