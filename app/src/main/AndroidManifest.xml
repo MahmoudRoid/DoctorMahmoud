@@ -114,7 +114,9 @@
         <activity
             android:name=".Activity.ImagesActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.SendIdeasActivity"></activity>
+        <activity
+            android:name=".Activity.SendIdeasActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
