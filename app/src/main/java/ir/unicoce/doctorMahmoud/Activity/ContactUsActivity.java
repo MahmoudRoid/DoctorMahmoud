@@ -33,20 +33,13 @@ public class ContactUsActivity extends AppCompatActivity
         implements
         OnFragmentInteractionListener
 {
-
-
+    /*all class variables*/
     private GoogleMap mMap;
-    public LatLng mLatLan =  null;
-    private String Lat="41.0760475";
-    private String Lng="29.0275024";
-    private String MarkerTitle = "";
 
     private Typeface San;
     private Toolbar toolbar;
     private TextView txtToolbar;
     private ImageView ivMap_Tehran,ivMap_Karaj;
-    private FragmentManager fragmentManager;
-    private FragmentTransaction ft;
     // end onCreate()
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +47,7 @@ public class ContactUsActivity extends AppCompatActivity
         setContentView(R.layout.activity_contact_us);
         define();
 //        setFragment();
-        setMap();
+        setMap("41.0760475","39.0275024","نمونه");
         onBranchMapShowClick();
     }// end onCreate()
     /*set typeface findViewByIds set toolbar text and navigation*/
@@ -69,90 +62,43 @@ public class ContactUsActivity extends AppCompatActivity
         ivMap_Karaj = (ImageView) findViewById(R.id.ivMaps_Karaj);
         txtToolbar.setTypeface(San);
         txtToolbar.setText("تماس با ما");
-        fragmentManager = getSupportFragmentManager();
-    }// end define()
-    /*set map fragment to activity*/
-    protected void setFragment() {
 
-        /*FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frame, new MapsFragment());
-        fragmentTransaction.commit();
-*/
-
-        // old
-        MapsFragment myFragment = new MapsFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString("Lat", "41.0760475");
-        bundle.putString("Lng", "29.0275024");
-        bundle.putString("Title", "مطب تهران");
-        myFragment.setArguments(bundle);
-
-        ft = fragmentManager.beginTransaction();
-        ft.add(R.id.frame, myFragment);
-        ft.commit();
-
-    }// end setFragment()
-
-    public  void setMap(){
         try {
-            mLatLan = new LatLng(Float.parseFloat(Lat), Float.parseFloat(Lng));
-            mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
-            CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
-            mMap.animateCamera(cam);
+            mMap = ((MapFragment) getFragmentManager()
+                    .findFragmentById(R.id.map))
+                    .getMap();
+        }
+        catch (Exception e) {e.printStackTrace();}
 
+    }// end define()
+    /*set map*/
+    public  void setMap(String Lat, String Lng, String titld){
+        try {
+            mMap.clear();
+            LatLng mLatLan = new LatLng(Float.parseFloat(Lat), Float.parseFloat(Lng));
+            CameraUpdate cam = CameraUpdateFactory.newLatLngZoom(mLatLan,17);
+            mMap.animateCamera(cam);
             mMap.addMarker(new MarkerOptions().position(mLatLan)
-                    .title("")
+                    .title(titld)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
 
         } // end try
         catch (Exception e) { e.printStackTrace(); }
     }
-
     /*on fragment views click handler*/// Click to Show the branch map
     private void onBranchMapShowClick() {
 
         ivMap_Tehran.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                MapsFragment myFragment = new MapsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("Lat", "41.0760475");
-                bundle.putString("Lng", "29.0275024");
-                bundle.putString("Title", "مطب تهران");
-                myFragment.setArguments(bundle);
-
-                ft = fragmentManager.beginTransaction();
-                ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                ft.add(R.id.frame, myFragment);
-                String backStackName = myFragment.getClass().getName();
-                ft.addToBackStack(backStackName);
-                ft.commit();
-
+                setMap("41.0760475","29.0275024","مطب اول");
             }
         });
 
         ivMap_Karaj.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Fragment fragment = fragmentManager.findFragmentById(R.id.frame);
-                ft = fragmentManager.beginTransaction();
-                ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                ft.remove(fragment);
-                ft.commit();
-
-                MapsFragment myFragment = new MapsFragment();
-                Bundle bundle = new Bundle();
-                bundle.putString("Lat", "40.0760475");
-                bundle.putString("Lng", "25.0275024");
-                bundle.putString("Title", "مطب کرج");
-                myFragment.setArguments(bundle);
-
-                ft = fragmentManager.beginTransaction();
-                ft.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-                ft.add(R.id.frame, myFragment);
-                ft.commit();
+                setMap("40.0760475","28.0275024","مطب دوم");
             }
         });
 
