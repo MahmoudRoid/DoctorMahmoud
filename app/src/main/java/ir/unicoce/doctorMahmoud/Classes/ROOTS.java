@@ -8,7 +8,7 @@ import android.os.Environment;
 
 public class ROOTS {
 
-    public static final String ROOT_DIR     = Environment.getExternalStorageDirectory()+"/DOCOTR";
+    public static final String ROOT_DIR     = Environment.getExternalStorageDirectory()+"/DOCTOR";
 
     public static final String VIDEOS   = ROOT_DIR + "/VIDEOS";
     public static final String IMAGES   = ROOT_DIR + "/IMAGES";

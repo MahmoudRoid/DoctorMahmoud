@@ -70,14 +70,6 @@
             android:name=".Activity.AboutUsActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".Activity.DepartmentActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Activity.DescriptionActivity"
-            android:label="@string/title_activity_description"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity
             android:name=".Activity.NewsActivity"
             android:screenOrientation="portrait" />
         <activity

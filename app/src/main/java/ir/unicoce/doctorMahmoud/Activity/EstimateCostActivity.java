@@ -2,26 +2,23 @@ package ir.unicoce.doctorMahmoud.Activity;
 
 import android.content.Context;
 import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatCheckBox;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.logging.StreamHandler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.unicoce.doctorMahmoud.AsyncTasks.GetEstimatCost;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
-import ir.unicoce.doctorMahmoud.Helper.EstimateCost;
+import ir.unicoce.doctorMahmoud.Objects.Object_Cost;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -36,7 +33,7 @@ public class EstimateCostActivity extends AppCompatActivity
     @BindView(R.id.estimate_cost_price)
     TextView estimateCostPrice;
 
-    public ArrayList<EstimateCost> estimateCostArrayList;
+    public ArrayList<Object_Cost> estimateCostArrayList;
 
 
     @Override
@@ -76,7 +73,7 @@ public class EstimateCostActivity extends AppCompatActivity
         estimateCostPrice.setText(result);
     }
 
-    private void showData(ArrayList<EstimateCost> estimateCostArrayList) {
+    private void showData(ArrayList<Object_Cost> estimateCostArrayList) {
         for (int i = 0; i < estimateCostArrayList.size(); i++) {
 
             AppCompatCheckBox cb = new AppCompatCheckBox(EstimateCostActivity.this);
@@ -95,7 +92,7 @@ public class EstimateCostActivity extends AppCompatActivity
 
     @Override
     public void getResult(Object result) throws Exception {
-        estimateCostArrayList = (ArrayList<EstimateCost>) result;
+        estimateCostArrayList = (ArrayList<Object_Cost>) result;
         showData(estimateCostArrayList);
     }
 

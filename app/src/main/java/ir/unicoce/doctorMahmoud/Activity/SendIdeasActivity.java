@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,14 +18,18 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import ir.unicoce.doctorMahmoud.AsyncTasks.PostIdeas;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
+import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class SendIdeasActivity extends AppCompatActivity
-        //implements
-        // Async_SendMessage.SendMessage
+        implements
+        IWebservice
 {
 
     private Toolbar toolbar;
@@ -34,11 +37,9 @@ public class SendIdeasActivity extends AppCompatActivity
     private TextView txtToolbar;
     private SweetAlertDialog pDialog;
     private EditText edtNameFamily, edtPhone, edtEmail, edtTitle, edtMessage;
-    private TextInputLayout til1,til2, til3, til4, til5;
     private Button btnSend;
     private CoordinatorLayout coordinatorLayout;
     private String namefamily, email, phone1, title, content;
-    //private String URL= URLS.WEB_SERVICE_URL,TOKEN="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +55,7 @@ public class SendIdeasActivity extends AppCompatActivity
             }
         });
     }// end onCreate()
+
     private void define(){
         San = Typeface.createFromAsset(getAssets(), "fonts/SansLight.ttf");
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -62,11 +64,6 @@ public class SendIdeasActivity extends AppCompatActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout_form);
-        til1 = (TextInputLayout) findViewById(R.id.til1_form);
-        til2 = (TextInputLayout) findViewById(R.id.til2_form);
-        til3 = (TextInputLayout) findViewById(R.id.til3_form);
-        til4 = (TextInputLayout) findViewById(R.id.til4_form);
-        til5 = (TextInputLayout) findViewById(R.id.til5_form);
         btnSend = (Button) findViewById(R.id.btnConfirm_from);
         txtToolbar = (TextView) findViewById(R.id.txtToolbar_appbar);
         edtMessage = (EditText) findViewById(R.id.edtMessage_form);
@@ -76,17 +73,6 @@ public class SendIdeasActivity extends AppCompatActivity
         edtNameFamily = (EditText) findViewById(R.id.edtName_form);
 
         txtToolbar.setTypeface(San);
-        btnSend.setTypeface(San);
-        til1.setTypeface(San);
-        til2.setTypeface(San);
-        til3.setTypeface(San);
-        til4.setTypeface(San);
-        til5.setTypeface(San);
-        edtMessage.setTypeface(San);
-        edtNameFamily.setTypeface(San);
-        edtTitle.setTypeface(San);
-        edtEmail.setTypeface(San);
-        edtPhone.setTypeface(San);
 
         txtToolbar.setText("انتقادات و پیشنهادات");
         ArcLoader();
@@ -207,7 +193,8 @@ public class SendIdeasActivity extends AppCompatActivity
 
     private void SendTOServer(){
         if (Internet.isNetworkAvailable(this)){
-            // TODO : Send data to server (implement async class)
+            PostIdeas p = new PostIdeas(this,this,namefamily,title,phone1,email,content);
+            p.execute();
         }else{
             Snackbar_show(getResources().getString(R.string.error_internet));
         }
@@ -233,6 +220,22 @@ public class SendIdeasActivity extends AppCompatActivity
 
         }
         return false;
+    }
+
+    @Override
+    public void getResult(Object result) throws Exception {
+        finish();
+        Toast.makeText(this, "پیام شما با موفقیت ارسال شد.", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void getError(String ErrorCodeTitle) throws Exception {
+        Toast.makeText(this, ErrorCodeTitle, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
 }// end class

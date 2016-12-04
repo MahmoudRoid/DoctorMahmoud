@@ -3,7 +3,6 @@ package ir.unicoce.doctorMahmoud.AsyncTasks;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.speech.tts.Voice;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -15,7 +14,7 @@ import java.util.ArrayList;
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
-import ir.unicoce.doctorMahmoud.Helper.EstimateCost;
+import ir.unicoce.doctorMahmoud.Objects.Object_Cost;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
@@ -29,7 +28,7 @@ import okhttp3.Response;
 
 public class GetEstimatCost extends AsyncTask<Void,Void,String> {
 
-    public ArrayList<EstimateCost> estimateCostArrayList;
+    public ArrayList<Object_Cost> estimateCostArrayList;
     public Context context;
     private IWebservice delegate = null;
     SweetAlertDialog pDialog;
@@ -101,7 +100,7 @@ public class GetEstimatCost extends AsyncTask<Void,Void,String> {
         else {
 
             try {
-                estimateCostArrayList = new ArrayList<EstimateCost>();
+                estimateCostArrayList = new ArrayList<Object_Cost>();
                 JSONObject jsonObject=new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
@@ -112,7 +111,7 @@ public class GetEstimatCost extends AsyncTask<Void,Void,String> {
                         String title = jsonObject2.getString("Title");
                         String cost = String.valueOf(jsonObject2.getDouble("Price"));
 
-                        EstimateCost estimateCost = new EstimateCost(title,cost);
+                        Object_Cost estimateCost = new Object_Cost(title,cost);
                         estimateCostArrayList.add(estimateCost);
 
                     }

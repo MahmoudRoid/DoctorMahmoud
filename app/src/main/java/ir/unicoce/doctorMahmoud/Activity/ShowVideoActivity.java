@@ -218,7 +218,7 @@ public class ShowVideoActivity extends AppCompatActivity
                                     | DownloadManager.Request.NETWORK_MOBILE)
                             .setAllowedOverRoaming(false).setTitle("دانلود ویدئو")
                             // TODO : Channge Root file for each application
-                            .setDestinationInExternalPublicDir("/DOCTOR/videos", fileName);
+                            .setDestinationInExternalPublicDir("/DOCTOR/VIDEOS", fileName);
                     mgr.enqueue(request);
                 }else{
                     Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();

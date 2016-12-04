@@ -32,7 +32,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cocosw.bottomsheet.BottomSheet;
-import com.github.javiersantos.bottomdialogs.BottomDialog;
 
 import java.io.File;
 
@@ -544,10 +543,12 @@ public class MainActivity extends AppCompatActivity
             }
         }, 200);
     }
+
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
         return resideMenu.dispatchTouchEvent(ev);
     }
+
     @Override
     public void onBackPressed() {
         if(resideMenu.isOpened()){
@@ -665,6 +666,7 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+
     @Override
     public void getResult(Object result, String Tag) throws Exception {
 
@@ -685,6 +687,7 @@ public class MainActivity extends AppCompatActivity
                 break;
         }
     }
+
     @Override
     public void getError(String ErrorCodeTitle, String Tag) throws Exception {
 

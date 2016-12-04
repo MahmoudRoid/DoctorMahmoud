@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -38,7 +39,7 @@ public class ImagesActivity extends AppCompatActivity
      }*/
     private Boolean isFolder = true;
     /*Determine depth of folders inside each other*/
-    private static final int DEPTH_OF_FOLDERS = 1;
+    private static int DEPTH_OF_FOLDERS = 2;
     /*onCreate*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +47,7 @@ public class ImagesActivity extends AppCompatActivity
         setContentView(R.layout.activity_images);
         define();
         if(DEPTH_OF_FOLDERS==1){
+            finish();
             goToGallery(FACTION,"گالری");
         }else{
             setFragment();
@@ -72,6 +74,7 @@ public class ImagesActivity extends AppCompatActivity
         bundle.putString("FACTION", FACTION);
         bundle.putBoolean("KIND", isFolder);
         if(isFolder){
+            DEPTH_OF_FOLDERS--;
             bundle.putInt("DEPTH_OF_FOLDERS",DEPTH_OF_FOLDERS);
         }else{
             bundle.putInt("DEPTH_OF_FOLDERS",0);
@@ -86,6 +89,7 @@ public class ImagesActivity extends AppCompatActivity
     }// end setFragment()
     /*open ImageGalleryActivity and send the folder id to it*/
     private void goToGallery(String RootId,String Title) {
+        Log.i(Variables.Tag,"RootId in trans: "+RootId);
         Intent intent = new Intent(ImagesActivity.this,ImageGalleryActivity.class);
         intent.putExtra("sid",RootId);
         intent.putExtra("title",Title);
@@ -156,7 +160,7 @@ public class ImagesActivity extends AppCompatActivity
         ft.show(fragment);
         ft.commit();
     }// end onBackPressed()
-
+    /*set font typeface on xml*/
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

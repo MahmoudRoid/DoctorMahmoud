@@ -96,17 +96,16 @@ public class MapsFragment extends Fragment {
             mapView.onCreate(savedInstanceState);
 
             mMap = mapView.getMap();
-            /*mMap = ((SupportMapFragment) getActivity()
+            mMap = ((SupportMapFragment) getActivity()
                     .getSupportFragmentManager()
                     .findFragmentById(R.id.map))
-                    .getMap();*/
-            /*CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
+                    .getMap();
+            CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
             mMap.animateCamera(cam);
 
             Marker marker = mMap.addMarker(new MarkerOptions().position(mLatLan)
                     .title(MarkerTitle)
                     .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-*/
 
 
         } // end try

@@ -9,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -74,7 +75,7 @@ public class ImageGalleryActivity extends AppCompatActivity
         txtToolbar.setTypeface(San);
 
         // get rootFolder id
-        FACTION     = getIntent().getIntExtra("sid",0)+"";
+        FACTION     = getIntent().getStringExtra("sid");
         Title       = getIntent().getStringExtra("title");
 
         txtToolbar.setText(Title);
@@ -116,6 +117,7 @@ public class ImageGalleryActivity extends AppCompatActivity
     private void askServer() {
         if(Internet.isNetworkAvailable(ImageGalleryActivity.this)){
             // network available than ask server for data
+            Log.i(Variables.Tag,"ROOTId: "+FACTION);
             GetData getdata = new GetData(ImageGalleryActivity.this,this,FACTION,false);
             getdata.execute();
         }else{

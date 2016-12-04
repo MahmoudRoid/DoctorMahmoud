@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout_form"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
     <!--Root-->
     <LinearLayout
         android:orientation="vertical"
@@ -36,7 +38,8 @@
                         android:id="@+id/til1_form"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/shape_stroke_blue">
+                        android:background="@drawable/shape_stroke_blue"
+                        fontPath="fonts/SansLight.ttf">
 
                         <EditText
                             android:id="@+id/edtName_form"
@@ -46,7 +49,8 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:gravity="right" />
+                            android:gravity="right"
+                            fontPath="fonts/SansLight.ttf" />
                     </android.support.design.widget.TextInputLayout>
                     <!--email-->
                     <android.support.design.widget.TextInputLayout
@@ -54,7 +58,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/shape_stroke_blue">
+                        android:background="@drawable/shape_stroke_blue"
+                        fontPath="fonts/SansLight.ttf">
 
                         <EditText
                             android:id="@+id/edtEmail_form"
@@ -64,7 +69,8 @@
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:gravity="right" />
+                            android:gravity="right"
+                            fontPath="fonts/SansLight.ttf" />
                     </android.support.design.widget.TextInputLayout>
                     <!--phone-->
                     <android.support.design.widget.TextInputLayout
@@ -72,7 +78,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/shape_stroke_blue">
+                        android:background="@drawable/shape_stroke_blue"
+                        fontPath="fonts/SansLight.ttf">
 
                         <EditText
                             android:id="@+id/edtPhone_form"
@@ -83,7 +90,8 @@
                             android:maxLength="11"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:gravity="right" />
+                            android:gravity="right"
+                            fontPath="fonts/SansLight.ttf" />
                     </android.support.design.widget.TextInputLayout>
                     <!--title-->
                     <android.support.design.widget.TextInputLayout
@@ -91,7 +99,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/shape_stroke_blue">
+                        android:background="@drawable/shape_stroke_blue"
+                        fontPath="fonts/SansLight.ttf">
 
                         <EditText
                             android:id="@+id/edtTitle_form"
@@ -101,7 +110,8 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:gravity="right" />
+                            android:gravity="right"
+                            fontPath="fonts/SansLight.ttf" />
                     </android.support.design.widget.TextInputLayout>
                     <!--context of message-->
                     <android.support.design.widget.TextInputLayout
@@ -110,7 +120,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
-                        android:background="@drawable/shape_stroke_blue">
+                        android:background="@drawable/shape_stroke_blue"
+                        fontPath="fonts/SansLight.ttf">
 
                         <EditText
                             android:id="@+id/edtMessage_form"
@@ -120,7 +131,8 @@
                             android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
-                            android:gravity="right" />
+                            android:gravity="right"
+                            fontPath="fonts/SansLight.ttf" />
                     </android.support.design.widget.TextInputLayout>
                     <!--commit button-->
                     <Button
@@ -130,7 +142,8 @@
                         android:background="@drawable/shape_buttom_blue"
                         android:id="@+id/btnConfirm_from"
                         android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textColor="@color/White" />
+                        android:textColor="@color/White"
+                        fontPath="fonts/SansLight.ttf" />
                 </LinearLayout>
             </android.support.v7.widget.CardView>
         </ScrollView>
