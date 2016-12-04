@@ -154,6 +154,7 @@
     <string name="company_tell">026 - 32522222</string>
     <string name="company_address">کرج - چهارراه کارخانه قند - میدان شهید فهمیده - ساختمان بیمه - واحد 1</string>
     <string name="title_activity_common_questions">CommonQuestionsActivity</string>
+    <string name="title_activity_test_maps">Map</string>
 
 
 </resources>

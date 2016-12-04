@@ -14,6 +14,16 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapFragment;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.Marker;
+import com.google.android.gms.maps.model.MarkerOptions;
+
 import ir.unicoce.doctorMahmoud.Fragment.MapsFragment;
 import ir.unicoce.doctorMahmoud.Interface.OnFragmentInteractionListener;
 import ir.unicoce.doctorMahmoud.R;
@@ -23,6 +33,13 @@ public class ContactUsActivity extends AppCompatActivity
         implements
         OnFragmentInteractionListener
 {
+
+
+    private GoogleMap mMap;
+    public LatLng mLatLan =  null;
+    private String Lat="41.0760475";
+    private String Lng="29.0275024";
+    private String MarkerTitle = "";
 
     private Typeface San;
     private Toolbar toolbar;
@@ -36,7 +53,8 @@ public class ContactUsActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_contact_us);
         define();
-        setFragment();
+//        setFragment();
+        setMap();
         onBranchMapShowClick();
     }// end onCreate()
     /*set typeface findViewByIds set toolbar text and navigation*/
@@ -75,6 +93,22 @@ public class ContactUsActivity extends AppCompatActivity
         ft.commit();
 
     }// end setFragment()
+
+    public  void setMap(){
+        try {
+            mLatLan = new LatLng(Float.parseFloat(Lat), Float.parseFloat(Lng));
+            mMap = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
+            CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
+            mMap.animateCamera(cam);
+
+            mMap.addMarker(new MarkerOptions().position(mLatLan)
+                    .title("")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+
+        } // end try
+        catch (Exception e) { e.printStackTrace(); }
+    }
+
     /*on fragment views click handler*/// Click to Show the branch map
     private void onBranchMapShowClick() {
 

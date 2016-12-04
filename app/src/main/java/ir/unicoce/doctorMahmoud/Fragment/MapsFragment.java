@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.InflateException;
 import android.view.LayoutInflater;
@@ -91,10 +92,19 @@ public class MapsFragment extends Fragment {
         mLatLan = new LatLng(Float.parseFloat(Lat), Float.parseFloat(Lng));
 
         try {
+
+//            FragmentManager myFM = getActivity().getSupportFragmentManager();
+//
+//            final SupportMapFragment myMAPF = (SupportMapFragment) myFM
+//                    .findFragmentById(R.id.map);
+//
+//                    mMap = myMAPF.getMap();
+
             mMap = ((SupportMapFragment) getActivity()
                     .getSupportFragmentManager()
                     .findFragmentById(R.id.map))
                     .getMap();
+
             CameraUpdate cam= CameraUpdateFactory.newLatLngZoom(mLatLan,17);
             mMap.animateCamera(cam);
 
