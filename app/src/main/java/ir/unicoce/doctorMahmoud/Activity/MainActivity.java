@@ -474,13 +474,13 @@ public class MainActivity extends AppCompatActivity
                                 Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                                 break;
                             case R.id.club_poll:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,PollActivity.class));
                                 break;
                             case R.id.club_moshavere:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,ChatActivity.class));
                                 break;
                             case R.id.club_chat:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                openTelegramChannel(Variables.Telegram_chat_Id);
                                 break;
                         }
                     }
@@ -496,10 +496,10 @@ public class MainActivity extends AppCompatActivity
 
                         switch (which){
                             case R.id.danestabniha_magazines:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,MagazineActivity.class));
                                 break;
                             case R.id.danestabniha_darooha:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,DrugsActivity.class));
                                 break;
                         }
                     }
@@ -590,7 +590,7 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 d.dismiss();
-                openTelegramChannel();
+                openTelegramChannel(Variables.Telegram_Channel_Id);
 
             }
         });
@@ -630,12 +630,12 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
-    private void openTelegramChannel() {
+    private void openTelegramChannel(String TelegramId) {
         final String appName = "org.telegram.messenger";
         final boolean isAppInstalled = isAppAvailable(getApplicationContext(), appName);
         if (isAppInstalled) {
             Intent telegram = new Intent(android.content.Intent.ACTION_VIEW);
-            telegram.setData(Uri.parse("https://telegram.me/xxx"));
+            telegram.setData(Uri.parse("https://telegram.me/"+TelegramId));
             telegram.setPackage("org.telegram.messenger");
             MainActivity.this.startActivity(Intent.createChooser(telegram, ""));
         }

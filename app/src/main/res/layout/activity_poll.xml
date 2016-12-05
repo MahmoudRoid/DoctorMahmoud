@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_poll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="ir.unicoce.doctorMahmoud.Activity.PollActivity">
+    <!--toolbar-->
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/appbar_color"/>
+    <!--Question-->
+    <TextView
+        android:layout_margin="15dp"
+        android:id="@+id/txtQuestion"
+        android:textColor="@color/Black"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--list of answers-->
+    <RadioGroup
+        android:layout_margin="15dp"
+        android:padding="5dp"
+        android:id="@+id/rg_reservation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+    </RadioGroup>
+    <!--commit button-->
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ثبت نظر"
+        android:background="@drawable/shape_buttom_blue"
+        android:id="@+id/btnConfirm"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/White"
+        android:layout_margin="15dp"/>
+</LinearLayout>

@@ -117,6 +117,12 @@
         <activity
             android:name=".Activity.SendIdeasActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.ChatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activity.PollActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>

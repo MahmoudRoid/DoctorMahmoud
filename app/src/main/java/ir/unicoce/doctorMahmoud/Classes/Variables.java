@@ -34,8 +34,8 @@ public class Variables {
     public static final String Instagram_Id         = "";
     public static final String Instagram_Id_From_App= "";
     public static final String Telegram_chat_Id     = "";
-    public static final String Gmail                = "uniced@gmail.com";
-    public static final String GooglePlus           = "https://plus.google.com/communities/107847486351510098159";
+    public static final String Gmail_UniCode        = "uniced@gmail.com";
+    public static final String GooglePlus_UniCode   = "https://plus.google.com/communities/107847486351510098159";
 
 }// end class
 

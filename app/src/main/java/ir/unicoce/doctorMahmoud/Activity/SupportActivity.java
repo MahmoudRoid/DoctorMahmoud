@@ -20,12 +20,10 @@ import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
@@ -122,7 +120,7 @@ public class SupportActivity extends AppCompatActivity {
 
     private void openGooglePlus() {
         try {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Variables.GooglePlus)));
+            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(Variables.GooglePlus_UniCode)));
         } catch (Exception e) {
             Toast.makeText(this, "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
         }
@@ -134,7 +132,7 @@ public class SupportActivity extends AppCompatActivity {
 
 /* Fill it with Data */
             emailIntent.setType("plain/text");
-            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{Variables.Gmail});
+            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{Variables.Gmail_UniCode});
             emailIntent.putExtra(Intent.EXTRA_SUBJECT, "From app");
 
 
