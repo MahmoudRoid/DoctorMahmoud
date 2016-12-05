@@ -15,5 +15,7 @@ public class URLS {
     public static final String PostContactUs     = DOMAIN + "ContactUs";
     public static final String GetVoting         = DOMAIN + "GetVoting";
     public static final String Vote              = DOMAIN + "Vote";
+    public static final String InsertMessage     = DOMAIN +"InsertMessage";
+    public static final String GetUsersChat      = DOMAIN +"GetUsersChat";
 
 }// end class

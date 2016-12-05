@@ -34,7 +34,7 @@ public class PollActivity extends AppCompatActivity
         IWebservice2,
         IWebservice
 {
-
+    /*class variables*/
     private Toolbar toolbar;
     private TextView txtToolbar, txtQuestion;
     private Typeface San;
@@ -44,7 +44,7 @@ public class PollActivity extends AppCompatActivity
     private Object_Vote myQuestion;
     private RadioGroup rGroup;
     private boolean isSendAnswer = false;
-
+    /*onCreate*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,11 +10,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
+import ir.unicoce.doctorMahmoud.Objects.Object_Message;
 import ir.unicoce.doctorMahmoud.Objects.Object_Vote;
 import ir.unicoce.doctorMahmoud.R;
 import okhttp3.FormBody;
@@ -27,21 +29,22 @@ import okhttp3.Response;
  * Created by mohad syetem on 11/29/2016.
  */
 
-public class GetResult extends AsyncTask<Void,Void,String> {
+public class GetAllUserChatMessages extends AsyncTask<Void,Void,String> {
 
+    public ArrayList<Object_Message> myList = new ArrayList<>();
     public Context context;
     private IWebservice delegate = null;
     private SweetAlertDialog pDialog;
-    private Object_Vote myOb;
     public String url;
+    private String UserName;
 
-    public GetResult(Context context, IWebservice delegate,Object_Vote ob){
+    public GetAllUserChatMessages(Context context, IWebservice delegate, String UserNmae){
         this.context    = context;
         this.delegate   = delegate;
-        myOb = ob;
+        this.UserName   = UserNmae;
 
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        this.url= URLS.Vote;
+        this.url= URLS.GetVoting;
     }// end GetData()
 
     @Override
@@ -62,9 +65,8 @@ public class GetResult extends AsyncTask<Void,Void,String> {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = new FormBody.Builder()
                         .add("Token", Variables.TOKEN)
-                        .add("Id", myOb.getId())
-                        .add("answerId", myOb.getParentId())
-                        .add("name","macx")
+                        .add("Name1",UserName)
+                        .add("Name2","Admin")
                         .build();
                 Request request = new Request.Builder()
                         .url(this.url)
@@ -106,7 +108,23 @@ public class GetResult extends AsyncTask<Void,Void,String> {
                 JSONObject jsonObject=new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
-                    delegate.getResult("ok");
+                    JSONArray jsonArray = jsonObject.getJSONArray("Data");
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        JSONObject jsonObject2 = jsonArray.getJSONObject(i);
+
+                        String id       = jsonObject2.optString("Id");
+                        String Sender   = jsonObject2.getString("Sender");
+                        String Receiver = jsonObject2.getString("Receiver");
+                        String Content  = jsonObject2.getString("Content");
+
+                        if(Sender.equals("admin")){
+                            myList.add(new Object_Message("دکتر",Content,false));
+                        }else{
+                            myList.add(new Object_Message("من",Content,true));
+                        }
+                    }
+
+                    delegate.getResult(myList);
                 }
                 else {
                     // server said data is incorrect

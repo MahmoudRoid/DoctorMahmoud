@@ -12,7 +12,6 @@ import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
@@ -57,6 +56,11 @@ public class MainActivity extends AppCompatActivity
         IWebserviceByTag,
         OnFragmentInteractionListener
 {
+    EditText edtNationalcode ;
+    EditText edtName ;
+    EditText edtPhone;
+    EditText edtEmail ;
+    EditText edtPassword ;
 
     public Handler handler;
     Animation rotateCardViewAnimation;
@@ -325,11 +329,11 @@ public class MainActivity extends AppCompatActivity
         TextInputLayout til3 = (TextInputLayout) d.findViewById(R.id.til3_dialogreg);
         TextInputLayout til4 = (TextInputLayout) d.findViewById(R.id.til4_dialogreg);
         TextInputLayout til5 = (TextInputLayout) d.findViewById(R.id.til5_dialogreg);
-        final EditText edtNationalcode = (EditText) d.findViewById(R.id.edtNationaCode_dialogreg);
-        final EditText edtName = (EditText) d.findViewById(R.id.edtName_dialogreg);
-        final EditText edtPhone = (EditText) d.findViewById(R.id.edtPhone_dialogreg);
-        final EditText edtEmail = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
-        final EditText edtPassword = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
+        edtNationalcode = (EditText) d.findViewById(R.id.edtNationaCode_dialogreg);
+        edtName = (EditText) d.findViewById(R.id.edtName_dialogreg);
+        edtPhone = (EditText) d.findViewById(R.id.edtPhone_dialogreg);
+        edtEmail = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
+        edtPassword = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
 
         btnCommit = (Button) d.findViewById(R.id.btnCommit_dialogreg);
         btnCancel = (Button) d.findViewById(R.id.btnCancel_dialogreg);
@@ -672,16 +676,26 @@ public class MainActivity extends AppCompatActivity
 
         prefs = getSharedPreferences("Login", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putBoolean("has_logined",true);
-        editor.apply();
 
         switch (Tag){
             case "LoginTag":
+                editor.putBoolean("has_logined",true);
+                editor.apply();
+
                 Toast.makeText(this, "با موفقیت وارد شدید", Toast.LENGTH_SHORT).show();
                 // baz kardane bottom sheet
                 showBottomsheetThirdCard();
                 break;
             case "SignUpTag":
+
+                // save sign up things
+                editor.putString("name",edtName.getText().toString());
+                editor.putString("national_code",edtNationalcode.getText().toString());
+                editor.putString("phone",edtPhone.getText().toString());
+                editor.putString("email",edtEmail.getText().toString());
+                editor.putString("password",edtPassword.getText().toString());
+                editor.putBoolean("has_logined",true);
+                editor.apply();
 
                 Toast.makeText(this, "ثبت نام با موفقیت انجام شد", Toast.LENGTH_SHORT).show();
                 break;

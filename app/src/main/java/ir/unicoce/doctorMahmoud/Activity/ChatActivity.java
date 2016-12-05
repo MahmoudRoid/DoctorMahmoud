@@ -1,11 +1,8 @@
 package ir.unicoce.doctorMahmoud.Activity;
 
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,20 +14,24 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_chat;
+import ir.unicoce.doctorMahmoud.AsyncTasks.GetAllUserChatMessages;
+import ir.unicoce.doctorMahmoud.AsyncTasks.PostUserMessage;
+import ir.unicoce.doctorMahmoud.Classes.Internet;
+import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.Objects.Object_Message;
 import ir.unicoce.doctorMahmoud.R;
 
 public class ChatActivity extends AppCompatActivity
-        //implements
-        //Async_GetMail.GetMessage,
-        //Async_Mail.SendMail
+        implements
+        IWebservice
 {
-
+    /*class variables*/
     private Typeface San;
     private Toolbar toolbar;
     private TextView txtToolbar;
@@ -38,29 +39,26 @@ public class ChatActivity extends AppCompatActivity
     private ArrayList<Object_Message> mylist = new ArrayList<>();
     private RecycleViewAdapter_chat mAdapter;
     private SweetAlertDialog pDialog;
-    //private String URL= URLS.WEB_SERVICE_URL;
     private ImageView ivSend;
     private EditText edtSend;
     private String NationalCode="";
     private SharedPreferences prefs;
-
+    private boolean isSendMessage = false;
+    /*onCreate method*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         define();
 
-        // TODO : get all previews messages archive from server
-        //AskServer();
+        AskServer();
 
         ivSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String input = edtSend.getText().toString();
                 if(!input.equals("")){
-                    //edtSend.setText("");
-                    // TODO : send message in editText to server
-                   // SendMessage(input);
+                    AskServer();
                 }
             }
         });
@@ -88,8 +86,8 @@ public class ChatActivity extends AppCompatActivity
 
         edtSend.setTypeface(San);
 
-        prefs = getApplicationContext().getSharedPreferences("doctor", 0);
-        NationalCode = prefs.getString("NC","");
+        prefs = getSharedPreferences("Login", MODE_PRIVATE);
+        NationalCode = prefs.getString("national_code","");
 
         setSweetDialog();
 
@@ -143,94 +141,38 @@ public class ChatActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }// isNetworkAvailable()
-
-    /*private void AskServer(){
-        if(isNetworkAvailable()){
-            Async_GetMail async = new Async_GetMail();
-            async.mListener = ChatActivity.this;
-            async.execute(URLS.GET_MESSAGES,Variables.TOKEN,NationalCode);
+    private void AskServer(){
+        if(Internet.isNetworkAvailable(this)){
+            if(isSendMessage){
+                Object_Message ob = new Object_Message(NationalCode,edtSend.getText().toString(),true);
+                PostUserMessage async = new PostUserMessage(this,this,ob);
+                async.execute();
+            }else{
+                GetAllUserChatMessages async = new GetAllUserChatMessages(this,this,NationalCode);
+                async.execute();
+            }
         }else{
             Toast.makeText(ChatActivity.this, getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
         }
     }// end AskServer()
 
-    private void SendMessage(String message){
-        if(isNetworkAvailable()){
-            Async_Mail async = new Async_Mail();
-            async.mListener = ChatActivity.this;
-            async.execute(URLS.SEND_MAIL,Variables.TOKEN,NationalCode,message);
-        }else{
-            Toast.makeText(ChatActivity.this, getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
+    @Override
+    public void getResult(Object result) throws Exception {
+        if(isSendMessage){
+            mylist.add(new Object_Message("من",edtSend.getText().toString(),true));
         }
-    }// end SendMessage()
-
-    @Override
-    public void onStartRequest() {
-        pDialog.show();
-    }
-
-    @Override
-    public void onFinishedRequest(String result) {
-        pDialog.dismiss();
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            int Type = jsonObject.getInt("Status");
-            if (Type == 1) {
-                JSONArray jsonArray = jsonObject.getJSONArray("Data");
-                mylist.clear();
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-
-                    String id = jsonObject2.optString("Id");
-                    String Sender = jsonObject2.getString("Sender");
-                    String Receiver = jsonObject2.getString("Receiver");
-                    String Content = jsonObject2.getString("Content");
-
-                    Log.i(Variables.Tag,"Sender: "+Sender);
-
-                    if(Sender.equals("admin")){
-                        Log.i(Variables.Tag,"Admin: "+Sender);
-                        mylist.add(new Object_Message("دکتر",Content,false));
-                    }else{
-                        Log.i(Variables.Tag,"Me: "+Sender);
-                        mylist.add(new Object_Message("من",Content,true));
-                    }
-                }// end for
-                refreshAdapter();
-            } else {
-                Toast.makeText(ChatActivity.this, getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
-            }
-        }// end try
-        catch(JSONException e){ e.printStackTrace(); }
-        catch(Exception e){ e.printStackTrace(); }
+        else{
+            mylist.clear();
+            mylist = (ArrayList<Object_Message>) result;
+            isSendMessage = true;
+        }
         refreshAdapter();
     }
 
     @Override
-    public void onStartSendingMail() {
-        pDialog.show();
+    public void getError(String ErrorCodeTitle) throws Exception {
+        Toast.makeText(this, ErrorCodeTitle, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void onMailSend(String result) {
-        pDialog.dismiss();
-        try {
-            JSONObject jsonObject = new JSONObject(result);
-            int Type = jsonObject.getInt("Status");
-            if (Type == 1) {
-                mylist.add(new Object_Message("من",edtSend.getText().toString(),true));
-                refreshAdapter();
-            } else {
-                Toast.makeText(ChatActivity.this, getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
-            }
-        }// end try
-        catch(JSONException e){ e.printStackTrace(); }
-        catch(Exception e){ e.printStackTrace(); }
-    }// end onMailSend()
-*/
+
 }// end class
