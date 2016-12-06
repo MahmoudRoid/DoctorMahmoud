@@ -3,6 +3,7 @@ package ir.unicoce.doctorMahmoud.AsyncTasks;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -34,6 +35,7 @@ public class GetResult extends AsyncTask<Void,Void,String> {
     private SweetAlertDialog pDialog;
     private Object_Vote myOb;
     public String url;
+    private String MAC_ID;
 
     public GetResult(Context context, IWebservice delegate,Object_Vote ob){
         this.context    = context;
@@ -42,6 +44,10 @@ public class GetResult extends AsyncTask<Void,Void,String> {
 
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
         this.url= URLS.Vote;
+
+        TelephonyManager telephonyManager = (TelephonyManager) context
+                .getSystemService(Context.TELEPHONY_SERVICE);
+        MAC_ID = telephonyManager.getDeviceId();
     }// end GetData()
 
     @Override
@@ -64,7 +70,7 @@ public class GetResult extends AsyncTask<Void,Void,String> {
                         .add("Token", Variables.TOKEN)
                         .add("Id", myOb.getId())
                         .add("answerId", myOb.getParentId())
-                        .add("name","macx")
+                        .add("name",MAC_ID)
                         .build();
                 Request request = new Request.Builder()
                         .url(this.url)
