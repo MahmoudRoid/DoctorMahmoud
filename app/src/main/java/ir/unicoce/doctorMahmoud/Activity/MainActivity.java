@@ -130,11 +130,11 @@ public class MainActivity extends AppCompatActivity
 
         // create menu items;
 
-        itemFavorites = new ResideMenuItem(this, R.drawable.ic_aboutus,R.string.favorites);
-        itemEnteghadat= new ResideMenuItem(this, R.drawable.ic_common_questions, R.string.enteghadat);
-        itemIntroduceToOthers = new ResideMenuItem(this, R.drawable.ic_news, R.string.introduce_to_others);
-        itemDarookhane=new ResideMenuItem(this, R.drawable.ic_news,R.string.darookhane);
-        itemSupport = new ResideMenuItem(this, R.drawable.ic_club, R.string.support);
+        itemFavorites = new ResideMenuItem(this, R.drawable.ic_favorites,R.string.favorites);
+        itemEnteghadat= new ResideMenuItem(this, R.drawable.ic_suggestion, R.string.enteghadat);
+        itemIntroduceToOthers = new ResideMenuItem(this, R.drawable.ic_introduce, R.string.introduce_to_others);
+        itemDarookhane=new ResideMenuItem(this, R.drawable.ic_pharmacy,R.string.darookhane);
+        itemSupport = new ResideMenuItem(this, R.drawable.ic_support, R.string.support);
 
 
         itemFavorites.setOnClickListener(this);
@@ -531,7 +531,7 @@ public class MainActivity extends AppCompatActivity
                     cardView4Text.setText(R.string.gallery_image);
                 } else {
                     firstCards = true;
-                    cardView1Image.setImageResource(R.drawable.ic_aboutus);
+                    cardView1Image.setImageResource(R.drawable.ic_about_us);
                     cardView1Text.setText(R.string.aboutus);
 
                     cardView2Image.setImageResource(R.drawable.ic_services);

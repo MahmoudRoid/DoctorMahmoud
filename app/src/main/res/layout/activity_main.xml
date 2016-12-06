@@ -86,7 +86,7 @@
                                 android:id="@+id/card_view1_image"
                                 android:layout_width="@dimen/_35sdp"
                                 android:layout_height="@dimen/_35sdp"
-                                android:src="@drawable/ic_aboutus"
+                                android:src="@drawable/ic_about_us"
                                 android:layout_centerInParent="true"/>
 
                             <TextView
