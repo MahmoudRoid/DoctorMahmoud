@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.OvershootInterpolator;
 import android.widget.Toast;
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -31,6 +32,7 @@ import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class ListDataFragment extends Fragment
         implements
@@ -209,12 +211,14 @@ public class ListDataFragment extends Fragment
             // show folders in Grid
             mLayoutManager = new GridLayoutManager(getActivity(),2);
             rv.setLayoutManager(mLayoutManager);
+            rv.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
             fAdapter = new RecycleViewAdapter_FolderData(myList,San,getActivity());
             rv.setAdapter(fAdapter);
         }else{
             // show objects in List
             LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             rv.setLayoutManager(lm);
+            rv.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
             oAdapter = new RecycleViewAdapter_ObjectData(myList,San,getActivity());
             rv.setAdapter(oAdapter);
         }

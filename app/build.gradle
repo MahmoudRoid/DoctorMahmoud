@@ -40,7 +40,7 @@ dependencies {
     compile 'com.afollestad:easyvideoplayer:0.2.9'
     compile 'uk.co.chrisjenx:calligraphy:2.2.0'
     compile 'com.github.javiersantos:BottomDialogs:1.2.1'
-    testCompile 'junit:junit:4.12'
+    compile 'jp.wasabeef:recyclerview-animators:2.2.5'
     apt 'com.jakewharton:butterknife-compiler:8.4.0'
 }
 repositories {

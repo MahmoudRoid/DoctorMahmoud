@@ -46,8 +46,9 @@ public class ImagesActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_images);
         define();
+        DEPTH_OF_FOLDERS=2;
         if(DEPTH_OF_FOLDERS==1){
-            finish();
+//            finish();
             goToGallery(FACTION,"گالری");
         }else{
             setFragment();
@@ -94,6 +95,7 @@ public class ImagesActivity extends AppCompatActivity
         intent.putExtra("sid",RootId);
         intent.putExtra("title",Title);
         startActivity(intent);
+
     }// end goToGallery()
     /*transactions happen here which calls from fragments inside this activity*/
     @Override

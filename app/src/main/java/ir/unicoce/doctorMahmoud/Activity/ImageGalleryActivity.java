@@ -85,7 +85,7 @@ public class ImageGalleryActivity extends AppCompatActivity
         // load data from database
         List<db_details> list = Select
                 .from(db_details.class)
-                .where(Condition.prop("parentid").eq(Variables.getImages))
+                .where(Condition.prop("parentid").eq(FACTION))
                 .list();
 
         if (list.size() > 0) {
