@@ -36,7 +36,7 @@ public class PartsActivity extends AppCompatActivity
                 false :list of objects to show
                 true  :list of folders to show
      }*/
-    private Boolean isFolder = true;
+    private Boolean isFolder = false;
     /*Determine depth of folders inside each other*/
     private static final int DEPTH_OF_FOLDERS = 1;
     /*onCreate*/

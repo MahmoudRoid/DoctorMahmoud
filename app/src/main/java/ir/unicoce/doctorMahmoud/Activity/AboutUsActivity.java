@@ -4,9 +4,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,8 +30,8 @@ import ir.unicoce.doctorMahmoud.AsyncTasks.GetData;
 import ir.unicoce.doctorMahmoud.Classes.Internet;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
 import ir.unicoce.doctorMahmoud.Database.db_details;
-import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
+import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -36,11 +41,15 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
     ImageView ivHeaderShow;
     @BindView(R.id.layMatn_show)
     LinearLayout lay;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
     private ArrayList<Object_Data> objectDataArrayList;
-
+    private Toolbar toolbar;
+    private Typeface San;
+    private TextView txtToolbar;
 
     public static int w = 0, h = 0;
-    private Typeface San;
+
 
 
     @Override
@@ -52,10 +61,28 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
         define();
         init();
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(Internet.isNetworkAvailable(AboutUsActivity.this)){
+                    GetData getdata = new GetData(AboutUsActivity.this, AboutUsActivity.this, Variables.getAboutUs, false);
+                    getdata.execute();
+                }
+            }
+        });
+
     }
 
     private void define() {
         San = Typeface.createFromAsset(getAssets(), "fonts/SansLight.ttf");
+        toolbar = (Toolbar) findViewById(R.id.toolbar_aboutus);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        txtToolbar = (TextView) findViewById(R.id.toolbar_invisible_title);
+        txtToolbar.setTypeface(San);
+        txtToolbar.setText("درباره کلینیک");
+
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         h = displaymetrics.heightPixels;
@@ -70,18 +97,19 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
                     .where(Condition.prop("parentid").eq(Variables.getAboutUs))
                     .list();
 
-            if (db.size()==0 || db.get(0).getContent().equals("")) {
+            if (db.size() == 0 || db.get(0).getContent().equals("")) {
                 // get data from service
                 if (Internet.isNetworkAvailable(this)) {
                     // call service
-                    GetData getdata = new GetData(this, this, Variables.getAboutUs,false);
+                    GetData getdata = new GetData(this, this, Variables.getAboutUs, false);
                     getdata.execute();
                 }
             } else {
-                showDetails(db.get(0).getTitle(),db.get(0).getContent(), db.get(0).getImageUrl());
+                showDetails(db.get(0).getTitle(), db.get(0).getContent(), db.get(0).getImageUrl());
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        catch (Exception e) {e.printStackTrace();}
 
     }
 
@@ -162,10 +190,38 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
 
     @Override
     public void onBackPressed() {
-        startActivity(new Intent(AboutUsActivity.this, MainActivity.class));
+        back();
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_empty, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int id = item.getItemId();
+        switch(id){
+            case android.R.id.home:
+         back();
+                break;
+
+            default:
+                break;
+
+        }
+        return false;
+    }
+
+
+    private void back() {
+        startActivity(new Intent(this,MainActivity.class));
     }
 }

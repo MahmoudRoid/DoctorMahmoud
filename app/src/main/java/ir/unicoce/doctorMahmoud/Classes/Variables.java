@@ -20,11 +20,11 @@ public class Variables {
     public static final String getVideos            = "8";
     public static final String getVoices            = "9";
     public static final String getFiles             = "10";
-    public static final String getMagazine          = "";
-    public static final String getInsurance         = "";
-    public static final String getParts             = "";
-    public static final String getCareBefore        = "";
-    public static final String getCareAfter         = "";
+    public static final String getMagazine          = "25";
+    public static final String getInsurance         = "26";
+    public static final String getParts             = "24";
+    public static final String getCareBefore        = "27";
+    public static final String getCareAfter         = "28";
     public static final String getDrugs             = "";
     public static final String getCommonQuestions   = "18";
 
@@ -34,7 +34,7 @@ public class Variables {
     public static final String Instagram_Id         = "";
     public static final String Instagram_Id_From_App= "";
     public static final String Telegram_chat_Id     = "";
-    public static final String Gmail_UniCode        = "uniced@gmail.com";
+    public static final String Gmail_UniCode        = "unicode@gmail.com";
     public static final String GooglePlus_UniCode   = "https://plus.google.com/communities/107847486351510098159";
 
 }// end class

@@ -124,6 +124,7 @@
         <activity
             android:name=".Activity.PollActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".Activity.ReservationActivity"></activity>
     </application>
 
 </manifest>

@@ -32,6 +32,7 @@ import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
 import ir.unicoce.doctorMahmoud.Interface.onFragmentInteractionListener2;
 import ir.unicoce.doctorMahmoud.R;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class ListDataFragment extends Fragment
@@ -211,16 +212,18 @@ public class ListDataFragment extends Fragment
             // show folders in Grid
             mLayoutManager = new GridLayoutManager(getActivity(),2);
             rv.setLayoutManager(mLayoutManager);
-            rv.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
             fAdapter = new RecycleViewAdapter_FolderData(myList,San,getActivity());
-            rv.setAdapter(fAdapter);
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(fAdapter);
+            alphaAdapter.setDuration(1000);
+            rv.setAdapter(alphaAdapter);
         }else{
             // show objects in List
             LinearLayoutManager lm = new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false);
             rv.setLayoutManager(lm);
-            rv.setItemAnimator(new SlideInUpAnimator(new OvershootInterpolator(1f)));
             oAdapter = new RecycleViewAdapter_ObjectData(myList,San,getActivity());
-            rv.setAdapter(oAdapter);
+            AlphaInAnimationAdapter alphaAdapter = new AlphaInAnimationAdapter(oAdapter);
+            alphaAdapter.setDuration(1000);
+            rv.setAdapter(alphaAdapter);
         }
 
     }// end refreshAdapter()

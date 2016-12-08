@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.cocosw.bottomsheet.BottomSheet;
 
 import java.io.File;
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -219,16 +220,28 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this,SendIdeasActivity.class));
             resideMenu.closeMenu();
         } else if (view == itemIntroduceToOthers) {
-            Toast.makeText(getApplicationContext(), "3", Toast.LENGTH_SHORT).show();
+            sendToOthers();
             resideMenu.closeMenu();
         } else if (view == itemDarookhane) {
-            Toast.makeText(getApplicationContext(), "4", Toast.LENGTH_SHORT).show();
+         // TODO : add drug store
             resideMenu.closeMenu();
         }
         else if (view == itemSupport) {
             startActivity(new Intent(MainActivity.this,SupportActivity.class));
             resideMenu.closeMenu();
         }
+    }
+
+    private void sendToOthers() {
+        // معرفی به دوستان
+        try{
+            ArrayList<Uri> uris = new ArrayList<>();
+            Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            sendIntent.setType("application/*");
+            uris.add(Uri.fromFile(new File(getApplicationInfo().publicSourceDir)));
+            sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+            startActivity(Intent.createChooser(sendIntent, null));
+        }catch(Exception e){e.printStackTrace();}
     }
 
     private void checkForLogin() {
@@ -441,25 +454,21 @@ public class MainActivity extends AppCompatActivity
 
                         switch (which){
                             case R.id.services_introduce_services:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,ServicesActivity.class));
                                 break;
                             case R.id.services_reservation:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-                                break;
-                            case R.id.services_cares:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+//                                startActivity(new Intent(MainActivity.this,.class));
                                 break;
                             case R.id.services_insurances:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+                                startActivity(new Intent(MainActivity.this,InsuranceActivity.class));
                                 break;
                             case R.id.services_services_prices:
                                 if(Internet.isNetworkAvailable(MainActivity.this)){
                                     startActivity(new Intent(MainActivity.this,EstimateCostActivity.class));
                                 }
                                 else {
-                                    Toast.makeText(MainActivity.this, "internet nadarid", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(MainActivity.this, R.string.error_internet, Toast.LENGTH_SHORT).show();
                                 }
-
                                 break;
                         }
                     }
@@ -505,6 +514,17 @@ public class MainActivity extends AppCompatActivity
                             case R.id.danestabniha_darooha:
                                 startActivity(new Intent(MainActivity.this,DrugsActivity.class));
                                 break;
+                            case R.id.danestabniha_befor_operation:
+                                Intent intent = new Intent(MainActivity.this,CareActivity.class);
+                                intent.putExtra("isCareAfter",false);
+                                startActivity(intent);
+                                break;
+                            case R.id.danestabniha_after_operation:
+                                Intent intent2 = new Intent(MainActivity.this,CareActivity.class);
+                                intent2.putExtra("isCareAfter",true);
+                                startActivity(intent2);
+                                break;
+
                         }
                     }
                 }).show();

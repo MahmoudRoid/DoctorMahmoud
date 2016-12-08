@@ -1,4 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/danestabniha_magazines" android:title="@string/magazines" android:icon="@drawable/ic_magazin"/>
     <item android:id="@+id/danestabniha_darooha" android:title="@string/darooha" android:icon="@drawable/ic_pill"/>
+    <item android:id="@+id/danestabniha_befor_operation" android:title="@string/befor_operation" android:icon="@drawable/ic_care"/>
+    <item android:id="@+id/danestabniha_after_operation" android:title="@string/after_operation" android:icon="@drawable/ic_care"/>
 </menu>

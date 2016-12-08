@@ -155,6 +155,8 @@
     <string name="company_address">کرج - چهارراه کارخانه قند - میدان شهید فهمیده - ساختمان بیمه - واحد 1</string>
     <string name="title_activity_common_questions">CommonQuestionsActivity</string>
     <string name="title_activity_test_maps">Map</string>
+    <string name="befor_operation">مراقبت های قبل عمل</string>
+    <string name="after_operation">مراقبت های بعد عمل</string>
 
 
 </resources>
