@@ -37,22 +37,16 @@ public class ImagesActivity extends AppCompatActivity
                 false :list of objects to show
                 true  :list of folders to show
      }*/
-    private Boolean isFolder = true;
+    private Boolean isFolder = false;
     /*Determine depth of folders inside each other*/
-    private static int DEPTH_OF_FOLDERS = 2;
+    private static int DEPTH_OF_FOLDERS = 1;
     /*onCreate*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_images);
         define();
-        DEPTH_OF_FOLDERS=2;
-        if(DEPTH_OF_FOLDERS==1){
-//            finish();
-            goToGallery(FACTION,"گالری");
-        }else{
-            setFragment();
-        }
+        setFragment();
     }// end onCreate()
     /*set typeface findViewByIds set toolbar text and navigation*/
     private void define() {
@@ -75,7 +69,6 @@ public class ImagesActivity extends AppCompatActivity
         bundle.putString("FACTION", FACTION);
         bundle.putBoolean("KIND", isFolder);
         if(isFolder){
-            DEPTH_OF_FOLDERS--;
             bundle.putInt("DEPTH_OF_FOLDERS",DEPTH_OF_FOLDERS);
         }else{
             bundle.putInt("DEPTH_OF_FOLDERS",0);
@@ -88,22 +81,17 @@ public class ImagesActivity extends AppCompatActivity
         ft.commit();
 
     }// end setFragment()
-    /*open ImageGalleryActivity and send the folder id to it*/
-    private void goToGallery(String RootId,String Title) {
-        Log.i(Variables.Tag,"RootId in trans: "+RootId);
-        Intent intent = new Intent(ImagesActivity.this,ImageGalleryActivity.class);
-        intent.putExtra("sid",RootId);
-        intent.putExtra("title",Title);
-        startActivity(intent);
-
-    }// end goToGallery()
     /*transactions happen here which calls from fragments inside this activity*/
     @Override
     public void onFragmentInteraction(int folderDepth, Object_Data ob) {
 
-        if(folderDepth == 1){
+        if(folderDepth == 0){
             /*Open ImageGalleryActivity*/
-            goToGallery(ob.getSid()+"",ob.getTitle());
+            Intent intent = new Intent(ImagesActivity.this,ImageGalleryActivity.class);
+            intent.putExtra("files",ob.getFiles());
+            intent.putExtra("title",ob.getTitle());
+            startActivity(intent);
+
         }else{
             // hide current fragment
             Fragment fragment = fragmentManager.findFragmentById(R.id.frame);
@@ -116,7 +104,11 @@ public class ImagesActivity extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putString("PARENT_FACTION", FACTION);
             bundle.putString("FACTION", ob.getSid()+"");
-            bundle.putBoolean("KIND", true);
+            if(folderDepth==1){
+                bundle.putBoolean("KIND", false);
+            }else{
+                bundle.putBoolean("KIND", true);
+            }
             bundle.putInt("DEPTH_OF_FOLDERS",--folderDepth);
             myFragment.setArguments(bundle);
 
@@ -126,7 +118,6 @@ public class ImagesActivity extends AppCompatActivity
             String backStackName = myFragment.getClass().getName();
             ft.addToBackStack(backStackName);
             ft.commit();
-
         }
 
     }// end onFragmentInteraction()
@@ -143,7 +134,7 @@ public class ImagesActivity extends AppCompatActivity
         int id = item.getItemId();
         switch(id){
             case android.R.id.home:
-                finish();
+                onBackPressed();
                 break;
 
             default:
@@ -162,7 +153,6 @@ public class ImagesActivity extends AppCompatActivity
         ft.show(fragment);
         ft.commit();
     }// end onBackPressed()
-    /*set font typeface on xml*/
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

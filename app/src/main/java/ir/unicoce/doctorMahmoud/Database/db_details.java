@@ -2,6 +2,8 @@ package ir.unicoce.doctorMahmoud.Database;
 
 import com.orm.SugarRecord;
 
+import java.util.List;
+
 /**
  * Created by mohad syetem on 11/26/2016.
  */
@@ -9,17 +11,24 @@ import com.orm.SugarRecord;
 public class db_details extends SugarRecord {
     public int sid;
     public int parentid;
-    public String title,content,imageurl;
+    public int seennumber;
+    public String title,content,imageurl,datecreated,datemodified;
+    public String files;
     public boolean favorite;
 
     public db_details(){}
 
-    public db_details(int sid, int parentid, String title, String content, String imageurl, boolean favorite) {
+    public db_details(int sid, int parentid, String title, String content, String imageurl,
+                      int seennumber,String datecreated,String datemodified,String files,boolean favorite) {
         this.sid = sid;
         this.parentid = parentid;
         this.title = title;
         this.content = content;
         this.imageurl = imageurl;
+        this.seennumber=seennumber;
+        this.datecreated=datecreated;
+        this.datemodified=datemodified;
+        this.files=files;
         this.favorite = favorite;
     }
 
@@ -42,6 +51,14 @@ public class db_details extends SugarRecord {
     public String getImageUrl() {
         return imageurl;
     }
+
+    public int getSeennumber() {return seennumber;}
+
+    public String getDatecreated() {  return datecreated;}
+
+    public String getDatemodified() {  return datemodified;}
+
+    public String getFiles() {return files;}
 
     public boolean isFavorite() {
         return favorite;

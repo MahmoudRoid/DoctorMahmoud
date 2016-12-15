@@ -16,18 +16,20 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
-import ir.unicoce.doctorMahmoud.Objects.Object_Data;
 import ir.unicoce.doctorMahmoud.R;
 
+/**
+ * Created by soheil syetem on 12/11/2016.
+ */
 
-public class RecycleViewAdapter_ObjectData extends RecyclerView.Adapter<RecycleViewAdapter_ObjectData.ViewHolder> {
+public class VideoItemAdapter extends RecyclerView.Adapter<VideoItemAdapter.ViewHolder> {
 
-    List<Object_Data> ItemsList;
+    List<String> titleList;
     Typeface San;
     Context mContext;
 
-    public RecycleViewAdapter_ObjectData(List<Object_Data> row, Typeface San, Context context) {
-        this.ItemsList = row;
+    public VideoItemAdapter(List<String> titleList, Typeface San, Context context) {
+        this.titleList = titleList;
         this.San = San;
         this.mContext = context;
     }
@@ -50,26 +52,25 @@ public class RecycleViewAdapter_ObjectData extends RecyclerView.Adapter<RecycleV
 
     @Override
     public int getItemCount() {
-        return ItemsList.size();
+        return titleList.size();
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
+    public VideoItemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.row_recycleview_listdata, viewGroup, false);
 
-        ViewHolder pvh = new ViewHolder(v);
+        VideoItemAdapter.ViewHolder pvh = new VideoItemAdapter.ViewHolder(v);
         return pvh;
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder RowViewHolder, final int position) {
-        RowViewHolder.txtTitle.setText(ItemsList.get(position).getTitle());
-        Log.i(Variables.Tag,"urlll: "+ItemsList.get(position).getImageUrl());
-        Glide.with(mContext).load(ItemsList.get(position).getImageUrl())
+    public void onBindViewHolder(final VideoItemAdapter.ViewHolder RowViewHolder, final int position) {
+        RowViewHolder.txtTitle.setText(titleList.get(position));
+        Glide.with(mContext).load("")
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                //.placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_launcher)
                 .into(RowViewHolder.img);
 
     }
@@ -79,13 +80,5 @@ public class RecycleViewAdapter_ObjectData extends RecyclerView.Adapter<RecycleV
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void add(Object_Data ob) {
-        ItemsList.add(ob);
-        notifyDataSetChanged();
-    }
-
-    public void clear() {
-        ItemsList.clear();
-        notifyDataSetChanged();
-    }
 }
+

@@ -1,10 +1,10 @@
 package ir.unicoce.doctorMahmoud.AsyncTasks;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.AsyncTask;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,31 +20,28 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-
 /**
- * Created by Droid on 8/31/2016.
+ * Created by soheil syetem on 12/12/2016.
  */
-public class LoginPost extends AsyncTask<Void,Void,String> {
+
+public class ReservationPost extends AsyncTask<Void,Void,String> {
 
     public Context context;
     private IWebserviceByTag delegate = null;
-    public String username,password;
+    public String serviceId,userId,description;
     SweetAlertDialog pDialog ;
     public String Url;
     public String Tag;
 
-    public SharedPreferences prefs;
-    public SharedPreferences.Editor editor;
-
-    public LoginPost(Context context,IWebserviceByTag delegate,String username,String password,String Tag){
+    public ReservationPost(Context context,IWebserviceByTag delegate,String serviceId,String userId,String description,String Tag){
         this.context=context;
         this.delegate=delegate;
-        this.username=username;
-        this.password=password;
+        this.serviceId=serviceId;
+        this.userId=userId;
+        this.description=description;
         this.Tag=Tag;
 
-        this.Url= URLS.Login;
+        this.Url= URLS.PostReservation;
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
     }
 
@@ -66,8 +63,9 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = new FormBody.Builder()
                         .add("Token", Variables.TOKEN)
-                        .add("Username",username)
-                        .add("Password",password)
+                        .add("UserName",userId)
+                        .add("ServiceId",serviceId)
+                        .add("Description",description)
                         .build();
                 Request request = new Request.Builder()
                         .url(this.Url)
@@ -111,27 +109,20 @@ public class LoginPost extends AsyncTask<Void,Void,String> {
                 JSONObject jsonObject=new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
-                    // save somthing into share preferences
-                    prefs = context.getSharedPreferences("Login", MODE_PRIVATE);
-                    editor = prefs.edit();
-
-                    editor.putString("name",jsonObject.optString("FirstName"));
-                    editor.putString("username",username);
-                    editor.putString("phone",jsonObject.optString("PhoneNumber"));
-                    editor.putString("email",jsonObject.optString("Email"));
-                    editor.putString("password",password);
-                    editor.putString("userid",jsonObject.optString("Id"));
-                    editor.putBoolean("has_logined",true);
-                    editor.apply();
-
-                    delegate.getResult("",this.Tag);
+                    int reservaionId = jsonObject.optInt("Data");
+                    delegate.getResult(reservaionId,this.Tag);
                 }
                 else {
-                    delegate.getError("user pass incorrect",this.Tag);
+                    delegate.getError("error",this.Tag);
                 }
 
             } catch (JSONException e) {
                 e.printStackTrace();
+                try {
+                    delegate.getError("error",this.Tag);
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

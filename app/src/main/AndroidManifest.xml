@@ -17,6 +17,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -35,7 +38,7 @@
             android:value="doctormahmoud.db" />
         <meta-data
             android:name="VERSION"
-            android:value="12" />
+            android:value="15" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -124,7 +127,21 @@
         <activity
             android:name=".Activity.PollActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ReservationActivity"></activity>
+        <activity android:name=".Activity.ReservationActivity" />
+        <activity android:name=".Activity.VideoesGalleryActivity" />
+        <activity android:name=".Activity.ShowServiceActivity"></activity>
+
+
+        <service
+            android:name=".Service.ReservationService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver
+            android:name=".BroadcastReceiver.AlarmNotification"
+            android:process=":remote" />
+
+
     </application>
 
 </manifest>

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.orm.query.Condition;
 import com.orm.query.Select;
@@ -40,6 +41,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
     private String KEY_ID;
     private SweetAlertDialog pDialog;
     private boolean isFolder;
+    StringBuilder stringBuilder;
 
     public GetData(Context context, IWebservice delegate,String faction,boolean isFolder){
         this.context    = context;
@@ -58,6 +60,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
             WEB_SERVICE_URL = URLS.GetItem;
             KEY_ID = Variables.catId;
         }
+
     }// end getUrl()
 
     @Override
@@ -151,10 +154,9 @@ public class GetData extends AsyncTask<Void,Void,String> {
                             int id = jsonObject2.getInt("Id");
                             int parentId = jsonObject2.getInt("ParentId");
                             String title = jsonObject2.getString("Name");
-                            String content = "";
                             String imageUrl = jsonObject2.getString("ImageUrl");
 
-                            Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
+                            Object_Data obj = new Object_Data(id,parentId,title,"",imageUrl,-1,"","","",false);
                             myObjectArrayList.add(obj);
 
                             // save gotten folder information in database
@@ -189,7 +191,7 @@ public class GetData extends AsyncTask<Void,Void,String> {
                                 .from(db_details.class)
                                 .where(
                                         Condition.prop("parentid").eq(FACTION)
-                                        ,Condition.prop("favorite").eq(0)
+                                         ,Condition.prop("favorite").eq(0)
                                 )
                                 .list();
 
@@ -211,24 +213,46 @@ public class GetData extends AsyncTask<Void,Void,String> {
                         {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
 
-                            int id = jsonObject2.getInt("Id");
-                            int parentId = jsonObject2.getInt("CategoryId");
-                            String title = jsonObject2.getString("Title");
-                            String content = jsonObject2.getString("Content");
-                            String imageUrl = jsonObject2.getString("FileUrl");
+                            int id = jsonObject2.optInt("Id");
+                            int parentId = jsonObject2.optInt("CategoryId",-1);
+                            String title = jsonObject2.optString("Title","");
+                            String content = jsonObject2.optString("Content","");
+                            int seenNumber = jsonObject2.optInt("SeenNumber",0);
+                            String dateCreated = jsonObject2.optString("DateCreated","");
+                            String dateModified = jsonObject2.optString("DateModified","");
+                            String files;
+                            stringBuilder = new StringBuilder();
+                            // chizhayee k too fileUrl hast
+                            JSONArray jsonArray2 = jsonObject2.getJSONArray("Files");
+                            for (int j = 0; j < jsonArray2.length(); j++) {
+                                JSONObject jsonObject3 = jsonArray2.getJSONObject(j);
 
-                            Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl,false);
+                                String url = jsonObject3.optString("Url");
+                                String name = jsonObject3.optString("Name");
+
+                                stringBuilder.append(url+","+name+",");
+                            }
+                            files = stringBuilder.substring(0,stringBuilder.length()-1).toString();
+                            // split files
+                            String[] tmp = files.split(",");
+                            String imageUrl = tmp[0]; //  axe asli
+
+                            Object_Data obj = new Object_Data(id,parentId,title,content,imageUrl
+                                    ,seenNumber,dateCreated,dateModified,files,false);
                             myObjectArrayList.add(obj);
 
                             // save gotten object in database
                             try {
-
                                 db_details db = new db_details(
                                         id,
                                         parentId,
                                         title,
                                         content,
                                         imageUrl,
+                                        seenNumber,
+                                        dateCreated,
+                                        dateModified,
+                                        files,
                                         false
                                 );
                                 db.save();

@@ -18,11 +18,11 @@ import ir.unicoce.doctorMahmoud.R;
 
 public class RecycleViewAdapter_Images extends RecyclerView.Adapter<RecycleViewAdapter_Images.ViewHolder> {
 
-    List<Object_Data> ItemsList;
+    List<String> ItemsList;
     Typeface San;
     Context mContext;
 
-    public RecycleViewAdapter_Images(List<Object_Data> row, Typeface San, Context context) {
+    public RecycleViewAdapter_Images(List<String> row, Typeface San, Context context) {
         this.ItemsList = row;
         this.San = San;
         this.mContext = context;
@@ -57,7 +57,7 @@ public class RecycleViewAdapter_Images extends RecyclerView.Adapter<RecycleViewA
 
     @Override
     public void onBindViewHolder(final RecycleViewAdapter_Images.ViewHolder RowViewHolder, final int position) {
-        Glide.with(mContext).load(ItemsList.get(position).getImageUrl())
+        Glide.with(mContext).load(ItemsList.get(position))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(RowViewHolder.img);

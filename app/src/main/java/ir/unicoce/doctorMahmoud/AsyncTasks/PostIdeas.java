@@ -59,7 +59,7 @@ public class PostIdeas extends AsyncTask<Void,Void,String> {
                         .add("Token", Variables.TOKEN)
                         .add("Name",name)
                         .add("Title",title)
-                        .add("Content",content)
+                        .add("Message",content)
                         .add("Phone",phone)
                         .add("Email",email)
                         .build();

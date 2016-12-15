@@ -36,7 +36,7 @@ public class VideosActivity extends AppCompatActivity
                 false :list of objects to show
                 true  :list of folders to show
      }*/
-    private Boolean isFolder = true;
+    private Boolean isFolder = false;
     /*Determine depth of folders inside each other*/
     private static final int DEPTH_OF_FOLDERS = 1;
     /*onCreate*/
@@ -85,13 +85,10 @@ public class VideosActivity extends AppCompatActivity
     public void onFragmentInteraction(int folderDepth, Object_Data ob) {
 
         if(folderDepth == 0){
-            /*Open ShowActivity*/
-            Intent intent = new Intent(VideosActivity.this,ShowVideoActivity.class);
-            intent.putExtra("sid",ob.getSid());
+         /*Open ImageGalleryActivity*/
+            Intent intent = new Intent(VideosActivity.this,VideoesGalleryActivity.class);
+            intent.putExtra("files",ob.getFiles());
             intent.putExtra("title",ob.getTitle());
-            intent.putExtra("content",ob.getContent());
-            intent.putExtra("image_url",ob.getImageUrl());
-            intent.putExtra("faction",FACTION);
             startActivity(intent);
         }else{
             // hide current fragment

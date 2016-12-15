@@ -2,6 +2,8 @@ package ir.unicoce.doctorMahmoud.Database;
 
 import com.orm.SugarRecord;
 
+import java.util.List;
+
 /**
  * Created by mohad syetem on 11/25/2016.
  */

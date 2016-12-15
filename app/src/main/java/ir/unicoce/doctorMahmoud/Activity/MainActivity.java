@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity
         IWebserviceByTag,
         OnFragmentInteractionListener
 {
-    EditText edtNationalcode ;
+    EditText edtUsername ;
     EditText edtName ;
     EditText edtPhone;
     EditText edtEmail ;
@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity
     public SharedPreferences.Editor editor;
     private Typeface San;
     View snack_view;
-    private String DName, DPhone, DEmail,DPassword, DNationalCode;
+    private String DName, DPhone, DEmail,DPassword, DUsername;
     private static final String SignUpTag="SignUpTag";
     private static final String LoginTag="LoginTag";
     private FragmentManager fragmentManager;
@@ -292,10 +292,10 @@ public class MainActivity extends AppCompatActivity
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String DNationalCode = edtlogin.getText().toString();
+                String DUsername = edtlogin.getText().toString();
                 String DPass = edtPassword.getText().toString();
-                if(DNationalCode.length()>11 || DNationalCode.length()<9){
-                    Toast.makeText(MainActivity.this, "تعداد ارقام کارت غیر مجاز است.", Toast.LENGTH_SHORT).show();
+                if(DUsername.length()<1){
+                    Toast.makeText(MainActivity.this, "تعداد کاراکترها کم است.", Toast.LENGTH_SHORT).show();
                 }
                 else if(DPass.length()<3){
                     Toast.makeText(MainActivity.this, "تعداد کاراکترهای رمز عبور غیر مجاز است.", Toast.LENGTH_SHORT).show();
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity
                 else{
                     //AskSever(false);
                     if (Internet.isNetworkAvailable(MainActivity.this)) {
-                        LoginPost post = new LoginPost(MainActivity.this,MainActivity.this,DNationalCode,DPass,LoginTag);
+                        LoginPost post = new LoginPost(MainActivity.this,MainActivity.this,DUsername,DPass,LoginTag);
                         post.execute();
                         d.dismiss();
                     } else {
@@ -342,7 +342,7 @@ public class MainActivity extends AppCompatActivity
         TextInputLayout til3 = (TextInputLayout) d.findViewById(R.id.til3_dialogreg);
         TextInputLayout til4 = (TextInputLayout) d.findViewById(R.id.til4_dialogreg);
         TextInputLayout til5 = (TextInputLayout) d.findViewById(R.id.til5_dialogreg);
-        edtNationalcode = (EditText) d.findViewById(R.id.edtNationaCode_dialogreg);
+        edtUsername = (EditText) d.findViewById(R.id.edtUsername_dialogreg);
         edtName = (EditText) d.findViewById(R.id.edtName_dialogreg);
         edtPhone = (EditText) d.findViewById(R.id.edtPhone_dialogreg);
         edtEmail = (EditText) d.findViewById(R.id.edtEmail_dialogreg);
@@ -354,7 +354,7 @@ public class MainActivity extends AppCompatActivity
         edtName.setTypeface(San);
         edtPhone.setTypeface(San);
         edtEmail.setTypeface(San);
-        edtNationalcode.setTypeface(San);
+        edtUsername.setTypeface(San);
         btnCancel.setTypeface(San);
         btnCommit.setTypeface(San);
         til2.setTypeface(San);
@@ -374,14 +374,13 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
 
-                DNationalCode = edtNationalcode.getText().toString();
+                DUsername = edtUsername.getText().toString();
                 DName = edtName.getText().toString();
                 DPhone = edtPhone.getText().toString();
                 DEmail = edtEmail.getText().toString();
                 DPassword = edtPassword.getText().toString();
 
-                if(        DNationalCode.length()>11
-                        || DNationalCode.length()<9
+                if(        DUsername.equals("")
                         || DName.equals("")
                         || DPhone.equals("")
                         || DEmail.equals("")
@@ -391,7 +390,7 @@ public class MainActivity extends AppCompatActivity
 
                 }else{
                     //AskSever(true);
-                    DNationalCode = edtNationalcode.getText().toString();
+                    DUsername = edtUsername.getText().toString();
                     DName = edtName.getText().toString();
                     DPhone = edtPhone.getText().toString();
                     DEmail = edtEmail.getText().toString();
@@ -399,7 +398,7 @@ public class MainActivity extends AppCompatActivity
 
                     if(Internet.isNetworkAvailable(MainActivity.this)){
                         d.dismiss();
-                        SignUpPost post = new SignUpPost(MainActivity.this,MainActivity.this,DName,DNationalCode,DPhone,DEmail,DPassword,SignUpTag);
+                        SignUpPost post = new SignUpPost(MainActivity.this,MainActivity.this,DName,DUsername,DPhone,DEmail,DPassword,SignUpTag);
                         post.execute();
                     }
                     else {
@@ -456,19 +455,8 @@ public class MainActivity extends AppCompatActivity
                             case R.id.services_introduce_services:
                                 startActivity(new Intent(MainActivity.this,ServicesActivity.class));
                                 break;
-                            case R.id.services_reservation:
-//                                startActivity(new Intent(MainActivity.this,.class));
-                                break;
                             case R.id.services_insurances:
                                 startActivity(new Intent(MainActivity.this,InsuranceActivity.class));
-                                break;
-                            case R.id.services_services_prices:
-                                if(Internet.isNetworkAvailable(MainActivity.this)){
-                                    startActivity(new Intent(MainActivity.this,EstimateCostActivity.class));
-                                }
-                                else {
-                                    Toast.makeText(MainActivity.this, R.string.error_internet, Toast.LENGTH_SHORT).show();
-                                }
                                 break;
                         }
                     }
@@ -483,6 +471,13 @@ public class MainActivity extends AppCompatActivity
                     public void onClick(DialogInterface dialog, int which) {
 
                         switch (which){
+                            case R.id.club_reservation:
+                                if (Internet.isNetworkAvailable(MainActivity.this)) {
+                                    startActivity(new Intent(MainActivity.this,ReservationActivity.class));
+                                }
+                                else Toast.makeText(MainActivity.this, R.string.error_internet, Toast.LENGTH_SHORT).show();
+
+                                break;
                             case R.id.club_match:
                                 Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
                                 break;
@@ -699,8 +694,6 @@ public class MainActivity extends AppCompatActivity
 
         switch (Tag){
             case "LoginTag":
-                editor.putBoolean("has_logined",true);
-                editor.apply();
 
                 Toast.makeText(this, "با موفقیت وارد شدید", Toast.LENGTH_SHORT).show();
                 // baz kardane bottom sheet
@@ -710,10 +703,11 @@ public class MainActivity extends AppCompatActivity
 
                 // save sign up things
                 editor.putString("name",edtName.getText().toString());
-                editor.putString("national_code",edtNationalcode.getText().toString());
+                editor.putString("username",edtUsername.getText().toString());
                 editor.putString("phone",edtPhone.getText().toString());
                 editor.putString("email",edtEmail.getText().toString());
                 editor.putString("password",edtPassword.getText().toString());
+                editor.putString("userid", (String) result);
                 editor.putBoolean("has_logined",true);
                 editor.apply();
 

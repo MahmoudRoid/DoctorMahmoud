@@ -22,7 +22,9 @@ import com.orm.query.Condition;
 import com.orm.query.Select;
 
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import ir.unicoce.doctorMahmoud.Adapter.RecycleViewAdapter_Images;
@@ -37,10 +39,7 @@ import ir.unicoce.doctorMahmoud.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class ImageGalleryActivity extends AppCompatActivity
-        implements
-        IWebservice
-{
+public class ImageGalleryActivity extends AppCompatActivity {
     /*variables and views inside this activity : */
     private ImageView imagesDetailImage;
     private RecyclerView mRecyclerView;
@@ -74,76 +73,60 @@ public class ImageGalleryActivity extends AppCompatActivity
         txtToolbar = (TextView) findViewById(R.id.txtToolbar_appbar);
         txtToolbar.setTypeface(San);
 
-        // get rootFolder id
-        FACTION     = getIntent().getStringExtra("sid");
         Title       = getIntent().getStringExtra("title");
-
         txtToolbar.setText(Title);
     }// end define()
     /*choose get recycleView data from database or server*/
     public void init() {
-        // load data from database
-        List<db_details> list = Select
-                .from(db_details.class)
-                .where(Condition.prop("parentid").eq(FACTION))
-                .list();
+        List<String> list = new ArrayList<>();
+        String[] tmp = getIntent().getStringExtra("files").split(",");
+        int tmp_size =  Arrays.asList(tmp).size();
 
-        if (list.size() > 0) {
-            // if there are some data in database set recycleView with them
-            for (int i = 0; i < list.size(); i++) {
-                myList.add(new Object_Data(
-                        list.get(i).getsid(),
-                        list.get(i).getparentid(),
-                        list.get(i).getTitle(),
-                        list.get(i).getContent(),
-                        list.get(i).getImageUrl(),
-                        list.get(i).isFavorite()
-                ));
-            }
-            showList(myList);
-            // set mainImage of activity with first data in database
-            Glide.with(this).load(myList.get(0).getImageUrl())
-                    .diskCacheStrategy(DiskCacheStrategy.SOURCE)
-                    .placeholder(R.mipmap.ic_launcher)
-                    .into(imagesDetailImage);
-
-        } else {
-            // if there isn't any data in database ask server for data
-            askServer();
-        }
-
+       for(int i=0;i<tmp_size;i+=2){
+           list.add(tmp[i]);
+       }
+        showImages(list);
     }// end init()
-    /*ask server for data*/
-    private void askServer() {
-        if(Internet.isNetworkAvailable(ImageGalleryActivity.this)){
-            // network available than ask server for data
-            Log.i(Variables.Tag,"ROOTId: "+FACTION);
-            GetData getdata = new GetData(ImageGalleryActivity.this,this,FACTION,false);
-            getdata.execute();
-        }else{
-            // network isn't available than toast user a message
-            Snackbar snackbar = Snackbar
-                    .make(findViewById(R.id.images_detail_relative),
-                            R.string.error_internet,
-                            Snackbar.LENGTH_LONG
-                    );
-            snack_view = snackbar.getView();
-            snack_view.setBackgroundColor(getResources().getColor(R.color.PrimaryColor));
-            TextView tv = (TextView) snack_view.findViewById(android.support.design.R.id.snackbar_text);
-            tv.setTextColor(Color.WHITE);
-            snackbar.show();
-        }// end check Internet
-    }// end askServer()
+
     /*set data to recycleView*/
-    public void showList(ArrayList<Object_Data> arrayList) {
-        myList = arrayList;
+//    public void showList(ArrayList<Object_Data> arrayList) {
+//        myList = arrayList;
+//        mRecyclerView = (RecyclerView) findViewById(R.id.images_detail_recycler);
+//        mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        mRecyclerView.setLayoutManager(mLayoutManager);
+//        mAdapter = new RecycleViewAdapter_Images(myList,San,ImageGalleryActivity.this);
+//        mRecyclerView.setAdapter(mAdapter);
+//
+//        Glide.with(this).load(arrayList.get(0).getImageUrl())
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                .placeholder(R.mipmap.ic_launcher)
+//                .into(imagesDetailImage);
+//
+//        mRecyclerView.addOnItemTouchListener(
+//                new RecyclerItemClickListener(
+//                        ImageGalleryActivity.this,
+//                        new RecyclerItemClickListener.OnItemClickListener() {
+//                            @Override
+//                            public void onItemClick(View view, int position) {
+//
+//                                Glide.with(ImageGalleryActivity.this)
+//                                        .load(myList.get(position).getImageUrl())
+//                                        .diskCacheStrategy(DiskCacheStrategy.SOURCE)
+//                                        .placeholder(R.mipmap.ic_launcher).into(imagesDetailImage);
+//
+//                            }
+//                        }));
+//    }
+
+    public void showImages(final List<String> images){
+
         mRecyclerView = (RecyclerView) findViewById(R.id.images_detail_recycler);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new RecycleViewAdapter_Images(myList,San,ImageGalleryActivity.this);
+        mAdapter = new RecycleViewAdapter_Images(images,San,ImageGalleryActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
-        Glide.with(this).load(arrayList.get(0).getImageUrl())
+        Glide.with(this).load(images.get(0))
                 .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(imagesDetailImage);
@@ -156,17 +139,18 @@ public class ImageGalleryActivity extends AppCompatActivity
                             public void onItemClick(View view, int position) {
 
                                 Glide.with(ImageGalleryActivity.this)
-                                        .load(myList.get(position).getImageUrl())
+                                        .load(images.get(position))
                                         .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                                         .placeholder(R.mipmap.ic_launcher).into(imagesDetailImage);
 
                             }
                         }));
+
     }
     /*create toolbar menu*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_refresh, menu);
+        getMenuInflater().inflate(R.menu.menu_empty, menu);
         return true;
     }
     /*on toolbar menu item click support*/
@@ -179,36 +163,12 @@ public class ImageGalleryActivity extends AppCompatActivity
                 finish();
                 break;
 
-            case R.id.action_refresh:
-                askServer();
-                break;
-
             default:
                 break;
 
         }
         return false;
     }
-    /*get result of askServer*/
-    @Override
-    public void getResult(Object result) throws Exception {
-        myList.clear();
-        showList((ArrayList<Object_Data>) result);
-    }
-    /*handle errors of askServer by toasting message*/
-    @Override
-    public void getError(String ErrorCodeTitle) throws Exception {
-        Snackbar snackbar = Snackbar
-                .make(findViewById(R.id.images_detail_relative),
-                        ErrorCodeTitle, Snackbar.LENGTH_LONG);
-
-        snack_view = snackbar.getView();
-        snack_view.setBackgroundColor(getResources().getColor(R.color.PrimaryColor));
-        TextView tv = (TextView) snack_view.findViewById(android.support.design.R.id.snackbar_text);
-        tv.setTextColor(Color.WHITE);
-        snackbar.show();
-    }
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

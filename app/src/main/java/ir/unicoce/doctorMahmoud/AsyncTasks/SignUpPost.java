@@ -26,17 +26,17 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
 
     public Context context;
     private IWebserviceByTag delegate = null;
-    public String name,nationalCode,phone,email,password;
+    public String name,username,phone,email,password;
     SweetAlertDialog pDialog ;
     public String Url;
     public String Tag;
 
-    public SignUpPost(Context context,IWebserviceByTag delegate,String name,String nationalCode,String phone,String email,String password,String Tag){
+    public SignUpPost(Context context,IWebserviceByTag delegate,String name,String username,String phone,String email,String password,String Tag){
         this.context=context;
         this.delegate=delegate;
         this.name=name;
         this.phone=phone;
-        this.nationalCode=nationalCode;
+        this.username=username;
         this.email=email;
         this.password=password;
         this.Tag=Tag;
@@ -63,9 +63,9 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = new FormBody.Builder()
                         .add("Token", Variables.TOKEN)
-                        .add("Name",name)
-                        .add("Family","hakem")
-                        .add("UserName",nationalCode)
+                        .add("FirstName",name)
+                        .add("LastName","hakem")
+                        .add("UserName",username)
                         .add("Phone",phone)
                         .add("Email",email)
                         .add("Password",password)
@@ -112,7 +112,8 @@ public class SignUpPost extends AsyncTask<Void,Void,String> {
                 JSONObject jsonObject=new JSONObject(result);
                 int Type=jsonObject.getInt("Status");
                 if(Type==1){
-                 delegate.getResult("",this.Tag);
+                    String userId = jsonObject.optString("Data","");
+                 delegate.getResult(userId,this.Tag);
                 }
                 else {
                     delegate.getError("signup faild",this.Tag);

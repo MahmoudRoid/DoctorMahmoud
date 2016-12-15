@@ -87,6 +87,10 @@ public class FavoriteActivity extends AppCompatActivity
                     list.get(i).getTitle(),
                     list.get(i).getContent(),
                     list.get(i).getImageUrl(),
+                    list.get(i).getSeennumber(),
+                    list.get(i).getDatecreated(),
+                    list.get(i).getDatemodified(),
+                    list.get(i).getFiles(),
                     list.get(i).isFavorite())
             );
         }

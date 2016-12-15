@@ -56,7 +56,7 @@ public class ListDataFragment extends Fragment
     private RecyclerView.LayoutManager mLayoutManager;
     private FloatingActionButton fab;
     private Typeface San;
-    private ArrayList<Object_Data> myList = new ArrayList<>();
+    private ArrayList<Object_Data> myList = new ArrayList<Object_Data>();
     private RecycleViewAdapter_ObjectData oAdapter;
     private RecycleViewAdapter_FolderData fAdapter;
 
@@ -150,6 +150,7 @@ public class ListDataFragment extends Fragment
                     askServer();
                 } else {
                     // database has some data in this FACTION than lets load them
+
                     for (int i=0;i<list.size();i++){
                         myList.add(new Object_Data(
                                 list.get(i).getsid(),
@@ -157,6 +158,7 @@ public class ListDataFragment extends Fragment
                                 list.get(i).getTitle(),
                                 "",
                                 list.get(i).getFolderimageurl(),
+                                -1,"","","",
                                 false)
                         );
                     }
@@ -182,6 +184,10 @@ public class ListDataFragment extends Fragment
                                 list.get(i).getTitle(),
                                 list.get(i).getContent(),
                                 list.get(i).getImageUrl(),
+                                list.get(i).getSeennumber(),
+                                list.get(i).getDatecreated(),
+                                list.get(i).getDatemodified(),
+                                list.get(i).getFiles(),
                                 list.get(i).isFavorite())
                         );
                     }

@@ -114,6 +114,9 @@ public class AboutUsActivity extends AppCompatActivity implements IWebservice {
     }
 
     public void showDetails(String title, String content, String imageUrl) {
+        // first clear all views in linearlayout
+        lay.removeAllViews();
+        // continue to show
         this.setTitle(title);
         Glide.with(this)
                 .load(imageUrl)

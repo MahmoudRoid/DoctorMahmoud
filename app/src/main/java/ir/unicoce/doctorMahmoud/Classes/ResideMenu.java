@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Rect;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.*;
 import android.view.animation.AnimationUtils;
@@ -139,17 +140,17 @@ public class ResideMenu extends FrameLayout {
         // in api14+ devices.
 
         // This is added to fix soft navigationBar's overlapping to content above LOLLIPOP
-        int bottomPadding = viewActivity.getPaddingBottom() + insets.bottom;
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-        boolean hasHomeKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_HOME);
-        if (!hasBackKey || !hasHomeKey) {//there's a navigation bar
-            bottomPadding += getNavigationBarHeight();
+//
+        int bottomPadding=insets.bottom;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Resources resources = getResources();
+            int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+            if (resourceId > 0) {
+                bottomPadding += resources.getDimensionPixelSize(resourceId);
+            }
         }
-
-        this.setPadding(viewActivity.getPaddingLeft() + insets.left,
-                viewActivity.getPaddingTop() + insets.top,
-                viewActivity.getPaddingRight() + insets.right,
-                bottomPadding);
+        this.setPadding(viewActivity.getPaddingLeft() + insets.left, viewActivity.getPaddingTop() + insets.top,
+                viewActivity.getPaddingRight() + insets.right, viewActivity.getPaddingBottom() + bottomPadding);
         insets.left = insets.top = insets.right = insets.bottom = 0;
         return true;
     }

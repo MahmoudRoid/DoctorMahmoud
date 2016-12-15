@@ -11,13 +11,13 @@ public class Variables {
     public static final String catIndex             = "catIndex";
     public static final String Index                = "Index";
 
-    public static final String getNews              = "2";
-    public static final String getDanestaniha       = "3";
-    public static final String getServices          = "4";
-    public static final String getAboutUs           = "5";
+    public static final String getNews              = "1";
+    public static final String getDanestaniha       = "2";
+    public static final String getServices          = "3";
+    public static final String getAboutUs           = "4";
     public static final String getSlides            = "6";
-    public static final String getImages            = "7";
-    public static final String getVideos            = "8";
+    public static final String getImages            = "11";
+    public static final String getVideos            = "12";
     public static final String getVoices            = "9";
     public static final String getFiles             = "10";
     public static final String getMagazine          = "25";
