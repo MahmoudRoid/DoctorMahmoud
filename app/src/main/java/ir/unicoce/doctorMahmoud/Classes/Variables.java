@@ -3,6 +3,7 @@ package ir.unicoce.doctorMahmoud.Classes;
 public class Variables {
 
     public static final String Tag                  = "MYAPP";
+    public static final String Domain               = "doctor.dotnetkaran.ir";
 
     public static final String TOKEN                = "Z4_ru@9j";
 
@@ -13,20 +14,21 @@ public class Variables {
 
     public static final String getNews              = "1";
     public static final String getDanestaniha       = "2";
-    public static final String getServices          = "3";
+    public static final String getServices          = "30";
     public static final String getAboutUs           = "4";
-    public static final String getSlides            = "6";
     public static final String getImages            = "11";
     public static final String getVideos            = "12";
     public static final String getVoices            = "9";
     public static final String getFiles             = "10";
-    public static final String getMagazine          = "25";
-    public static final String getInsurance         = "26";
-    public static final String getParts             = "24";
-    public static final String getCareBefore        = "27";
-    public static final String getCareAfter         = "28";
-    public static final String getDrugs             = "";
+    public static final String getMagazine          = "17";
+    public static final String getInsurance         = "31";
+    public static final String getParts             = "29";
+    public static final String getCareBefore        = "24";
+    public static final String getCareAfter         = "25";
+    public static final String getDrugs             = "19";
     public static final String getCommonQuestions   = "18";
+    public static final String getSliders           = "28";
+
 
 
     public static final String WebSite_Link         = "";

@@ -478,14 +478,14 @@ public class MainActivity extends AppCompatActivity
                                 else Toast.makeText(MainActivity.this, R.string.error_internet, Toast.LENGTH_SHORT).show();
 
                                 break;
-                            case R.id.club_match:
-                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
-                                break;
+//                            case R.id.club_match:
+//                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+//                                break;
                             case R.id.club_poll:
                                 startActivity(new Intent(MainActivity.this,PollActivity.class));
                                 break;
                             case R.id.club_moshavere:
-                                startActivity(new Intent(MainActivity.this,ChatActivity.class));
+                                startActivity(new Intent(MainActivity.this,ChatsActivity.class));
                                 break;
                             case R.id.club_chat:
                                 openTelegramChannel(Variables.Telegram_chat_Id);

@@ -1,5 +1,6 @@
 package ir.unicoce.doctorMahmoud.Adapter;
 
+import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.CardView;
@@ -11,17 +12,18 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import ir.unicoce.doctorMahmoud.Objects.Object_Chat;
 import ir.unicoce.doctorMahmoud.Objects.Object_Message;
 import ir.unicoce.doctorMahmoud.R;
 
 
 public class RecycleViewAdapter_chat extends RecyclerView.Adapter<RecycleViewAdapter_chat.ViewHolder> {
 
-    List<Object_Message> ItemsList;
+    List<Object_Chat> ItemsList;
     Typeface fontTypeFave;
     Context mContext;
 
-    public RecycleViewAdapter_chat(List<Object_Message> row, Typeface San, Context context) {
+    public RecycleViewAdapter_chat(List<Object_Chat> row, Typeface San, Context context) {
         this.ItemsList = row;
         this.fontTypeFave = San;
         this.mContext = context;
@@ -61,15 +63,16 @@ public class RecycleViewAdapter_chat extends RecyclerView.Adapter<RecycleViewAda
 
     @Override
     public void onBindViewHolder(final ViewHolder RowViewHolder, final int position) {
-        RowViewHolder.txtName.setText(ItemsList.get(position).getAuthor());
-        RowViewHolder.txtMessage.setText(ItemsList.get(position).getMessage());
-
-        if(!ItemsList.get(position).isMe){
-            RowViewHolder.cvBackground.setCardBackgroundColor(0xFF07C4B0);
-        }else{
+        if(ItemsList.get(position).isme()){
+            RowViewHolder.txtName.setText("من");
             RowViewHolder.cvBackground.setCardBackgroundColor(0xFFFFFFFF);
         }
+        else {
+            RowViewHolder.txtName.setText("دکتر");
+            RowViewHolder.cvBackground.setCardBackgroundColor(0xFF07C4B0);
+        }
 
+        RowViewHolder.txtMessage.setText(ItemsList.get(position).getMessage());
     }
 
     @Override
@@ -77,9 +80,10 @@ public class RecycleViewAdapter_chat extends RecyclerView.Adapter<RecycleViewAda
         super.onAttachedToRecyclerView(recyclerView);
     }
 
-    public void add(Object_Message ob) {
+    public void add(Object_Chat ob) {
         ItemsList.add(ob);
         notifyDataSetChanged();
+
     }
 
     public void clear() {

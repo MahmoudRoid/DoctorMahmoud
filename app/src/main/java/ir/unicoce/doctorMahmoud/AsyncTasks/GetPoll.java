@@ -63,6 +63,7 @@ public class GetPoll extends AsyncTask<Void,Void,String> {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = new FormBody.Builder()
                         .add("Token", Variables.TOKEN)
+                        .add("Id","1")
                         .build();
                 Request request = new Request.Builder()
                         .url(this.url)

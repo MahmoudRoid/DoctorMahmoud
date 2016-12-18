@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:gravity="center_vertical"
-              android:paddingTop="15dp"
-              android:paddingBottom="15dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
 
     <ImageView
             android:layout_width="30dp"
@@ -17,9 +19,10 @@
     <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
-            android:textSize="18sp"
+            android:textColor="@color/PrimaryText"
+            android:textSize="14sp"
             android:layout_marginLeft="10dp"
-            android:id="@+id/tv_title"/>
+            android:id="@+id/tv_title"
+            fontPath="fonts/SansLight.ttf"/>
 
 </LinearLayout>

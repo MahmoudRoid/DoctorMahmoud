@@ -157,6 +157,10 @@
     <string name="title_activity_test_maps">Map</string>
     <string name="befor_operation">مراقبت های قبل عمل</string>
     <string name="after_operation">مراقبت های بعد عمل</string>
+    <string name="reject_result">نوبت شما رد شد</string>
+    <string name="accepted_result">نوبت شما ثبت گردید</string>
+    <string name="sent_successfully">پیام شما با موفقیت ارسال شد</string>
+    <string name="sent_failed">پیام شما ارسال نشد</string>
 
 
 </resources>

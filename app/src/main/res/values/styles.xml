@@ -17,7 +17,7 @@
         <item name="android:textColorSecondary">@color/SecondText</item>
 
         <item name="android:windowBackground">@color/SecondColor</item>
-
+        <item name="android:windowDisablePreview">true</item>
         <!--<item name="android:spinnerItemStyle">@style/MySpinner</item>-->
 
     </style>

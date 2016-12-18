@@ -1,6 +1,8 @@
 package ir.unicoce.doctorMahmoud.Classes;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +24,8 @@ public class ResideMenuItem extends LinearLayout{
     /** menu item  title */
     private TextView tv_title;
 
+    private Typeface typeface ;
+
     public ResideMenuItem(Context context) {
         super(context);
         initViews(context);
@@ -32,6 +36,7 @@ public class ResideMenuItem extends LinearLayout{
         initViews(context);
         iv_icon.setImageResource(icon);
         tv_title.setText(title);
+
     }
 
     public ResideMenuItem(Context context, int icon, String title) {
@@ -46,6 +51,7 @@ public class ResideMenuItem extends LinearLayout{
         inflater.inflate(R.layout.residemenu_item, this);
         iv_icon = (ImageView) findViewById(R.id.iv_icon);
         tv_title = (TextView) findViewById(R.id.tv_title);
+        typeface = Typeface.createFromAsset(context.getAssets(), "fonts/SansLight.ttf");
     }
 
     /**
@@ -63,6 +69,7 @@ public class ResideMenuItem extends LinearLayout{
      * @param title
      */
     public void setTitle(int title){
+        tv_title.setTypeface(typeface);
         tv_title.setText(title);
     }
 

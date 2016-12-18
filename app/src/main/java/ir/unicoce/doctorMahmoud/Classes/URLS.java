@@ -20,4 +20,8 @@ public class URLS {
     public static final String GetServices            = DOMAIN +"GetServices";
     public static final String PostReservation        = DOMAIN +"Reservation";
     public static final String PostReservationAnswer  = DOMAIN +"ReservationAnswer";
+    public static final String GetUserChat            = DOMAIN +"getUsersChat";
+    public static final String AddMessage             = DOMAIN +"AddMessage";
+
+
 }// end class

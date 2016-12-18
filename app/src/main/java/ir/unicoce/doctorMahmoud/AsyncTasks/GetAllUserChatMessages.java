@@ -5,17 +5,23 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
 
+import com.orm.query.Select;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import ir.unicoce.doctorMahmoud.Classes.URLS;
 import ir.unicoce.doctorMahmoud.Classes.Variables;
+import ir.unicoce.doctorMahmoud.Database.db_chat;
 import ir.unicoce.doctorMahmoud.Interface.IWebservice;
+import ir.unicoce.doctorMahmoud.Interface.IWebserviceByTag;
+import ir.unicoce.doctorMahmoud.Objects.Object_Chat;
 import ir.unicoce.doctorMahmoud.Objects.Object_Message;
 import ir.unicoce.doctorMahmoud.Objects.Object_Vote;
 import ir.unicoce.doctorMahmoud.R;
@@ -31,20 +37,21 @@ import okhttp3.Response;
 
 public class GetAllUserChatMessages extends AsyncTask<Void,Void,String> {
 
-    public ArrayList<Object_Message> myList = new ArrayList<>();
+    public ArrayList<Object_Chat> myList = new ArrayList<>();
     public Context context;
-    private IWebservice delegate = null;
+    private IWebserviceByTag delegate = null;
     private SweetAlertDialog pDialog;
     public String url;
-    private String UserName;
+    private String UserName,Tag;
 
-    public GetAllUserChatMessages(Context context, IWebservice delegate, String UserNmae){
+    public GetAllUserChatMessages(Context context, IWebserviceByTag delegate, String UserName,String Tag){
         this.context    = context;
         this.delegate   = delegate;
-        this.UserName   = UserNmae;
+        this.UserName   = UserName;
+        this.Tag = Tag ;
 
         pDialog = new SweetAlertDialog(context, SweetAlertDialog.PROGRESS_TYPE);
-        this.url= URLS.GetVoting;
+        this.url= URLS.GetUserChat;
     }// end GetData()
 
     @Override
@@ -65,8 +72,8 @@ public class GetAllUserChatMessages extends AsyncTask<Void,Void,String> {
                 OkHttpClient client = new OkHttpClient();
                 RequestBody body = new FormBody.Builder()
                         .add("Token", Variables.TOKEN)
-                        .add("Name1",UserName)
-                        .add("Name2","Admin")
+                        .add("userName1",UserName)
+                        .add("userName2",Variables.Domain)
                         .build();
                 Request request = new Request.Builder()
                         .url(this.url)
@@ -90,19 +97,31 @@ public class GetAllUserChatMessages extends AsyncTask<Void,Void,String> {
         Log.i(Variables.Tag,"res: "+result);
         if (result.equals("nothing_got")) {
             try {
-                delegate.getError(context.getResources().getString(R.string.error_empty_server));
+                delegate.getError(context.getResources().getString(R.string.error_empty_server),Tag);
             }
             catch (Exception e) {e.printStackTrace();}
         }
         else if(!result.startsWith("{")){
 
             try {
-                delegate.getError(context.getResources().getString(R.string.error_server));
+                delegate.getError(context.getResources().getString(R.string.error_server),Tag);
             }
             catch (Exception e) {e.printStackTrace();}
         }
 
         else {
+
+            // delete  chat tabale
+            try {
+                List<db_chat> list = Select
+                        .from(db_chat.class)
+                        .list();
+
+              if(list.size()>0){
+                  db_chat.deleteAll(db_chat.class);
+              }
+            } // end try
+            catch (Exception e){e.printStackTrace();}
 
             try {
                 JSONObject jsonObject=new JSONObject(result);
@@ -112,23 +131,32 @@ public class GetAllUserChatMessages extends AsyncTask<Void,Void,String> {
                     for (int i = 0; i < jsonArray.length(); i++) {
                         JSONObject jsonObject2 = jsonArray.getJSONObject(i);
 
-                        String id       = jsonObject2.optString("Id");
                         String Sender   = jsonObject2.getString("Sender");
-                        String Receiver = jsonObject2.getString("Receiver");
                         String Content  = jsonObject2.getString("Content");
+                        boolean isMe = false;
 
-                        if(Sender.equals("admin")){
-                            myList.add(new Object_Message("دکتر",Content,false));
-                        }else{
-                            myList.add(new Object_Message("من",Content,true));
+                        if(Sender.equals(UserName)){
+                            // chate man ast
+                            isMe = true ;
                         }
+                        else if(!Sender.equals(UserName)){
+                            // chate doctor ast
+                            isMe = false ;
+                        }
+
+                        Object_Chat objectChat = new Object_Chat(Content,isMe);
+                        myList.add(objectChat);
+
+                        // save to database
+                        db_chat dbChat = new db_chat(Content,isMe);
+                        dbChat.save();
                     }
 
-                    delegate.getResult(myList);
+                    delegate.getResult(myList,Tag);
                 }
                 else {
                     // server said data is incorrect
-                    delegate.getError(context.getResources().getString(R.string.error_invalid));
+                    delegate.getError(context.getResources().getString(R.string.error_invalid),Tag);
                 }
 
             } catch (JSONException e) {
@@ -138,4 +166,16 @@ public class GetAllUserChatMessages extends AsyncTask<Void,Void,String> {
             }
         }
     }
+
+//    * this method get all user message history with admin :
+//
+//    URL +/+ getUserChat
+//    send:	{Token,userName1(username man),userName2(domain)}
+//    get:	{sender,reciver,content,title}
+//
+//    * this method send user message to admin :
+//
+//    URL +/+ AddMessage
+//    send:	{Token,Sender(username),Receiver(domain),Message,Title(android)}
+
 }

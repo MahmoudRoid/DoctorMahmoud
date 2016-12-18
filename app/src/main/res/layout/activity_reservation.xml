@@ -3,20 +3,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_reservation"
     android:layout_width="match_parent"
+    tools:ignore="MissingPrefix"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
         layout="@layout/appbar_color" />
 
-    <LinearLayout
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/reservation_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginTop="?attr/actionBarSize">
+       android:scrollbars="vertical"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:layout_marginBottom="?attr/actionBarSize"/>
 
+    <RelativeLayout
+        android:id="@+id/reservation_button"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/estimate_cost"
+            android:textColor="#ffffff"
+            android:textSize="@dimen/_16sdp"
+            android:layout_centerInParent="true"
+            fontPath="fonts/SansLight.ttf"/>
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/reservation_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:textColor="@color/White"
+            android:visibility="gone"
+            android:text="0"
+            android:layout_marginLeft="@dimen/_8sdp"
+            fontPath="fonts/SansLight.ttf"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

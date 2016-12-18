@@ -73,11 +73,11 @@
                         android:layout_gravity="center">
 
                         <EditText
-                            android:id="@+id/edtNationaCode_dialogreg"
+                            android:id="@+id/edtUsername_dialogreg"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="شماره ملی"
-                            android:inputType="number"
+                            android:hint="نام کاربری"
+                            android:inputType="text"
                             android:maxLines="1"
                             android:singleLine="true"
                             fontPath="fonts/SansLight.ttf"

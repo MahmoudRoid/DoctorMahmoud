@@ -28,9 +28,9 @@ public class ViewPagerAdapter_ImageSlider extends PagerAdapter {
         this.mylist = myList;
         this.isCash = isCash;
         Log.i(Variables.Tag,"size: "+myList.size());
-        if(this.mylist.size()<4){
-            this.isCash = true;
-        }
+//        if(this.mylist.size()<4){
+//            this.isCash = true;
+//        }
         Drawable[] stt = {
                 // TODO : Every app has its own sliders
                 context.getResources().getDrawable(R.drawable.mainactivity_image),

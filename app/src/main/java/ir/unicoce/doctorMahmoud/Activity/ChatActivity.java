@@ -51,7 +51,7 @@ public class ChatActivity extends AppCompatActivity
         setContentView(R.layout.activity_chat);
         define();
 
-        AskServer();
+//        AskServer();
 
         ivSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +63,7 @@ public class ChatActivity extends AppCompatActivity
             }
         });
 
-        //TestInit();
+        TestInit();
 
     }// end onCreate()
 
@@ -101,8 +101,8 @@ public class ChatActivity extends AppCompatActivity
     }// end setSweetDialog()
 
     private void refreshAdapter(){
-        mAdapter = new RecycleViewAdapter_chat(mylist,San,ChatActivity.this);
-        rv.setAdapter(mAdapter);
+//        mAdapter = new RecycleViewAdapter_chat(mylist,San,ChatActivity.this);
+//        rv.setAdapter(mAdapter);
     }// end refreshAdapter()
 
     private void TestInit(){
@@ -142,18 +142,18 @@ public class ChatActivity extends AppCompatActivity
     }
 
     private void AskServer(){
-        if(Internet.isNetworkAvailable(this)){
-            if(isSendMessage){
-                Object_Message ob = new Object_Message(NationalCode,edtSend.getText().toString(),true);
-                PostUserMessage async = new PostUserMessage(this,this,ob);
-                async.execute();
-            }else{
-                GetAllUserChatMessages async = new GetAllUserChatMessages(this,this,NationalCode);
-                async.execute();
-            }
-        }else{
-            Toast.makeText(ChatActivity.this, getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
-        }
+//        if(Internet.isNetworkAvailable(this)){
+//            if(isSendMessage){
+//                Object_Message ob = new Object_Message(NationalCode,edtSend.getText().toString(),true);
+//                PostUserMessage async = new PostUserMessage(this,this,ob);
+//                async.execute();
+//            }else{
+//                GetAllUserChatMessages async = new GetAllUserChatMessages(this,this,NationalCode);
+//                async.execute();
+//            }
+//        }else{
+//            Toast.makeText(ChatActivity.this, getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
+//        }
     }// end AskServer()
 
     @Override

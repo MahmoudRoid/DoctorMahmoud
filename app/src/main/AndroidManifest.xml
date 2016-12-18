@@ -38,7 +38,7 @@
             android:value="doctormahmoud.db" />
         <meta-data
             android:name="VERSION"
-            android:value="15" />
+            android:value="16" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -127,10 +127,19 @@
         <activity
             android:name=".Activity.PollActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".Activity.ReservationActivity" />
-        <activity android:name=".Activity.VideoesGalleryActivity" />
-        <activity android:name=".Activity.ShowServiceActivity"></activity>
 
+        <activity android:name=".Activity.ReservationActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activity.VideoesGalleryActivity"
+            android:screenOrientation="portrait"/>
+
+        <activity android:name=".Activity.ShowServiceActivity"
+            android:screenOrientation="portrait"/>
+
+
+        <activity android:name=".Activity.ChatsActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name=".Service.ReservationService"
@@ -140,7 +149,6 @@
         <receiver
             android:name=".BroadcastReceiver.AlarmNotification"
             android:process=":remote" />
-
 
     </application>
 
